@@ -1,0 +1,37 @@
+#!/usr/bin/env php
+<?php
+
+use Codelicia\Xulieta\Command\App;
+use Symfony\Component\Console\Application;
+
+call_user_func(static function (): void {
+    $autoload = array_filter(
+        [
+            __DIR__ . '/../../../autoload.php',
+            __DIR__ . '/../../autoload.php',
+            __DIR__ . '/../vendor/autoload.php',
+        ],
+        'is_file'
+    );
+
+    if (! count($autoload)) {
+        fwrite(
+            STDERR,
+            'You need to set up the project dependencies using the following commands:' . PHP_EOL .
+            'wget http://getcomposer.org/composer.phar' . PHP_EOL .
+            'php composer.phar install' . PHP_EOL
+        );
+
+        die(1);
+    }
+
+    $autoloadPath = realpath(current($autoload));
+
+    /* @noinspection PhpIncludeInspection */
+    require $autoloadPath;
+
+    $application = new Application('Xulieta', '1.0.0');
+    $application->add(new App());
+
+    $application->run();
+});
