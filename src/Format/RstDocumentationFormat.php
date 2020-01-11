@@ -16,14 +16,13 @@ use const PHP_EOL;
 
 final class RstDocumentationFormat implements DocumentationFormat
 {
-    private Parser $parser;
+    private Parser $rstParser;
     private PhpParser $phpParser;
 
     public function __construct(?Parser $parser = null)
     {
-        // TODO: Inject all these properties
         $this->phpParser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
-        $this->parser = $parser ?: new Parser();
+        $this->rstParser = $parser ?: new Parser();
     }
 
     public function canHandler(SplFileInfo $file) : bool
@@ -34,7 +33,7 @@ final class RstDocumentationFormat implements DocumentationFormat
     public function __invoke(SplFileInfo $file, Output $output) : bool
     {
         try {
-            $documentation = $this->parser->parse($file->getContents());
+            $documentation = $this->rstParser->parse($file->getContents());
         } catch (Throwable $e) {
 
             $output->writeln(PHP_EOL . '<error>Error parsing file: ' . $file->getRealPath() . '</error>');
@@ -47,12 +46,12 @@ final class RstDocumentationFormat implements DocumentationFormat
             foreach ($documentation->getNodes() as $node) {
                 if ($node instanceof CodeNode && $node->getLanguage() === 'php') {
 
-                    // FIXME: missing open php tag
+                    // TODO: abstract logic into a separated helper class?
                     if (! preg_match('/\<\?php/i', $node->getValueString())) {
-                        $output->writeln('<error>Snippet missing PHP open tag on file: ' . $file->getRealPath() . '</error>');
+                        $output->writeln('<warning>Snippet missing PHP open tag on file: ' . $file->getRealPath() . '</warning>');
                         continue;
                     }
-                    $phpParser->parse($node->getValueString());
+                    $this->phpParser->parse($node->getValueString());
                 }
             }
         } catch (Throwable $e) {
