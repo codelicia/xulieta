@@ -48,7 +48,7 @@ final class RstDocumentationFormat implements DocumentationFormat
 
                     // TODO: abstract logic into a separated helper class?
                     if (! preg_match('/\<\?php/i', $node->getValueString())) {
-                        $output->writeln('<warning>Snippet missing PHP open tag on file: ' . $file->getRealPath() . '</warning>');
+                        $output->writeln('<info>Snippet missing PHP open tag on file: ' . $file->getRealPath() . '</info>');
                         continue;
                     }
                     $this->phpParser->parse($node->getValueString());
