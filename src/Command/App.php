@@ -52,7 +52,9 @@ final class App extends Command
             $rst = new RstDocumentationFormat();
 
             if ($rst->canHandler($file)) {
-                $rst($file, $output);
+                if (false === $rst($file, $output)) {
+                    $this->signalizeError();
+                }
             } else {
                 $output->writeln(sprintf('<error>Could not handle file "%s"</error>', $file->getFilename()));
                 $this->signalizeError();
@@ -60,6 +62,8 @@ final class App extends Command
         }
 
         if ($this->errorOccurred) {
+            $output->writeln('<bg=red;fg=white>     Operation failed!     </>');
+
             return 1;
         }
 
