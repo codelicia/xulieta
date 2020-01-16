@@ -68,7 +68,7 @@ final class App extends Command
             return 1;
         }
 
-        $output->writeln('<bg=green;fg=white>     Everything is OK!     </>');
+        $output->writeln('<bg=green;fg=black>     Everything is OK!     </>');
 
         return 0;
     }
