@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Command;
 
 use Codelicia\Xulieta\DocFinder;
+use Codelicia\Xulieta\Format\MarkdownDocumentationFormat;
+use Codelicia\Xulieta\Format\MultipleDocumentationFormat;
 use Codelicia\Xulieta\Format\RstDocumentationFormat;
 use Doctrine\RST\Nodes\CodeNode;
 use PhpParser\ParserFactory;
@@ -47,12 +49,15 @@ final class App extends Command
 
         $output->writeln("\nFinding documentation files on <info>" . $directory . "</info>\n");
 
+        $documentFormatHandler = new MultipleDocumentationFormat(
+            new RstDocumentationFormat(),
+            new MarkdownDocumentationFormat()
+        );
+
         /* @var $file \Symfony\Component\Finder\SplFileInfo */
         foreach ($finder as $file) {
-            $rst = new RstDocumentationFormat();
-
-            if ($rst->canHandler($file)) {
-                if (false === $rst($file, $output)) {
+            if ($documentFormatHandler->canHandler($file)) {
+                if (false === $documentFormatHandler($file, $output)) {
                     $this->signalizeError();
                 }
             } else {
