@@ -15,7 +15,7 @@ composer require codelicia/xulieta
 
 <table>
 <tr>
-<td><img src="./meme.jpg"  alt="Xulieta"/></td> 
+<td><img src="./meme.jpg"  alt="Xulieta" width="300" height="214"/></td> 
 <td>
 In order to lint the basics of documentation structure, one just needs to provide a path for a 
 directory or file to be linted.
