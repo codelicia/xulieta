@@ -35,6 +35,7 @@
         "beberlei/assert": "^3.2"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master"
+        "roave/security-advisories": "dev-master",
+        "phpunit/phpunit": "^9.0"
     }
 }
