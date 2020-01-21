@@ -10,6 +10,7 @@ use PhpParser\ParserFactory;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Finder\SplFileInfo;
 use Throwable;
+use function preg_match;
 use const PHP_EOL;
 
 final class MarkdownDocumentationFormat implements DocumentationFormat
@@ -33,7 +34,7 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
     {
         $parser = new \Codelicia\Xulieta\Markdown\Parser();
         try {
-            $parser->dryRun($file->getContents());
+            $documentation = $parser->dryRun($file->getContents());
         } catch (Throwable $e) {
 
             $output->writeln(PHP_EOL . '<error>Error parsing file: ' . $file->getRealPath() . '</error>');
@@ -41,26 +42,25 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
 
             return false;
         }
-//
-//        try {
-//            foreach ($documentation->getNodes() as $node) {
-//                if ($node instanceof CodeNode && $node->getLanguage() === 'php') {
-//
-//                    // FIXME: missing open php tag
-//                    if (! preg_match('/\<\?php/i', $node->getValueString())) {
-//                        $output->writeln('<error>Snippet missing PHP open tag on file: ' . $file->getRealPath() . '</error>');
-//                        continue;
-//                    }
-//                    $phpParser->parse($node->getValueString());
-//                }
-//            }
-//        } catch (Throwable $e) {
-//
-//            $this->signalizeError();
-//
-//            $output->writeln('<error>Wrong code on file: ' . $file->getRealPath() . '</error>');
-//            $output->writeln($e->getMessage() . PHP_EOL);
-//        }
+
+
+        try {
+            foreach ($documentation as $nodes) {
+                if ($nodes['element']['text']['attributes']['class'] === 'language-php') {
+                    if (! preg_match('/\<\?php/i', $nodes['element']['text']['text'])) {
+                        $output->writeln('<error>Snippet missing PHP open tag on file: ' . $file->getRealPath() . '</error>');
+                        continue;
+                    }
+
+                    $parser->parse($nodes['element']['text']['text']);
+                }
+            }
+        } catch (Throwable $e) {
+            $output->writeln('<error>Wrong code on file: ' . $file->getRealPath() . '</error>');
+            $output->writeln($e->getMessage() . PHP_EOL);
+
+            return false;
+        }
 
         return true;
     }
