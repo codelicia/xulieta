@@ -66,6 +66,7 @@ final class App extends Command
             }
         }
 
+        $output->writeln('');
         if ($this->errorOccurred) {
             $output->writeln('<bg=red;fg=white>     Operation failed!     </>');
 
