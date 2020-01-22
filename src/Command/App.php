@@ -8,16 +8,11 @@ use Codelicia\Xulieta\DocFinder;
 use Codelicia\Xulieta\Format\MarkdownDocumentationFormat;
 use Codelicia\Xulieta\Format\MultipleDocumentationFormat;
 use Codelicia\Xulieta\Format\RstDocumentationFormat;
-use Doctrine\RST\Nodes\CodeNode;
-use PhpParser\ParserFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Throwable;
-use function preg_match;
 use function sprintf;
-use const PHP_EOL;
 
 final class App extends Command
 {

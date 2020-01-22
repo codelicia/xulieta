@@ -32,7 +32,7 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
 
     public function __invoke(SplFileInfo $file, Output $output) : bool
     {
-        $parser = new \Codelicia\Xulieta\Markdown\Parser();
+        $parser = new Parser();
         try {
             $documentation = $parser->dryRun($file->getContents());
         } catch (Throwable $e) {
@@ -42,7 +42,6 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
 
             return false;
         }
-
 
         try {
             foreach ($documentation as $nodes) {
