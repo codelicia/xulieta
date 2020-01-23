@@ -55,11 +55,10 @@ final class RstDocumentationFormat implements DocumentationFormat
                 }
             }
         } catch (Throwable $e) {
-
-            $this->signalizeError();
-
             $output->writeln('<error>Wrong code on file: ' . $file->getRealPath() . '</error>');
             $output->writeln($e->getMessage() . PHP_EOL);
+
+            return false;
         }
 
         return true;

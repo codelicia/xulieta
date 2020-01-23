@@ -32,9 +32,8 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
 
     public function __invoke(SplFileInfo $file, Output $output) : bool
     {
-        $parser = new Parser();
         try {
-            $documentation = $parser->dryRun($file->getContents());
+            $documentation = $this->parser->dryRun($file->getContents());
         } catch (Throwable $e) {
 
             $output->writeln(PHP_EOL . '<error>Error parsing file: ' . $file->getRealPath() . '</error>');
@@ -51,7 +50,7 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
                         continue;
                     }
 
-                    $parser->parse($nodes['element']['text']['text']);
+                    $this->phpParser->parse($nodes['element']['text']['text']);
                 }
             }
         } catch (Throwable $e) {
