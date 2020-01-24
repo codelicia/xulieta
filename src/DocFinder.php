@@ -29,6 +29,8 @@ final class DocFinder
     {
         return Finder::create()
             ->files()
+            ->exclude('vendor/')
+            ->exclude('node_modules/')
             ->in($this->getDirectory())
             ->name($this->getFeatureMatch());
     }
