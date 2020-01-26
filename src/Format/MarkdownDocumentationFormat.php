@@ -44,9 +44,11 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
 
         try {
             foreach ($documentation as $nodes) {
-                if ($nodes['element']['text']['attributes']['class'] === 'language-php') {
+
+                if (isset($nodes['element']['text']['attributes']['class'])
+                    && $nodes['element']['text']['attributes']['class'] === 'language-php') {
                     if (! preg_match('/\<\?php/i', $nodes['element']['text']['text'])) {
-                        $output->writeln('<error>Snippet missing PHP open tag on file: ' . $file->getRealPath() . '</error>');
+                        $this->phpParser->parse('<?php ' . \PHP_EOL . $nodes['element']['text']['text']);
                         continue;
                     }
 
@@ -56,6 +58,7 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
         } catch (Throwable $e) {
             $output->writeln('<error>Wrong code on file: ' . $file->getRealPath() . '</error>');
             $output->writeln($e->getMessage() . PHP_EOL);
+            $output->writeln($nodes['element']['text']['text']);
 
             return false;
         }
