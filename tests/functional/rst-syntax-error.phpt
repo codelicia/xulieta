@@ -13,5 +13,11 @@ Finding documentation files on tests/assets/syntax-error.rst
 Wrong code on file: %A/tests/assets/syntax-error.rst
 Syntax error, unexpected '}', expecting ';' on line 5
 
+<?php
+
+if (true) {
+    echo 'Hello World!'
+}
+
 
      Operation failed!

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Markdown;
 
 use function array_key_exists;
+use function array_merge;
 use function explode;
 use function htmlspecialchars;
 use function in_array;
@@ -24,6 +25,7 @@ use function strtolower;
 use function substr;
 use function substr_replace;
 use function trim;
+use function var_dump;
 use const ENT_NOQUOTES;
 use const ENT_QUOTES;
 use const PREG_OFFSET_CAPTURE;
@@ -305,6 +307,8 @@ final class Parser
 
             return $block;
         }
+
+        return null;
     }
 
     protected function blockCodeContinue($line, $block)
@@ -328,11 +332,9 @@ final class Parser
 
     protected function blockCodeComplete($block)
     {
-        $text = $block['element']['text']['text'];
+        $text = $block['element']['text']['text'] ?? [];
 
-        $block['element']['text']['text'] = $text;
-
-        return $block;
+        return array_merge($block, ['element' => ['text' => ['text' => $text]]]);
     }
 
     // Fenced Code
