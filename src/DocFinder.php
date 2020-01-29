@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta;
 
 use Symfony\Component\Finder\Finder;
+use function basename;
+use function dirname;
+use function is_dir;
 
 final class DocFinder
 {
@@ -15,17 +18,17 @@ final class DocFinder
         $this->directoryOrFile = $directoryOrFile;
     }
 
-    private function getDirectory(): string
+    private function getDirectory() : string
     {
         return is_dir($this->directoryOrFile) ? $this->directoryOrFile : dirname($this->directoryOrFile);
     }
 
-    private function getFeatureMatch(): array
+    private function getFeatureMatch() : array
     {
         return is_dir($this->directoryOrFile) ? ['*.rst', '*.md', '*.markdown'] : [basename($this->directoryOrFile)];
     }
 
-    public function __invoke(): Finder
+    public function __invoke() : Finder
     {
         return Finder::create()
             ->files()
