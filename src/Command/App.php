@@ -30,7 +30,7 @@ final class App extends Command
             ->addArgument(
                 'directory',
                 InputArgument::REQUIRED,
-                'Path to find *.rst and *.md files'
+                'Path to find documentation files'
             );
     }
 
