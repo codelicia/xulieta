@@ -21,6 +21,16 @@ use function sprintf;
 final class App extends Command
 {
     private bool $errorOccurred = false;
+    private array $config;
+
+
+    public function __construct(string $name = null, array $config = [])
+    {
+        parent::__construct($name);
+
+        $this->config = $config;
+    }
+
 
     protected function configure() : void
     {
