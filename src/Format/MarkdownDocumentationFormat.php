@@ -25,7 +25,7 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
         $this->parser    = $parser ?: new Markdown();
     }
 
-    public function canHandler(SplFileInfo $file) : bool
+    public function canHandle(SplFileInfo $file) : bool
     {
         return $file->getExtension() === 'markdown' || $file->getExtension() === 'md';
     }

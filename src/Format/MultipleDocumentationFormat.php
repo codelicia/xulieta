@@ -21,10 +21,10 @@ final class MultipleDocumentationFormat implements DocumentationFormat
         $this->documentationFormats = $documentationFormats;
     }
 
-    public function canHandler(SplFileInfo $file) : bool
+    public function canHandle(SplFileInfo $file) : bool
     {
         foreach ($this->documentationFormats as $documentationFormat) {
-            if ($documentationFormat->canHandler($file)) {
+            if ($documentationFormat->canHandle($file)) {
                 return true;
             }
         }
@@ -35,7 +35,7 @@ final class MultipleDocumentationFormat implements DocumentationFormat
     public function __invoke(SplFileInfo $file, Output $output) : bool
     {
         foreach ($this->documentationFormats as $documentationFormat) {
-            if ($documentationFormat->canHandler($file)) {
+            if ($documentationFormat->canHandle($file)) {
                 return $documentationFormat($file, $output);
             }
         }

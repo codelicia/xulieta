@@ -25,7 +25,7 @@ final class RstDocumentationFormat implements DocumentationFormat
         $this->rstParser = $parser ?: new Parser();
     }
 
-    public function canHandler(SplFileInfo $file) : bool
+    public function canHandle(SplFileInfo $file) : bool
     {
         return $file->getExtension() === 'rst';
     }
