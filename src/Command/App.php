@@ -53,7 +53,8 @@ final class App extends Command
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $directory = $input->getArgument('directory');
-        $finder    = (new DocFinder($directory))->__invoke();
+        $finder    = (new DocFinder($directory))
+            ->__invoke($this->config['exclude_dirs']);
 
         $output->writeln("\nFinding documentation files on <info>" . $directory . "</info>\n");
 

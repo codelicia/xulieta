@@ -29,12 +29,11 @@ final class DocFinder
         return is_dir($this->directoryOrFile) ? ['*.rst', '*.md', '*.markdown'] : [basename($this->directoryOrFile)];
     }
 
-    public function __invoke() : Finder
+    public function __invoke(array $excludeDirs) : Finder
     {
         return Finder::create()
             ->files()
-            ->exclude('vendor/')
-            ->exclude('node_modules/')
+            ->exclude($excludeDirs)
             ->in($this->getDirectory())
             ->name($this->getFeatureMatch());
     }
