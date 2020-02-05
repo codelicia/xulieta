@@ -10,6 +10,7 @@ use PhpParser\ParserFactory;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Finder\SplFileInfo;
 use Throwable;
+use function in_array;
 use function preg_match;
 use const PHP_EOL;
 
@@ -25,9 +26,14 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
         $this->parser    = $parser ?: new Markdown();
     }
 
+    public function supportedExtensions() : array
+    {
+        return ['markdown', 'md'];
+    }
+
     public function canHandle(SplFileInfo $file) : bool
     {
-        return $file->getExtension() === 'markdown' || $file->getExtension() === 'md';
+        return in_array($file->getExtension(), $this->supportedExtensions(), true);
     }
 
     public function __invoke(SplFileInfo $file, Output $output) : bool

@@ -53,19 +53,21 @@ final class App extends Command
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $directory = $input->getArgument('directory');
-        $finder    = (new DocFinder($directory))
-            ->__invoke($this->config['exclude_dirs']);
-
-        $output->writeln("\nFinding documentation files on <info>" . $directory . "</info>\n");
 
         $documentFormatHandler = new MultipleDocumentationFormat(
             new RstDocumentationFormat(),
             new MarkdownDocumentationFormat()
         );
 
+        $finder    = (new DocFinder($directory, $documentFormatHandler->supportedExtensions()))
+            ->__invoke($this->config['exclude_dirs']);
+
+        $output->writeln("\nFinding documentation files on <info>" . $directory . "</info>\n");
+
+
         foreach ($finder as $file) {
             assert($file instanceof SplFileInfo);
-            if ($documentFormatHandler->canHandler($file)) {
+            if ($documentFormatHandler->canHandle($file)) {
                 if ($documentFormatHandler($file, $output) === false) {
                     $this->signalizeError();
                 }

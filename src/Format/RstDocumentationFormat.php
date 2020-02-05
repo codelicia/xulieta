@@ -11,6 +11,7 @@ use PhpParser\ParserFactory;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Finder\SplFileInfo;
 use Throwable;
+use function in_array;
 use function preg_match;
 use const PHP_EOL;
 
@@ -25,9 +26,14 @@ final class RstDocumentationFormat implements DocumentationFormat
         $this->rstParser = $parser ?: new Parser();
     }
 
+    public function supportedExtensions() : array
+    {
+        return ['rst'];
+    }
+
     public function canHandle(SplFileInfo $file) : bool
     {
-        return $file->getExtension() === 'rst';
+        return in_array($file->getExtension(), $this->supportedExtensions(), true);
     }
 
     public function __invoke(SplFileInfo $file, Output $output) : bool
