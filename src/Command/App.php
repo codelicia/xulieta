@@ -40,7 +40,7 @@ final class App extends Command
             ->addArgument(
                 'directory',
                 InputArgument::REQUIRED,
-                'Path to find documentation files'
+                'Path where to find documentation files'
             );
     }
 
