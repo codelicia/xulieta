@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Command;
 
 use Codelicia\Xulieta\DocFinder;
-use Codelicia\Xulieta\Format\MarkdownDocumentationFormat;
 use Codelicia\Xulieta\Format\MultipleDocumentationFormat;
-use Codelicia\Xulieta\Format\RstDocumentationFormat;
 use InvalidArgumentException;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
@@ -15,6 +13,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\SplFileInfo;
+use function array_map;
 use function assert;
 use function sprintf;
 
@@ -24,7 +23,8 @@ final class App extends Command
     private array $config;
 
 
-    public function __construct(string $name = null, array $config = [])
+    /** @param string[] $config */
+    public function __construct(string $name = null, array $config)
     {
         parent::__construct($name);
 
@@ -54,10 +54,10 @@ final class App extends Command
     {
         $directory = $input->getArgument('directory');
 
-        $documentFormatHandler = new MultipleDocumentationFormat(
-            new RstDocumentationFormat(),
-            new MarkdownDocumentationFormat()
-        );
+        $documentFormatHandler = new MultipleDocumentationFormat(...array_map(
+            fn (string $class) => new $class,
+            $this->config['plugins']
+        ));
 
         $finder    = (new DocFinder($directory, $documentFormatHandler->supportedExtensions()))
             ->__invoke($this->config['exclude_dirs']);
