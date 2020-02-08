@@ -17,14 +17,17 @@ use function array_map;
 use function assert;
 use function sprintf;
 
+/**
+ * @psalm-type TConfig = array{plugins: list<class-string>, exclude_dirs: list<string>}
+ */
 final class App extends Command
 {
     private bool $errorOccurred = false;
 
-    /** @var string[]  */
+    /** @psalm-var TConfig */
     private array $config;
 
-    /** @param string[] $config */
+    /** @psalm-param TConfig */
     public function __construct(?string $name = null, array $config)
     {
         parent::__construct($name);

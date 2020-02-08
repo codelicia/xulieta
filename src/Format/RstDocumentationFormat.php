@@ -26,7 +26,7 @@ final class RstDocumentationFormat implements DocumentationFormat
         $this->rstParser = $parser ?: new Parser();
     }
 
-    /** @return string[] */
+    /** @psalm-return list<non-empty-string> */
     public function supportedExtensions() : array
     {
         return ['rst'];

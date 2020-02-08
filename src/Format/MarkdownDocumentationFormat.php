@@ -26,7 +26,7 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
         $this->parser    = $parser ?: new Markdown();
     }
 
-    /** @return string[] */
+    /** @psalm-return list<non-empty-string> */
     public function supportedExtensions() : array
     {
         return ['markdown', 'md'];

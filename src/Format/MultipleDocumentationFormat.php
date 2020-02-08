@@ -23,7 +23,7 @@ final class MultipleDocumentationFormat implements DocumentationFormat
         $this->documentationFormats = $documentationFormats;
     }
 
-    /** @return string[] */
+    /** @psalm-return list<non-empty-string> */
     public function supportedExtensions() : array
     {
         return array_merge_recursive([], ...array_map(

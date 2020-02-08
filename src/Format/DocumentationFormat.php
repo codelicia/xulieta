@@ -9,7 +9,7 @@ use Symfony\Component\Finder\SplFileInfo;
 
 interface DocumentationFormat
 {
-    /** @return string[] */
+    /** @psalm-return list<non-empty-string> */
     public function supportedExtensions() : array;
 
     public function canHandle(SplFileInfo $file) : bool;

@@ -15,10 +15,10 @@ final class DocFinder
 {
     private string $directoryOrFile;
 
-    /** @var string[] */
+    /** @psalm-var list<string> */
     private array $supportedExtensions;
 
-    /** @param string[] $supportedExtensions */
+    /** @psalm-param list<string> $supportedExtensions */
     public function __construct(string $directoryOrFile, array $supportedExtensions)
     {
         $this->directoryOrFile     = $directoryOrFile;
@@ -38,7 +38,7 @@ final class DocFinder
             : [basename($this->directoryOrFile)];
     }
 
-    /** @param string[] $excludeDirs */
+    /** @psalm-param list<string> $excludeDirs */
     public function __invoke(array $excludeDirs) : Finder
     {
         return Finder::create()
