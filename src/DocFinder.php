@@ -34,10 +34,11 @@ final class DocFinder
     private function getFeatureMatch() : array
     {
         return is_dir($this->directoryOrFile)
-            ? array_map(fn ($x) => sprintf('*.%s', $x), $this->supportedExtensions)
+            ? array_map(static fn ($x) => sprintf('*.%s', $x), $this->supportedExtensions)
             : [basename($this->directoryOrFile)];
     }
 
+    /** @param string[] $excludeDirs */
     public function __invoke(array $excludeDirs) : Finder
     {
         return Finder::create()

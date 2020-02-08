@@ -14,8 +14,6 @@ use function realpath;
 final class ConfigFile
 {
     /**
-     * @param string $dir
-     *
      * @return string[]
      */
     public static function loadInDirectory(string $dir) : array

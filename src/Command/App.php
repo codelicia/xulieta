@@ -20,17 +20,17 @@ use function sprintf;
 final class App extends Command
 {
     private bool $errorOccurred = false;
+
+    /** @var string[]  */
     private array $config;
 
-
     /** @param string[] $config */
-    public function __construct(string $name = null, array $config)
+    public function __construct(?string $name = null, array $config)
     {
         parent::__construct($name);
 
         $this->config = $config;
     }
-
 
     protected function configure() : void
     {
@@ -55,15 +55,14 @@ final class App extends Command
         $directory = $input->getArgument('directory');
 
         $documentFormatHandler = new MultipleDocumentationFormat(...array_map(
-            fn (string $class) => new $class,
+            static fn (string $class) => new $class(),
             $this->config['plugins']
         ));
 
-        $finder    = (new DocFinder($directory, $documentFormatHandler->supportedExtensions()))
+        $finder = (new DocFinder($directory, $documentFormatHandler->supportedExtensions()))
             ->__invoke($this->config['exclude_dirs']);
 
         $output->writeln("\nFinding documentation files on <info>" . $directory . "</info>\n");
-
 
         foreach ($finder as $file) {
             assert($file instanceof SplFileInfo);
