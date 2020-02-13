@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Codelicia\Xulieta\Markdown;
+namespace Codelicia\Xulieta\Parser;
 
 use function array_key_exists;
 use function array_merge;
@@ -37,7 +37,7 @@ use const PREG_OFFSET_CAPTURE;
  *
  * (c) Emanuil Ruse http://erusev.com
  */
-final class Parser
+final class Markdown
 {
     /** @var string[] */
     protected array $specialCharacters = [

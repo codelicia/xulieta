@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta\Format;
 
-use Codelicia\Xulieta\Markdown\Parser;
+use Codelicia\Xulieta\Parser\Markdown;
 use PhpParser\Parser as PhpParser;
 use PhpParser\ParserFactory;
 use Symfony\Component\Console\Output\Output;
@@ -15,14 +15,14 @@ use const PHP_EOL;
 
 final class MarkdownDocumentationFormat implements DocumentationFormat
 {
-    private Parser $parser;
+    private Markdown $parser;
     private PhpParser $phpParser;
 
-    public function __construct(?Parser $parser = null)
+    public function __construct(?Markdown $parser = null)
     {
         // TODO: Inject all these properties
         $this->phpParser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
-        $this->parser    = $parser ?: new Parser();
+        $this->parser    = $parser ?: new Markdown();
     }
 
     public function canHandler(SplFileInfo $file) : bool
