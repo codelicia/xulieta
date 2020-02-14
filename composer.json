@@ -26,7 +26,6 @@
     },
     "require": {
         "php": ">=7.4",
-        "erusev/parsedown": "^1.7",
         "symfony/process": "^5.0",
         "nikic/php-parser": "^4.3",
         "doctrine/rst-parser": "^0.1.0",
@@ -36,6 +35,11 @@
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
-        "phpunit/phpunit": "^9.0"
-    }
+        "doctrine/coding-standard": "^7.0.2",
+        "phpunit/phpunit": "^9.0",
+        "vimeo/psalm": "^3.3"
+    },
+    "bin": [
+        "bin/xulieta"
+    ]
 }
