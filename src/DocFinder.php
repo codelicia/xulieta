@@ -23,6 +23,7 @@ final class DocFinder
         return is_dir($this->directoryOrFile) ? $this->directoryOrFile : dirname($this->directoryOrFile);
     }
 
+    /** @return string[] */
     private function getFeatureMatch() : array
     {
         return is_dir($this->directoryOrFile) ? ['*.rst', '*.md', '*.markdown'] : [basename($this->directoryOrFile)];
