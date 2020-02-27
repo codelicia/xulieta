@@ -19,5 +19,5 @@ before_script:
   - composer update --prefer-dist $DEPENDENCIES
 
 script:
-  - ./vendor/bin/phpunit tests
+  - ./vendor/bin/phpunit
   - ./vendor/bin/phpcs
