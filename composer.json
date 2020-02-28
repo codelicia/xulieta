@@ -33,7 +33,6 @@
         "symfony/finder": "^5.0",
         "beberlei/assert": "^3.2",
         "symfony/config": "^5.0",
-        "symfony/yaml": "^5.0",
         "ocramius/package-versions": "^1.5"
     },
     "require-dev": {
