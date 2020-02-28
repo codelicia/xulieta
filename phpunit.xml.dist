@@ -2,9 +2,12 @@
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-        colors="true"
-        verbose="true"
+        beStrictAboutResourceUsageDuringSmallTests="true"
+        beStrictAboutChangesToGlobalState="true"
         beStrictAboutOutputDuringTests="true"
+        bootstrap="./vendor/autoload.php"
+        verbose="true"
+        colors="true"
 >
     <testsuites>
         <testsuite name="unit">
