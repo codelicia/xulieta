@@ -59,11 +59,11 @@ final class App extends Command
 
         $documentFormatHandler = new MultipleDocumentationFormat(...array_map(
             static fn (string $class) => new $class(),
-            $this->config['plugins']
+            $this->config['plugin']
         ));
 
         $finder = (new DocFinder($directory, $documentFormatHandler->supportedExtensions()))
-            ->__invoke($this->config['exclude_dirs']);
+            ->__invoke($this->config['exclude']);
 
         $output->writeln("\nFinding documentation files on <info>" . $directory . "</info>\n");
 

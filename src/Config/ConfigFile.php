@@ -5,35 +5,35 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Config;
 
 use Symfony\Component\Config\Definition\Processor;
-use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Config\Util\XmlUtils;
 use function array_filter;
 use function current;
-use function file_get_contents;
 use function realpath;
 
 final class ConfigFile
 {
-    /**
-     * @return string[]
-     */
+    /** @return list<non-empty-string> */
     public static function loadInDirectory(string $dir) : array
     {
         $configFiles = current(array_filter(
             [
-                $dir . '/../../../xulieta.yaml',
-                $dir . '/../../xulieta.yaml',
-                $dir . '/../xulieta.yaml',
-                $dir . '/xulieta.yaml',
+                $dir . '/../../../.xulieta.xml',
+                $dir . '/../../.xulieta.xml',
+                $dir . '/../.xulieta.xml',
+                $dir . '/.xulieta.xml',
             ],
             'is_file'
         ));
 
         $config = [];
         if ($configFiles !== false) {
-            $config = (array) Yaml::parse(file_get_contents(realpath($configFiles)));
+            $config = (array) XmlUtils::convertDomElementToArray(
+                XmlUtils::loadFile(realpath($configFiles))
+                    ->documentElement
+            );
         }
 
         return (new Processor())
-            ->processConfiguration(new ConfigFileValidation(), $config);
+            ->processConfiguration(new ConfigFileValidation(), ['xulieta' => $config]);
     }
 }

@@ -18,22 +18,22 @@ final class ConfigFileValidation implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('plugins')
+                ->arrayNode('plugin')
                     ->addDefaultChildrenIfNoneSet()
                     ->scalarPrototype()
-                        ->defaultValue([
-                            MarkdownDocumentationFormat::class,
-                            RstDocumentationFormat::class,
-                        ])
+                        ->defaultValue(MarkdownDocumentationFormat::class)
+                        ->defaultValue(RstDocumentationFormat::class)
                     ->end()
                 ->end()
-                ->arrayNode('exclude_dirs')
+                ->arrayNode('exclude')
                     ->addDefaultChildrenIfNoneSet()
                     ->scalarPrototype()
-                        ->defaultValue(['vendor', 'node_modules'])
+                        ->defaultValue('vendor')
+                        ->defaultValue('node_modules')
                     ->end()
                 ->end()
-            ->end();
+            ->end()
+        ->end();
 
         return $treeBuilder;
     }
