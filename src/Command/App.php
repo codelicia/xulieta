@@ -18,7 +18,7 @@ use function assert;
 use function sprintf;
 
 /**
- * @psalm-type TConfig = array{plugins: list<class-string>, exclude_dirs: list<string>}
+ * @psalm-type TConfig = array{plugin: list<class-string>, exclude: list<string>}
  */
 final class App extends Command
 {
@@ -39,7 +39,7 @@ final class App extends Command
     {
         $this
             ->setName('check:erromeu')
-            ->setDescription('Lint php code snippets through the documentation "directory"')
+            ->setDescription('Lint code snippets through the documentation "directory"')
             ->addArgument(
                 'directory',
                 InputArgument::REQUIRED,

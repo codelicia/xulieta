@@ -5,7 +5,6 @@
 documentation files — as for example `*.md`, `*.markdown` and `*.rst` 
 — and lint the pieces of code, so you can find basic documentation errors.
 
-
 **NOTE**: For now we just lint PHP code. 
 
 ### Installation
@@ -32,21 +31,24 @@ directory or file to be linted.
 
 ### Configuration
 
-**Xulieta** tries to find a `xulieta.yaml` file in the root of your project
+**Xulieta** tries to find a `.xulieta.xml` file in the root of your project
 with the following configuration format:
 
-```yaml
-xulieta:
-    plugins:
-        - Codelicia\Xulieta\Format\MarkdownDocumentationFormat
-        - Codelicia\Xulieta\Format\RstDocumentationFormat
-    exclude_dirs:
-        - vendor/
-        - node_modules/
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<xulieta xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="xulieta.xsd">
+
+    <plugin>Codelicia\Xulieta\Format\MarkdownDocumentationFormat</plugin>
+    <plugin>Codelicia\Xulieta\Format\RstDocumentationFormat</plugin>
+
+    <exclude>vendor</exclude>
+    <exclude>node_modules</exclude>
+</xulieta>
 ```
 
-- `plugins`: listing of all formats handlers
-- `exclude_dirs`: excluded directory
+- `plugin`: listing of all formats handlers
+- `exclude`: excluded directory or files
 
 ### Author
 
