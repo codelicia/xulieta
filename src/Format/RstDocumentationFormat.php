@@ -8,7 +8,7 @@ use Doctrine\RST\Nodes\CodeNode;
 use Doctrine\RST\Parser;
 use PhpParser\Parser as PhpParser;
 use PhpParser\ParserFactory;
-use Symfony\Component\Console\Output\Output;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\SplFileInfo;
 use Throwable;
 use function in_array;
@@ -37,7 +37,7 @@ final class RstDocumentationFormat implements DocumentationFormat
         return in_array($file->getExtension(), $this->supportedExtensions(), true);
     }
 
-    public function __invoke(SplFileInfo $file, Output $output) : bool
+    public function __invoke(SplFileInfo $file, OutputInterface $output) : bool
     {
         try {
             $documentation = $this->rstParser->parse($file->getContents());
@@ -65,7 +65,10 @@ final class RstDocumentationFormat implements DocumentationFormat
         } catch (Throwable $e) {
             $output->writeln('<error>Wrong code on file: ' . $file->getRealPath() . '</error>');
             $output->writeln($e->getMessage() . PHP_EOL);
-            $output->writeln($node->getValueString());
+
+            if (isset($node) && $node instanceof CodeNode) {
+                $output->writeln($node->getValueString());
+            }
 
             return false;
         }

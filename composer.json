@@ -39,7 +39,7 @@
         "roave/security-advisories": "dev-master",
         "doctrine/coding-standard": "^7.0.2",
         "phpunit/phpunit": "^9.0",
-        "vimeo/psalm": "^3.3"
+        "vimeo/psalm": "^3.9"
     },
     "bin": [
         "bin/xulieta"
