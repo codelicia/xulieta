@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="xulieta" type="rootType">
+        <xs:annotation>
+            <xs:documentation>Root Element</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:group name="pluginStruct">
+        <xs:all>
+            <xs:element name="plugin" type="xs:string" maxOccurs="unbounded"/>
+        </xs:all>
+    </xs:group>
+    <xs:group name="excludeStruct">
+        <xs:all>
+            <xs:element name="exclude" type="xs:string" maxOccurs="unbounded"/>
+        </xs:all>
+    </xs:group>
+    <xs:complexType name="rootType">
+        <xs:annotation>
+            <xs:documentation>The main type specifying the document structure</xs:documentation>
+        </xs:annotation>
+        <xs:group ref="pluginStruct"/>
+        <xs:group ref="excludeStruct"/>
+    </xs:complexType>
+</xs:schema>

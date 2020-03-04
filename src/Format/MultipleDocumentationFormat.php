@@ -7,6 +7,8 @@ namespace Codelicia\Xulieta\Format;
 use Assert\Assert;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Finder\SplFileInfo;
+use function array_map;
+use function array_merge_recursive;
 
 final class MultipleDocumentationFormat implements DocumentationFormat
 {
@@ -21,10 +23,19 @@ final class MultipleDocumentationFormat implements DocumentationFormat
         $this->documentationFormats = $documentationFormats;
     }
 
-    public function canHandler(SplFileInfo $file) : bool
+    /** @psalm-return list<non-empty-string> */
+    public function supportedExtensions() : array
+    {
+        return array_merge_recursive([], ...array_map(
+            static fn (DocumentationFormat $doc) => $doc->supportedExtensions(),
+            $this->documentationFormats
+        ));
+    }
+
+    public function canHandle(SplFileInfo $file) : bool
     {
         foreach ($this->documentationFormats as $documentationFormat) {
-            if ($documentationFormat->canHandler($file)) {
+            if ($documentationFormat->canHandle($file)) {
                 return true;
             }
         }
@@ -35,7 +46,7 @@ final class MultipleDocumentationFormat implements DocumentationFormat
     public function __invoke(SplFileInfo $file, Output $output) : bool
     {
         foreach ($this->documentationFormats as $documentationFormat) {
-            if ($documentationFormat->canHandler($file)) {
+            if ($documentationFormat->canHandle($file)) {
                 return $documentationFormat($file, $output);
             }
         }
