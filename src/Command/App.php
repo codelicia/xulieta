@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Command;
 
 use Codelicia\Xulieta\DocFinder;
+use Codelicia\Xulieta\Format\DocumentationFormat;
 use Codelicia\Xulieta\Format\MultipleDocumentationFormat;
 use InvalidArgumentException;
 use RuntimeException;
@@ -13,12 +14,13 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\SplFileInfo;
+use Webmozart\Assert\Assert;
 use function array_map;
 use function assert;
 use function sprintf;
 
 /**
- * @psalm-type TConfig = array{plugin: list<class-string>, exclude: list<string>}
+ * @psalm-type TConfig = array{plugin: list<class-string<DocumentationFormat>>, exclude: list<string>}
  */
 final class App extends Command
 {
@@ -27,7 +29,7 @@ final class App extends Command
     /** @psalm-var TConfig */
     private array $config;
 
-    /** @psalm-param TConfig */
+    /** @psalm-param TConfig $config */
     public function __construct(?string $name = null, array $config)
     {
         parent::__construct($name);
@@ -56,6 +58,10 @@ final class App extends Command
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $directory = $input->getArgument('directory');
+
+        // @todo: add webmozart/assert to composer
+        Assert::string($directory);
+        Assert::interfaceExists(DocumentationFormat::class);
 
         $documentFormatHandler = new MultipleDocumentationFormat(...array_map(
             static fn (string $class) => new $class(),

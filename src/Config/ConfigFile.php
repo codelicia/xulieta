@@ -12,7 +12,7 @@ use function realpath;
 
 final class ConfigFile
 {
-    /** @return list<non-empty-string> */
+    /** @psalm-return array<array-key, mixed> */
     public static function loadInDirectory(string $dir) : array
     {
         $configFiles = current(array_filter(
