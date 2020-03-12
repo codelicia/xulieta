@@ -24,6 +24,9 @@
             "Codelicia\\Xulieta\\": "src/"
         }
     },
+    "config": {
+        "sort-packages": true
+    },
     "require": {
         "php": ">=7.4",
         "beberlei/assert": "^3.2",
