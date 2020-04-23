@@ -29,6 +29,7 @@ use const ENT_NOQUOTES;
 use const ENT_QUOTES;
 use const PREG_OFFSET_CAPTURE;
 
+// phpcs:ignoreFile
 /**
  * It was basically copied from Parsedown {@see http://parsedown.org}, with some
  * modification to make it deliver us the codeBlock tree.

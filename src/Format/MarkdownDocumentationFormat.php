@@ -10,6 +10,7 @@ use PhpParser\ParserFactory;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\SplFileInfo;
 use Throwable;
+use Webmozart\Assert\Assert;
 use function in_array;
 use function preg_match;
 use const PHP_EOL;
@@ -79,6 +80,8 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
             $output->writeln($e->getMessage() . PHP_EOL);
 
             if (isset($nodes['element']['text']['text'])) {
+                Assert::isArray($nodes['element']);
+                Assert::isArray($nodes['element']['text']);
                 $output->writeln((string) $nodes['element']['text']['text']);
             }
 
