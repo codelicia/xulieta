@@ -1,6 +1,6 @@
 {
     "name": "codelicia/xulieta",
-    "description": "",
+    "description": "Xulieta is a light php binary that lint documentation snippets",
     "type": "library",
     "license": "MIT",
     "homepage": "https://github.com/codelicia/xulieta",
