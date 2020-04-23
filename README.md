@@ -1,5 +1,5 @@
-🌹 Xulieta — WIP
-================
+🌹 Xulieta
+==========
 
 **Xulieta** is a light php binary that find code snippets thought out 
 documentation files — as for example `*.md`, `*.markdown` and `*.rst` 
