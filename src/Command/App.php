@@ -59,7 +59,6 @@ final class App extends Command
     {
         $directory = $input->getArgument('directory');
 
-        // @todo: add webmozart/assert to composer
         Assert::string($directory);
         Assert::interfaceExists(DocumentationFormat::class);
 
