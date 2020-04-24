@@ -1,0 +1,26 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "malukenho",
+      "name": "Jefersson Nathan",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/3275172?v=4",
+      "profile": "https://twitter.com/malukenho",
+      "contributions": [
+        "infra",
+        "maintenance",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "xulieta",
+  "projectOwner": "codelicia",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
