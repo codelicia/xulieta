@@ -1,0 +1,26 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "EHER",
+      "name": "Alexandre Eher",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/398034?v=4",
+      "profile": "http://about:blank",
+      "contributions": [
+        "infra",
+        "maintenance",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "xulieta",
+  "projectOwner": "codelicia",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
