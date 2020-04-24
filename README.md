@@ -1,4 +1,7 @@
 🌹 Xulieta
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 ==========
 
 **Xulieta** is a light php binary that find code snippets thought out 
@@ -54,3 +57,22 @@ with the following configuration format:
 
 - [Jefersson Nathan](@malukenho) 
 - [Alexandre Eher](@eher) 
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="http://about:blank"><img src="https://avatars0.githubusercontent.com/u/398034?v=4" width="100px;" alt=""/><br /><sub><b>Alexandre Eher</b></sub></a><br /><a href="#infra-EHER" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-EHER" title="Maintenance">🚧</a> <a href="https://github.com/codelicia/xulieta/commits?author=EHER" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
