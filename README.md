@@ -1,8 +1,9 @@
 🌹 Xulieta
+==========
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-==========
 
 **Xulieta** is a light php binary that find code snippets thought out 
 documentation files — as for example `*.md`, `*.markdown` and `*.rst` 
@@ -52,11 +53,6 @@ with the following configuration format:
 
 - `plugin`: listing of all formats handlers
 - `exclude`: excluded directory or files
-
-### Author
-
-- [Jefersson Nathan](@malukenho) 
-- [Alexandre Eher](@eher) 
 
 ## Contributors ✨
 
