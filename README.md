@@ -43,8 +43,8 @@ with the following configuration format:
 <xulieta xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="xulieta.xsd">
 
-    <plugin>Codelicia\Xulieta\Format\MarkdownDocumentationFormat</plugin>
-    <plugin>Codelicia\Xulieta\Format\RstDocumentationFormat</plugin>
+    <plugin>Codelicia\Xulieta\Plugin\PhpOnMarkdownPlugin</plugin>
+    <plugin>Codelicia\Xulieta\Plugin\PhpOnRstPlugin</plugin>
 
     <exclude>vendor</exclude>
     <exclude>node_modules</exclude>

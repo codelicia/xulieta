@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta\Config;
 
-use Codelicia\Xulieta\Format\MarkdownDocumentationFormat;
-use Codelicia\Xulieta\Format\RstDocumentationFormat;
+use Codelicia\Xulieta\Plugin\PhpOnMarkdownPlugin;
+use Codelicia\Xulieta\Plugin\PhpOnRstPlugin;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -19,7 +19,7 @@ final class ConfigFileValidation implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('plugin')
-                    ->defaultValue([RstDocumentationFormat::class, MarkdownDocumentationFormat::class])
+                    ->defaultValue([PhpOnRstPlugin::class, PhpOnMarkdownPlugin::class])
                     ->scalarPrototype()->end()
                 ->end()
                 ->arrayNode('exclude')

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Codelicia\Xulieta\Format;
+namespace Codelicia\Xulieta\Plugin;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\SplFileInfo;
 
-interface DocumentationFormat
+interface Plugin
 {
     /** @psalm-return list<non-empty-string> */
     public function supportedExtensions() : array;

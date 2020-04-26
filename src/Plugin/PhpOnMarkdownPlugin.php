@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Codelicia\Xulieta\Format;
+namespace Codelicia\Xulieta\Plugin;
 
 use Codelicia\Xulieta\External\Markinho;
 use Codelicia\Xulieta\Lint\Lint;
@@ -12,7 +12,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use function in_array;
 use const PHP_EOL;
 
-final class MarkdownDocumentationFormat implements DocumentationFormat
+final class PhpOnMarkdownPlugin implements Plugin
 {
     private Lint $phpLint;
 

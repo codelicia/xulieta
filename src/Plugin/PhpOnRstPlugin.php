@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Codelicia\Xulieta\Format;
+namespace Codelicia\Xulieta\Plugin;
 
 use Codelicia\Xulieta\Lint\Lint;
 use Codelicia\Xulieta\Lint\PhpLint;
@@ -13,7 +13,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use function in_array;
 use const PHP_EOL;
 
-final class RstDocumentationFormat implements DocumentationFormat
+final class PhpOnRstPlugin implements Plugin
 {
     private Parser $rstParser;
     private Lint $phpLint;
