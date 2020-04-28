@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta\Format;
 
-use Codelicia\Xulieta\Parser\Markdown;
+use Codelicia\Xulieta\External\Markinho;
 use PhpParser\Parser as PhpParser;
 use PhpParser\ParserFactory;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -12,7 +12,6 @@ use Symfony\Component\Finder\SplFileInfo;
 use Throwable;
 use Webmozart\Assert\Assert;
 use function in_array;
-use function preg_match;
 use const PHP_EOL;
 
 /**
@@ -27,14 +26,12 @@ use const PHP_EOL;
  */
 final class MarkdownDocumentationFormat implements DocumentationFormat
 {
-    private Markdown $parser;
     private PhpParser $phpParser;
 
-    public function __construct(?Markdown $parser = null)
+    public function __construct()
     {
         // TODO: Inject all these properties
         $this->phpParser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
-        $this->parser    = $parser ?: new Markdown();
     }
 
     /** @psalm-return list<non-empty-string> */
@@ -50,30 +47,16 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
 
     public function __invoke(SplFileInfo $file, OutputInterface $output) : bool
     {
-        try {
-            /** @psalm-var list<TData> $documentation */
-            $documentation = $this->parser->dryRun($file->getContents());
-        } catch (Throwable $e) {
-            $output->writeln(PHP_EOL . '<error>Error parsing file: ' . $file->getRealPath() . '</error>');
-            $output->writeln($e->getMessage() . PHP_EOL);
-
-            return false;
-        }
+        $documentation = Markinho::extractCodeBlocks($file->getContents());
 
         try {
             foreach ($documentation as $nodes) {
-                if (! isset($nodes['element']['text']['attributes']['class'])
-                    || $nodes['element']['text']['attributes']['class'] !== 'language-php'
+                if ($nodes['language'] !== 'php'
                 ) {
                     continue;
                 }
 
-                if (! preg_match('/\<\?php/i', $nodes['element']['text']['text'])) {
-                    $this->phpParser->parse('<?php ' . PHP_EOL . $nodes['element']['text']['text']);
-                    continue;
-                }
-
-                $this->phpParser->parse($nodes['element']['text']['text']);
+                $this->phpParser->parse($nodes['code']);
             }
         } catch (Throwable $e) {
             $output->writeln('<error>Wrong code on file: ' . $file->getRealPath() . '</error>');
