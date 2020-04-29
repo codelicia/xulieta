@@ -51,8 +51,7 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
 
         try {
             foreach ($documentation as $nodes) {
-                if ($nodes['language'] !== 'php'
-                ) {
+                if ($nodes['language'] !== 'php') {
                     continue;
                 }
 
@@ -62,10 +61,9 @@ final class MarkdownDocumentationFormat implements DocumentationFormat
             $output->writeln('<error>Wrong code on file: ' . $file->getRealPath() . '</error>');
             $output->writeln($e->getMessage() . PHP_EOL);
 
-            if (isset($nodes['element']['text']['text'])) {
-                Assert::isArray($nodes['element']);
-                Assert::isArray($nodes['element']['text']);
-                $output->writeln((string) $nodes['element']['text']['text']);
+            if (isset($nodes['code'])) {
+                Assert::string($nodes['code']);
+                $output->writeln($nodes['code']);
             }
 
             return false;
