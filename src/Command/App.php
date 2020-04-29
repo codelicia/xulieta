@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Command;
 
 use Codelicia\Xulieta\DocFinder;
-use Codelicia\Xulieta\Format\DocumentationFormat;
-use Codelicia\Xulieta\Format\MultipleDocumentationFormat;
+use Codelicia\Xulieta\Plugin\MultiplePlugin;
+use Codelicia\Xulieta\Plugin\Plugin;
 use InvalidArgumentException;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
@@ -20,7 +20,7 @@ use function assert;
 use function sprintf;
 
 /**
- * @psalm-type TConfig = array{plugin: list<class-string<DocumentationFormat>>, exclude: list<string>}
+ * @psalm-type TConfig = array{plugin: list<class-string<Plugin>>, exclude: list<string>}
  */
 final class App extends Command
 {
@@ -60,22 +60,22 @@ final class App extends Command
         $directory = $input->getArgument('directory');
 
         Assert::string($directory);
-        Assert::interfaceExists(DocumentationFormat::class);
+        Assert::interfaceExists(Plugin::class);
 
-        $documentFormatHandler = new MultipleDocumentationFormat(...array_map(
+        $pluginHandler = new MultiplePlugin(...array_map(
             static fn (string $class) => new $class(),
             $this->config['plugin']
         ));
 
-        $finder = (new DocFinder($directory, $documentFormatHandler->supportedExtensions()))
+        $finder = (new DocFinder($directory, $pluginHandler->supportedExtensions()))
             ->__invoke($this->config['exclude']);
 
         $output->writeln("\nFinding documentation files on <info>" . $directory . "</info>\n");
 
         foreach ($finder as $file) {
             assert($file instanceof SplFileInfo);
-            if ($documentFormatHandler->canHandle($file)) {
-                if ($documentFormatHandler($file, $output) === false) {
+            if ($pluginHandler->canHandle($file)) {
+                if ($pluginHandler($file, $output) === false) {
                     $this->signalizeError();
                 }
             } else {
