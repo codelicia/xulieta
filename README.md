@@ -2,7 +2,7 @@
 ==========
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 **Xulieta** is a light php binary that find code snippets thought out 
@@ -65,6 +65,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="http://about:blank"><img src="https://avatars0.githubusercontent.com/u/398034?v=4" width="100px;" alt=""/><br /><sub><b>Alexandre Eher</b></sub></a><br /><a href="#infra-EHER" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-EHER" title="Maintenance">🚧</a> <a href="https://github.com/codelicia/xulieta/commits?author=EHER" title="Code">💻</a></td>
     <td align="center"><a href="https://twitter.com/malukenho"><img src="https://avatars2.githubusercontent.com/u/3275172?v=4" width="100px;" alt=""/><br /><sub><b>Jefersson Nathan</b></sub></a><br /><a href="#infra-malukenho" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-malukenho" title="Maintenance">🚧</a> <a href="https://github.com/codelicia/xulieta/commits?author=malukenho" title="Code">💻</a></td>
+    <td align="center"><a href="https://airton.dev"><img src="https://avatars1.githubusercontent.com/u/6540546?v=4" width="100px;" alt=""/><br /><sub><b>Airton Zanon</b></sub></a><br /><a href="https://github.com/codelicia/xulieta/pulls?q=is%3Apr+reviewed-by%3Aairtonzanon" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
