@@ -6,7 +6,7 @@ use Codelicia\Xulieta\Config\ConfigFile;
 use PackageVersions\Versions;
 use Symfony\Component\Console\Application;
 
-call_user_func(static function (): void {
+(static function (): void {
     $autoload = array_filter(
         [
             __DIR__ . '/../../../autoload.php',
@@ -36,4 +36,4 @@ call_user_func(static function (): void {
     $application->add(new App(null, ConfigFile::loadInDirectory(__DIR__)));
 
     $application->run();
-});
+})();
