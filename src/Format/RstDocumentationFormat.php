@@ -23,7 +23,7 @@ final class RstDocumentationFormat implements DocumentationFormat
     public function __construct(?Parser $parser = null)
     {
         $this->phpParser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
-        $this->rstParser = $parser ?: new Parser();
+        $this->rstParser = $parser ?? new Parser();
     }
 
     /** @psalm-return list<non-empty-string> */
