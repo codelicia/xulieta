@@ -40,10 +40,14 @@ z = 10;
 ```
 
 some more text
+```sql
+SELECT * FROM Account LIMIT 2
+```
                 ',
                 'expectedCodeBlock' => [
                     new SampleCode('fake-file.md', '', 5, "x = 1"),
                     new SampleCode('fake-file.md', '', 11, "y = 2;\nz = 10;"),
+                    new SampleCode('fake-file.md', 'sql', 17, "SELECT * FROM Account LIMIT 2"),
                 ],
             ],
             'code block' => [
