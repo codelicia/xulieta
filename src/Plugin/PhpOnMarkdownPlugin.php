@@ -34,15 +34,15 @@ final class PhpOnMarkdownPlugin implements Plugin
 
     public function __invoke(SplFileInfo $file, OutputInterface $output) : bool
     {
-        foreach (Markinho::extractCodeBlocks($file->getContents()) as $block) {
-            if ($block['language'] !== 'php') {
+        foreach (Markinho::extractCodeBlocks($file->getPathname(), $file->getContents()) as $codeBlock) {
+            if ($codeBlock->language() !== 'php') {
                 continue;
             }
 
-            if ($this->phpLint->hasViolation($block['code'])) {
-                $output->writeln('<error>Wrong code on file: ' . $file->getRealPath() . '</error>');
-                $output->writeln($this->phpLint->getViolation($block['code']) . PHP_EOL);
-                $output->writeln($block['code']);
+            if ($this->phpLint->hasViolation($codeBlock->code())) {
+                $output->writeln('<error>Wrong code on file: ' . $codeBlock->file() . '</error>');
+                $output->writeln($this->phpLint->getViolation($codeBlock->code()) . PHP_EOL);
+                $output->writeln($codeBlock->code());
 
                 return false;
             }

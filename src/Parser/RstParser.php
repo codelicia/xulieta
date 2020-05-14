@@ -44,7 +44,7 @@ class RstParser implements Parser
             $language = $node->getLanguage() ?? '';
             $code     = $node->getValueString();
 
-            $sampleCodes[] = new SampleCode($language, $code);
+            $sampleCodes[] = new SampleCode($file->getPathname(), $language, 0, $code);
         }
 
         return $sampleCodes;

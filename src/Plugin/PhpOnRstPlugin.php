@@ -38,7 +38,7 @@ final class PhpOnRstPlugin implements Plugin
     public function __invoke(SplFileInfo $file, OutputInterface $output) : bool
     {
         if (! $this->rstParser->isValid($file)) {
-            $output->writeln(PHP_EOL . '<error>Error parsing file: ' . $file->getRealPath() . '</error>');
+            $output->writeln(PHP_EOL . '<error>Error parsing file: ' . $file->getRelativePath() . '</error>');
 
             return false;
         }
@@ -49,7 +49,7 @@ final class PhpOnRstPlugin implements Plugin
             }
 
             if ($this->phpLint->hasViolation($sampleCode->code())) {
-                $output->writeln('<error>Wrong code on file: ' . $file->getRealPath() . '</error>');
+                $output->writeln('<error>Wrong code on file: ' . $sampleCode->file() . '</error>');
                 $output->writeln($this->phpLint->getViolation($sampleCode->code()) . PHP_EOL);
                 $output->writeln($sampleCode->code());
 
