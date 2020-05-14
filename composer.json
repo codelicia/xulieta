@@ -46,6 +46,9 @@
         "staabm/annotate-pull-request-from-checkstyle": "^1.1",
         "vimeo/psalm": "^3.9"
     },
+    "scripts": {
+        "changelog": "git log $(git describe --abbrev=0 --tags)...HEAD --no-merges --pretty=format:\"* [%h](http://github.com/codelicia/xulieta/commit/%H) %s (%cN)\""
+    },
     "bin": [
         "bin/xulieta"
     ]
