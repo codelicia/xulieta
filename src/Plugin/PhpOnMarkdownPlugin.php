@@ -34,7 +34,7 @@ final class PhpOnMarkdownPlugin implements Plugin
 
     public function __invoke(SplFileInfo $file, OutputInterface $output) : bool
     {
-        foreach ((new Markinho())->extractCodeBlocks($file->getPathname(), $file->getContents()) as $codeBlock) {
+        foreach (Markinho::extractCodeBlocks($file->getPathname(), $file->getContents()) as $codeBlock) {
             if ($codeBlock->language() !== 'php') {
                 continue;
             }

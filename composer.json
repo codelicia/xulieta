@@ -30,7 +30,6 @@
     "require": {
         "php": ">=7.4",
         "beberlei/assert": "^3.2",
-        "doctrine/lexer": "^1.2",
         "doctrine/rst-parser": "^0.1.0",
         "nikic/php-parser": "^4.3",
         "ocramius/package-versions": "^1.5",
