@@ -4,31 +4,48 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta\External;
 
-use function preg_match_all;
+use Codelicia\Xulieta\ValueObject\SampleCode;
+use function array_shift;
+use function explode;
+use function implode;
+use function rtrim;
+use function trim;
 
 final class Markinho
 {
-    private const PATTERN = '/`{3}([\w]*)\n([\S\s]+?)\n`{3}/';
+    private MarkinhoLexer $lexer;
 
-    private function __construct()
+    public function __construct()
     {
+        $this->lexer = new MarkinhoLexer();
     }
 
-    /** @return array<array-key, array{code: string, language: string}> */
-    public static function extractCodeBlocks(string $markdown) : array
+    /** @return SampleCode[] */
+    public function extractCodeBlocks(string $file, string $markdown) : array
     {
-        preg_match_all(self::PATTERN, $markdown, $matches);
+        $this->lexer->setInput($markdown);
+        $this->lexer->moveNext();
 
-        $blocks = [];
+        $sampleCode = [];
+        while (true) {
+            if (! $this->lexer->lookahead) {
+                break;
+            }
 
-        foreach ($matches[1] as $index => $language) {
-            $blocks[$index]['language'] = $language;
+            $this->lexer->moveNext();
+
+            if ($this->lexer->token['type'] !== MarkinhoLexer::T_CODE_BLOCK) {
+                continue;
+            }
+
+            $codeSample = $this->lexer->token['value'];
+            $codeSample = explode("\n", trim($codeSample, '`'));
+            $language   = array_shift($codeSample);
+            $codeSample = rtrim(implode("\n", $codeSample));
+
+            $sampleCode[] = new SampleCode($file, $language, $this->lexer->token['position'], $codeSample);
         }
 
-        foreach ($matches[2] as $index => $code) {
-            $blocks[$index]['code'] = $code;
-        }
-
-        return $blocks;
+        return $sampleCode;
     }
 }

@@ -10,7 +10,7 @@ $checkRunner('tests/assets/syntax-error.rst');
 --EXPECTF--
 Finding documentation files on tests/assets/syntax-error.rst
 
-Wrong code on file: %A/tests/assets/syntax-error.rst
+Wrong code on file: tests/assets/syntax-error.rst
 Syntax error, unexpected '}', expecting ';' on line 5
 
 <?php

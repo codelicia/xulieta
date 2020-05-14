@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta\Unit\External;
 
+use Codelicia\Xulieta\External\CodeBlock;
 use Codelicia\Xulieta\External\Markinho;
+use Codelicia\Xulieta\ValueObject\SampleCode;
 use PHPUnit\Framework\TestCase;
 
 final class MarkinhoTest extends TestCase
@@ -15,7 +17,7 @@ final class MarkinhoTest extends TestCase
      */
     public function itShouldExtractBlockCodeFromMarkdown(string $markdown, array $expectedCodeBlock) : void
     {
-        self::assertEquals($expectedCodeBlock, Markinho::extractCodeBlocks($markdown));
+        self::assertEquals($expectedCodeBlock, (new Markinho())->extractCodeBlocks('fake-file.md', $markdown));
     }
 
     public function markdownProvider() : array
@@ -41,14 +43,8 @@ z = 10;
 some more text
                 ',
                 'expectedCodeBlock' => [
-                    [
-                        'language' => '',
-                        'code' => 'x = 1',
-                    ],
-                    [
-                        'language' => '',
-                        'code' => "y = 2;\nz = 10;",
-                    ],
+                    new SampleCode('fake-file.md', '', 34, "x = 1"),
+                    new SampleCode('fake-file.md', '', 64, "y = 2;\nz = 10;"),
                 ],
             ],
             'code block' => [
@@ -62,11 +58,8 @@ echo 'hi';
 echo 'bye';
 ```
                 ",
-                'expectedCodeBlock' => [
-                    [
-                        'language' => 'php',
-                        'code' => "echo 'hi';\necho 'bye';",
-                    ],
+                'expectedSampleCode' => [
+                    new SampleCode('fake-file.md', 'php', 32, "echo 'hi';\necho 'bye';"),
                 ],
             ],
         ];
