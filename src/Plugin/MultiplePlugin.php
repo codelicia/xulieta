@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Plugin;
 
 use Assert\Assert;
-use Symfony\Component\Console\Output\OutputInterface;
+use Codelicia\Xulieta\Output\OutputFormatter;
 use Symfony\Component\Finder\SplFileInfo;
 use function array_map;
 use function array_merge_recursive;
@@ -44,7 +44,7 @@ final class MultiplePlugin implements Plugin
         return false;
     }
 
-    public function __invoke(SplFileInfo $file, OutputInterface $output) : bool
+    public function __invoke(SplFileInfo $file, OutputFormatter $output) : bool
     {
         foreach ($this->plugins as $plugin) {
             if ($plugin->canHandle($file)) {

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Command;
 
 use Codelicia\Xulieta\DocFinder;
+use Codelicia\Xulieta\Output\Checkstyle;
+use Codelicia\Xulieta\Output\Stdout;
 use Codelicia\Xulieta\Plugin\MultiplePlugin;
 use Codelicia\Xulieta\Plugin\Plugin;
 use InvalidArgumentException;
@@ -12,6 +14,7 @@ use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\SplFileInfo;
 use Webmozart\Assert\Assert;
@@ -42,6 +45,13 @@ final class App extends Command
         $this
             ->setName('check:erromeu')
             ->setDescription('Lint code snippets through the documentation "directory"')
+            ->addOption(
+                'output',
+                'o',
+                InputOption::VALUE_OPTIONAL,
+                'Specify output format, it can be "checkstyle" or "stdout"',
+                'stdout'
+            )
             ->addArgument(
                 'directory',
                 InputArgument::REQUIRED,
@@ -55,9 +65,15 @@ final class App extends Command
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    protected function execute(InputInterface $input, OutputInterface $output) : int
+    protected function execute(InputInterface $input, OutputInterface $symfonyOutput) : int
     {
-        $directory = $input->getArgument('directory');
+        $directory    = $input->getArgument('directory');
+        $outputOption = $input->getOption('output');
+        $output       = new Stdout($symfonyOutput);
+
+        if ($outputOption === 'checkstyle') {
+            $output = new Checkstyle($symfonyOutput);
+        }
 
         Assert::string($directory);
         Assert::interfaceExists(Plugin::class);
