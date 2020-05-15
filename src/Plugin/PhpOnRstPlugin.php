@@ -6,11 +6,13 @@ namespace Codelicia\Xulieta\Plugin;
 
 use Codelicia\Xulieta\Lint\Lint;
 use Codelicia\Xulieta\Lint\PhpLint;
+use Codelicia\Xulieta\Output\OutputFormatter;
 use Codelicia\Xulieta\Parser\Parser;
 use Codelicia\Xulieta\Parser\RstParser;
-use Symfony\Component\Console\Output\OutputInterface;
+use Codelicia\Xulieta\ValueObject\Violation;
 use Symfony\Component\Finder\SplFileInfo;
 use function in_array;
+use function preg_match;
 use const PHP_EOL;
 
 final class PhpOnRstPlugin implements Plugin
@@ -35,7 +37,7 @@ final class PhpOnRstPlugin implements Plugin
         return in_array($file->getExtension(), $this->supportedExtensions(), true);
     }
 
-    public function __invoke(SplFileInfo $file, OutputInterface $output) : bool
+    public function __invoke(SplFileInfo $file, OutputFormatter $output) : bool
     {
         if (! $this->rstParser->isValid($file)) {
             $output->writeln(PHP_EOL . '<error>Error parsing file: ' . $file->getRelativePath() . '</error>');
@@ -49,9 +51,13 @@ final class PhpOnRstPlugin implements Plugin
             }
 
             if ($this->phpLint->hasViolation($sampleCode->code())) {
-                $output->writeln('<error>Wrong code on file: ' . $sampleCode->file() . '</error>');
-                $output->writeln($this->phpLint->getViolation($sampleCode->code()) . PHP_EOL);
-                $output->writeln($sampleCode->code());
+                $message = $this->phpLint->getViolation($sampleCode->code());
+
+                preg_match('{on line (\d+)}', $message, $line);
+
+                $validationErrorInLine = $line[1] ?? 0;
+
+                $output->addViolation(new Violation($sampleCode, $message, (int) $validationErrorInLine));
 
                 return false;
             }

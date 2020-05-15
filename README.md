@@ -5,25 +5,25 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-**Xulieta** is a light php binary that find code snippets thought out 
-documentation files — as for example `*.md`, `*.markdown` and `*.rst` 
+**Xulieta** is a light php binary that find code snippets thought out
+documentation files — as for example `*.md`, `*.markdown` and `*.rst`
 — and lint the pieces of code, so you can find basic documentation errors.
 
-**NOTE**: For now we just lint PHP code. 
+**NOTE**: For now we just lint PHP code.
 
 ### Installation
 
 ```shell script
-composer require codelicia/xulieta 
+composer require codelicia/xulieta
 ```
 
 ### Checking for errors
 
 <table>
 <tr>
-<td><img src="./meme.jpg"  alt="Xulieta" width="300" height="214"/></td> 
+<td><img src="./meme.jpg"  alt="Xulieta" width="300" height="214"/></td>
 <td>
-In order to lint the basics of documentation structure, one just needs to provide a path for a 
+In order to lint the basics of documentation structure, one just needs to provide a path for a
 directory or file to be linted.
 
 ```shell script
@@ -33,7 +33,24 @@ directory or file to be linted.
 </tr>
 </table>
 
-### Configuration
+### Integration with GitHub Actions
+
+We provide out  of the box an  `output` format that you can  use to have
+automatic  feedback from  GitHub  CI.  That is  done  by specifying  the
+`checkstyle` output and passing it to some external binary that does the
+commenting.
+
+We recommend the usage of [cs2pr](https://github.com/staabm/annotate-pull-request-from-checkstyle).
+
+```
+./vendor/bin/xulieta check:erromeu <directory> --output=checkstyle | cs2pr
+```
+
+#### Commenting example
+
+<img src="./github-action.png"  alt="Codelicia\Xulieta" />
+
+### Advanced Configuration
 
 **Xulieta** tries to find a `.xulieta.xml` file in the root of your project
 with the following configuration format:
