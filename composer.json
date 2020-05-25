@@ -41,6 +41,7 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^7.0.2",
+        "infection/infection": "^0.16.3",
         "phpunit/phpunit": "^9.0",
         "roave/security-advisories": "dev-master",
         "staabm/annotate-pull-request-from-checkstyle": "^1.1",

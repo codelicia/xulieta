@@ -35,3 +35,6 @@ jobs:
 
     - name: Run PhpCs
       run: ./vendor/bin/phpcs -q --report=checkstyle | ./vendor/bin/cs2pr
+
+    - name: Run Infection
+      run: phpdbg -qrr vendor/bin/infection
