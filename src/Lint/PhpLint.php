@@ -48,7 +48,7 @@ class PhpLint implements Lint
 
     private function ensureCodePrefix(string $code) : string
     {
-        if (! preg_match('/\<\?php/i', $code)) {
+        if (! preg_match('/<\?php/i', $code)) {
             return '<?php ' . PHP_EOL . $code;
         }
 
