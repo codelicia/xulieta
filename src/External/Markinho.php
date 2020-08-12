@@ -17,7 +17,7 @@ use const PREG_SPLIT_DELIM_CAPTURE;
 
 final class Markinho
 {
-    private const PATTERN = '/\n(`{3}[\w]*\n[\S\s]+?\n\`{3})\n/';
+    private const PATTERN = '/\n?(`{3}[\w]*\n[\S\s]+?\n\`{3})\n/';
 
     private function __construct()
     {
@@ -35,7 +35,7 @@ final class Markinho
             $lines        = explode("\n", $documentChunk);
             $endPosition += count($lines);
 
-            preg_match('/```/', $lines[0] ?? '', $matches);
+            preg_match('/^```/', $lines[0] ?? '', $matches);
 
             if ($matches === []) {
                 $startPosition = $endPosition;
