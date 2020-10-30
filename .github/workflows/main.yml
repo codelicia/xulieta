@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        php: ['7.4']
+        php: ['7.4', '8.0', '8.1']
         dependencies: ['normal', 'authoritative']
 
     steps:
@@ -28,13 +28,16 @@ jobs:
         COMPOSER_ROOT_VERSION: dev-master
 
     - name: Run Psalm
+      if: matrix.php == '8.1'
       run: ./vendor/bin/psalm --threads=2 --output-format=github --shepherd
 
     - name: Run Phpunit
       run: ./vendor/bin/phpunit
 
     - name: Run PhpCs
+      if: matrix.php == '8.1'
       run: ./vendor/bin/phpcs -q --report=checkstyle | ./vendor/bin/cs2pr
 
     - name: Run Infection
+      if: matrix.php == '8.1'
       run: phpdbg -qrr vendor/bin/infection
