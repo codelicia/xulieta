@@ -28,7 +28,7 @@
         "sort-packages": true
     },
     "require": {
-        "php": ">=7.4",
+        "php": ">=7.4 | ~8.0",
         "beberlei/assert": "^3.2",
         "doctrine/rst-parser": "^0.1.0",
         "nikic/php-parser": "^4.3",
@@ -41,11 +41,11 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^8.0.0",
-        "infection/infection": "^0.16.3",
+        "infection/infection": "^0.19.2",
         "phpunit/phpunit": "^9.0",
         "roave/security-advisories": "dev-master",
         "staabm/annotate-pull-request-from-checkstyle": "^1.1",
-        "vimeo/psalm": "^3.9"
+        "vimeo/psalm": "^4.1"
     },
     "scripts": {
         "changelog": "git log $(git describe --abbrev=0 --tags)...HEAD --no-merges --pretty=format:\"* [%h](http://github.com/codelicia/xulieta/commit/%H) %s (%cN)\""
