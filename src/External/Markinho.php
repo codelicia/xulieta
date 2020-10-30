@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\External;
 
 use Codelicia\Xulieta\ValueObject\SampleCode;
+
 use function array_pop;
 use function array_shift;
 use function count;
@@ -13,6 +14,7 @@ use function implode;
 use function ltrim;
 use function preg_match;
 use function preg_split;
+
 use const PREG_SPLIT_DELIM_CAPTURE;
 
 final class Markinho
@@ -24,7 +26,7 @@ final class Markinho
     }
 
     /** @return SampleCode[] */
-    public static function extractCodeBlocks(string $file, string $markdown) : array
+    public static function extractCodeBlocks(string $file, string $markdown): array
     {
         $sampleCode    = [];
         $chunks        = preg_split(self::PATTERN, $markdown, -1, PREG_SPLIT_DELIM_CAPTURE);

@@ -8,7 +8,7 @@ use Codelicia\Xulieta\ValueObject\Violation;
 
 interface OutputFormatter
 {
-    public function addViolation(Violation $violation) : void;
+    public function addViolation(Violation $violation): void;
 
-    public function writeln(string $text) : void;
+    public function writeln(string $text): void;
 }

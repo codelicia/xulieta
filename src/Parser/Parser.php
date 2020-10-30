@@ -9,8 +9,8 @@ use Symfony\Component\Finder\SplFileInfo;
 
 interface Parser
 {
-    public function isValid(SplFileInfo $file) : bool;
+    public function isValid(SplFileInfo $file): bool;
 
     /** @return SampleCode[] */
-    public function getAllSampleCodes(SplFileInfo $file) : array;
+    public function getAllSampleCodes(SplFileInfo $file): array;
 }

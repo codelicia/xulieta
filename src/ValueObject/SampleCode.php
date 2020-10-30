@@ -19,22 +19,22 @@ final class SampleCode
         $this->code     = $code;
     }
 
-    public function file() : string
+    public function file(): string
     {
         return $this->file;
     }
 
-    public function position() : int
+    public function position(): int
     {
         return $this->position;
     }
 
-    public function code() : string
+    public function code(): string
     {
         return $this->code;
     }
 
-    public function language() : string
+    public function language(): string
     {
         return $this->language;
     }
