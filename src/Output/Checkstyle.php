@@ -6,6 +6,7 @@ namespace Codelicia\Xulieta\Output;
 
 use Codelicia\Xulieta\ValueObject\Violation;
 use Symfony\Component\Console\Output\OutputInterface;
+
 use function htmlspecialchars;
 
 final class Checkstyle implements OutputFormatter
@@ -19,7 +20,7 @@ final class Checkstyle implements OutputFormatter
         $this->output->writeln('<checkstyle>');
     }
 
-    public function addViolation(Violation $violation) : void
+    public function addViolation(Violation $violation): void
     {
         $this->output->writeln('  <file name="' . htmlspecialchars($violation->file()) . '">');
 
@@ -41,7 +42,7 @@ final class Checkstyle implements OutputFormatter
         echo '</checkstyle>';
     }
 
-    public function writeln(string $text) : void
+    public function writeln(string $text): void
     {
         // Intentionally left empty
     }

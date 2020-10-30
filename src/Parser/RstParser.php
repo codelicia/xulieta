@@ -19,7 +19,7 @@ class RstParser implements Parser
         $this->rstParser = $rstParser ?? new DoctrineRstParser();
     }
 
-    public function isValid(SplFileInfo $file) : bool
+    public function isValid(SplFileInfo $file): bool
     {
         try {
             $this->rstParser->parse($file->getContents());
@@ -31,7 +31,7 @@ class RstParser implements Parser
     }
 
     /** @return SampleCode[] */
-    public function getAllSampleCodes(SplFileInfo $file) : array
+    public function getAllSampleCodes(SplFileInfo $file): array
     {
         $sampleCodes = [];
         $nodes       = $this->rstParser->parse($file->getContents())->getNodes();

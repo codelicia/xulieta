@@ -11,7 +11,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class ConfigFileValidation implements ConfigurationInterface
 {
-    public function getConfigTreeBuilder() : TreeBuilder
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('xulieta');
         $rootNode    = $treeBuilder->getRootNode();

@@ -18,6 +18,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\SplFileInfo;
 use Webmozart\Assert\Assert;
+
 use function array_map;
 use function assert;
 use function sprintf;
@@ -40,7 +41,7 @@ final class App extends Command
         $this->config = $config;
     }
 
-    protected function configure() : void
+    protected function configure(): void
     {
         $this
             ->setName('check:erromeu')
@@ -65,7 +66,7 @@ final class App extends Command
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    protected function execute(InputInterface $input, OutputInterface $symfonyOutput) : int
+    protected function execute(InputInterface $input, OutputInterface $symfonyOutput): int
     {
         $directory    = $input->getArgument('directory');
         $outputOption = $input->getOption('output');
@@ -112,7 +113,7 @@ final class App extends Command
         return 0;
     }
 
-    private function signalizeError() : void
+    private function signalizeError(): void
     {
         $this->errorOccurred = true;
     }

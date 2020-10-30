@@ -20,27 +20,27 @@ final class Violation
         $this->violationLine = $violationLine;
     }
 
-    public function code() : SampleCode
+    public function code(): SampleCode
     {
         return $this->code;
     }
 
-    public function file() : string
+    public function file(): string
     {
         return $this->code->file();
     }
 
-    public function violationLine() : int
+    public function violationLine(): int
     {
         return $this->violationLine;
     }
 
-    public function message() : string
+    public function message(): string
     {
         return $this->message;
     }
 
-    public function absoluteLine() : int
+    public function absoluteLine(): int
     {
         return $this->code()->position() + $this->violationLine();
     }
