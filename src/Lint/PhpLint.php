@@ -50,7 +50,18 @@ class PhpLint implements Lint
 
     private function ensureCodePrefix(string $code): string
     {
-        if (! preg_match('/<\?php/i', $code)) {
+        // @fixme: it invalidates the other scenario where
+        //         a php code is embedded into a html template
+        $lines = explode("\n", $code);
+        $lines = array_map("array_filter", [$lines])[0];
+        $isPhpTagFound = false;
+
+        // @fixme: purely experimental
+        foreach ($lines as $line) {
+            $isPhpTagFound = str_starts_with(trim($line), '<?php') || $isPhpTagFound;
+        }
+
+        if (! $isPhpTagFound) {
             return '<?php ' . PHP_EOL . $code;
         }
 

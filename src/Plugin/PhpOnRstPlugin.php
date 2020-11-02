@@ -47,6 +47,7 @@ final class PhpOnRstPlugin implements Plugin
             return false;
         }
 
+        // @todo code is duplicated and needs to be refactored
         foreach ($this->rstParser->getAllSampleCodes($file) as $sampleCode) {
             if ($sampleCode->language() !== 'php') {
                 continue;
