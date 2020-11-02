@@ -58,7 +58,7 @@ with the following configuration format:
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <xulieta xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="xulieta.xsd">
+         xsi:noNamespaceSchemaLocation="./vendor/codelicia/xulieta/xulieta.xsd">
 
     <plugin>Codelicia\Xulieta\Plugin\PhpOnMarkdownPlugin</plugin>
     <plugin>Codelicia\Xulieta\Plugin\PhpOnRstPlugin</plugin>
