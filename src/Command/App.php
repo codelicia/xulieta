@@ -66,14 +66,14 @@ final class App extends Command
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    protected function execute(InputInterface $input, OutputInterface $symfonyOutput): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $directory    = $input->getArgument('directory');
-        $outputOption = $input->getOption('output');
-        $output       = new Stdout($symfonyOutput);
+        $directory       = $input->getArgument('directory');
+        $outputOption    = $input->getOption('output');
+        $outputFormatter = new Stdout($output);
 
         if ($outputOption === 'checkstyle') {
-            $output = new Checkstyle($symfonyOutput);
+            $outputFormatter = new Checkstyle($output);
         }
 
         Assert::string($directory);
@@ -87,28 +87,28 @@ final class App extends Command
         $finder = (new DocFinder($directory, $pluginHandler->supportedExtensions()))
             ->__invoke($this->config['exclude']);
 
-        $output->writeln("\nFinding documentation files on <info>" . $directory . "</info>\n");
+        $outputFormatter->writeln("\nFinding documentation files on <info>" . $directory . "</info>\n");
 
         foreach ($finder as $file) {
             assert($file instanceof SplFileInfo);
             if ($pluginHandler->canHandle($file)) {
-                if ($pluginHandler($file, $output) === false) {
+                if ($pluginHandler($file, $outputFormatter) === false) {
                     $this->signalizeError();
                 }
             } else {
-                $output->writeln(sprintf('<error>Could not handle file "%s"</error>', $file->getFilename()));
+                $outputFormatter->writeln(sprintf('<error>Could not handle file "%s"</error>', $file->getFilename()));
                 $this->signalizeError();
             }
         }
 
-        $output->writeln('');
+        $outputFormatter->writeln('');
         if ($this->errorOccurred) {
-            $output->writeln('<bg=red;fg=white>     Operation failed!     </>');
+            $outputFormatter->writeln('<bg=red;fg=white>     Operation failed!     </>');
 
             return 1;
         }
 
-        $output->writeln('<bg=green;fg=black>     Everything is OK!     </>');
+        $outputFormatter->writeln('<bg=green;fg=black>     Everything is OK!     </>');
 
         return 0;
     }

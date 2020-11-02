@@ -46,7 +46,7 @@
         "phpunit/phpunit": "^9.4.2",
         "roave/security-advisories": "dev-master",
         "staabm/annotate-pull-request-from-checkstyle": "^1.4.0",
-        "vimeo/psalm": "^4.1.0"
+        "vimeo/psalm": "^4.1.1"
     },
     "scripts": {
         "changelog": "git log $(git describe --abbrev=0 --tags)...HEAD --no-merges --pretty=format:\"* [%h](http://github.com/codelicia/xulieta/commit/%H) %s (%cN)\""
