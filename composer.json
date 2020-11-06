@@ -32,7 +32,7 @@
         "beberlei/assert": "^v3.2.7",
         "doctrine/rst-parser": "^0.1.0",
         "nikic/php-parser": "^v4.10.2",
-        "ocramius/package-versions": "^2.1.0",
+        "ocramius/package-versions": "^1.9",
         "symfony/config": "^v5.1.8",
         "symfony/console": "^v5.1.8",
         "symfony/finder": "^v5.1.8",
