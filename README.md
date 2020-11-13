@@ -1,9 +1,15 @@
-🌹 Xulieta
-==========
+<p align="center">
+  <img src="./meme.jpg" alt="Xulieta" width="300" />
+</p>
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+<h1 align="center"> 🌹 XULIETA </h1>
+<h3 align="center"> Xulieta is a light php binary that lint documentation snippets. </h3>
+
+<div align="center">
+    <img src="https://forthebadge.com/images/badges/built-with-love.svg" alt="with love">
+    <img src="https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg" alt="works everytime"/>
+    <img src="https://forthebadge.com/images/badges/made-with-crayons.svg">
+</div>
 
 **Xulieta** is a light php binary that find code snippets thought out
 documentation files — as for example `*.md`, `*.markdown` and `*.rst`
@@ -19,19 +25,12 @@ composer require codelicia/xulieta
 
 ### Checking for errors
 
-<table>
-<tr>
-<td><img src="./meme.jpg"  alt="Xulieta" width="300" height="214"/></td>
-<td>
 In order to lint the basics of documentation structure, one just needs to provide a path for a
 directory or file to be linted.
 
 ```shell script
 ./vendor/bin/xulieta check:erromeu <directory>
 ```
-</td>
-</tr>
-</table>
 
 ### Integration with GitHub Actions
 
