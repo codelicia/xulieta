@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Codelicia\Xulieta\Lint;
+namespace Codelicia\Xulieta\Validator;
 
+use Codelicia\Xulieta\ValueObject\SampleCode;
+use Codelicia\Xulieta\ValueObject\Violation;
 use LogicException;
 use PhpParser\Parser as PhpParser;
 use PhpParser\ParserFactory;
@@ -13,7 +15,7 @@ use function preg_match;
 
 use const PHP_EOL;
 
-class PhpLint implements Lint
+class PhpValidator implements Validator
 {
     private PhpParser $phpParser;
 
@@ -22,11 +24,16 @@ class PhpLint implements Lint
         $this->phpParser = $phpParser ?? (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
     }
 
-    public function hasViolation(string $code): bool
+    public function supportedLanguage(): array
+    {
+        return ['php'];
+    }
+
+    public function hasViolation(SampleCode $sampleCode): bool
     {
         try {
             $this->phpParser->parse(
-                $this->ensureCodePrefix($code)
+                $this->ensureCodePrefix($sampleCode->code())
             );
         } catch (Throwable $e) {
             return true;
@@ -35,14 +42,18 @@ class PhpLint implements Lint
         return false;
     }
 
-    public function getViolation(string $code): string
+    public function getViolation(SampleCode $sampleCode): Violation
     {
         try {
             $this->phpParser->parse(
-                $this->ensureCodePrefix($code)
+                $this->ensureCodePrefix($sampleCode->code())
             );
         } catch (Throwable $e) {
-            return $e->getMessage();
+            preg_match('{on line (\d+)}', $e->getMessage(), $line);
+
+            $validationErrorInLine = $line[1] ?? 0;
+
+            return new Violation($sampleCode, $e->getMessage(), (int) $validationErrorInLine);
         }
 
         throw new LogicException();

@@ -7,8 +7,12 @@ namespace Codelicia\Xulieta\Parser;
 use Codelicia\Xulieta\ValueObject\SampleCode;
 use Doctrine\RST\Nodes\CodeNode;
 use Doctrine\RST\Parser as DoctrineRstParser;
+use LogicException;
 use Symfony\Component\Finder\SplFileInfo;
 use Throwable;
+
+use function in_array;
+use function sprintf;
 
 class RstParser implements Parser
 {
@@ -19,22 +23,26 @@ class RstParser implements Parser
         $this->rstParser = $rstParser ?? new DoctrineRstParser();
     }
 
-    public function isValid(SplFileInfo $file): bool
+    public function supportedExtensions(): array
     {
-        try {
-            $this->rstParser->parse($file->getContents());
-        } catch (Throwable $e) {
-            return false;
-        }
+        return ['rst'];
+    }
 
-        return true;
+    public function supports(SplFileInfo $file): bool
+    {
+        return in_array($file->getExtension(), $this->supportedExtensions(), false);
     }
 
     /** @return SampleCode[] */
     public function getAllSampleCodes(SplFileInfo $file): array
     {
         $sampleCodes = [];
-        $nodes       = $this->rstParser->parse($file->getContents())->getNodes();
+
+        try {
+            $nodes = $this->rstParser->parse($file->getContents())->getNodes();
+        } catch (Throwable $e) {
+            throw new LogicException(sprintf('Could not parse the file "%s"', $file->getPathname()));
+        }
 
         foreach ($nodes as $node) {
             if (! $node instanceof CodeNode) {

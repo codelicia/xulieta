@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta\Config;
 
-use Codelicia\Xulieta\Plugin\PhpOnMarkdownPlugin;
-use Codelicia\Xulieta\Plugin\PhpOnRstPlugin;
+use Codelicia\Xulieta\Parser\MarkdownParser;
+use Codelicia\Xulieta\Parser\RstParser;
+use Codelicia\Xulieta\Validator\PhpValidator;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -18,8 +19,12 @@ final class ConfigFileValidation implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('plugin')
-                    ->defaultValue([PhpOnRstPlugin::class, PhpOnMarkdownPlugin::class])
+                ->arrayNode('parser')
+                    ->defaultValue([MarkdownParser::class, RstParser::class])
+                    ->scalarPrototype()->end()
+                ->end()
+                ->arrayNode('validator')
+                    ->defaultValue([PhpValidator::class])
                     ->scalarPrototype()->end()
                 ->end()
                 ->arrayNode('exclude')

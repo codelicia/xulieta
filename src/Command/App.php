@@ -7,9 +7,12 @@ namespace Codelicia\Xulieta\Command;
 use Codelicia\Xulieta\DocFinder;
 use Codelicia\Xulieta\Output\Checkstyle;
 use Codelicia\Xulieta\Output\Stdout;
-use Codelicia\Xulieta\Plugin\MultiplePlugin;
-use Codelicia\Xulieta\Plugin\Plugin;
+use Codelicia\Xulieta\Parser\MultipleParser;
+use Codelicia\Xulieta\Parser\Parser;
+use Codelicia\Xulieta\Validator\MultipleValidator;
+use Codelicia\Xulieta\Validator\Validator;
 use InvalidArgumentException;
+use LogicException;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -24,7 +27,11 @@ use function assert;
 use function sprintf;
 
 /**
- * @psalm-type TConfig = array{plugin: list<class-string<Plugin>>, exclude: list<string>}
+ * @psalm-type TConfig = array{
+ *   parser: list<class-string<Parser>>,
+ *   validator: list<class-string<Validator>>,
+ *   exclude: list<string>
+ * }
  */
 final class App extends Command
 {
@@ -36,7 +43,7 @@ final class App extends Command
     /** @psalm-param TConfig $config */
     public function __construct(?string $name = null, array $config)
     {
-        parent::__construct($name);
+        Command::__construct($name);
 
         $this->config = $config;
     }
@@ -77,26 +84,40 @@ final class App extends Command
         }
 
         Assert::string($directory);
-        Assert::interfaceExists(Plugin::class);
+        Assert::interfaceExists(Parser::class);
 
-        $pluginHandler = new MultiplePlugin(...array_map(
-            static fn (string $class) => new $class(),
-            $this->config['plugin']
+        $parserHandler = new MultipleParser(...array_map(
+            static fn (string $class): Parser => new $class(),
+            $this->config['parser']
         ));
 
-        $finder = (new DocFinder($directory, $pluginHandler->supportedExtensions()))
+        $validatorHandler = new MultipleValidator(...array_map(
+            static fn (string $class): Validator => new $class(),
+            $this->config['validator']
+        ));
+
+        $finder = (new DocFinder($directory, $parserHandler->supportedExtensions()))
             ->__invoke($this->config['exclude']);
 
         $outputFormatter->writeln("\nFinding documentation files on <info>" . $directory . "</info>\n");
 
         foreach ($finder as $file) {
             assert($file instanceof SplFileInfo);
-            if ($pluginHandler->canHandle($file)) {
-                if ($pluginHandler($file, $outputFormatter) === false) {
-                    $this->signalizeError();
+
+            try {
+                $allSampleCodes = $parserHandler->getAllSampleCodes($file);
+            } catch (LogicException $e) {
+                $outputFormatter->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+                $this->signalizeError();
+                continue;
+            }
+
+            foreach ($allSampleCodes as $sampleCode) {
+                if (! $validatorHandler->hasViolation($sampleCode)) {
+                    continue;
                 }
-            } else {
-                $outputFormatter->writeln(sprintf('<error>Could not handle file "%s"</error>', $file->getFilename()));
+
+                $outputFormatter->addViolation($validatorHandler->getViolation($sampleCode));
                 $this->signalizeError();
             }
         }

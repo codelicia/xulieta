@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Codelicia\Xulieta\Unit\Lint;
+namespace Codelicia\Xulieta\Unit\Validator;
 
-use Codelicia\Xulieta\Lint\PhpLint;
+use Codelicia\Xulieta\Validator\PhpValidator;
+use Codelicia\Xulieta\ValueObject\SampleCode;
 use PHPUnit\Framework\TestCase;
 
-final class PhpLintTest extends TestCase
+final class PhpValidatorTest extends TestCase
 {
     /**
      * @test
@@ -15,8 +16,9 @@ final class PhpLintTest extends TestCase
      */
     public function itShouldDetectViolationsOnPhpCode(bool $shouldHaveViolation, string $phpCode) : void
     {
-        $subjectUnderTest = new PhpLint();
-        self::assertEquals($shouldHaveViolation, $subjectUnderTest->hasViolation($phpCode));
+        $sampleCode = new SampleCode('file.php', 'php', 0, $phpCode);
+        $subjectUnderTest = new PhpValidator();
+        self::assertEquals($shouldHaveViolation, $subjectUnderTest->hasViolation($sampleCode));
     }
 
     public function violationProvider() : array
