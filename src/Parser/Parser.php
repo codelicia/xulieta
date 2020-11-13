@@ -9,7 +9,10 @@ use Symfony\Component\Finder\SplFileInfo;
 
 interface Parser
 {
-    public function isValid(SplFileInfo $file): bool;
+    /** @psalm-return list<non-empty-string> */
+    public function supportedExtensions(): array;
+
+    public function supports(SplFileInfo $file): bool;
 
     /** @return SampleCode[] */
     public function getAllSampleCodes(SplFileInfo $file): array;

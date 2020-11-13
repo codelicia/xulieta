@@ -5,11 +5,19 @@
             <xs:documentation>Root Element</xs:documentation>
         </xs:annotation>
     </xs:element>
-    <xs:group name="pluginStruct">
+
+    <xs:group name="parserStruct">
         <xs:all>
-            <xs:element name="plugin" type="xs:string" maxOccurs="unbounded"/>
+            <xs:element name="parser" type="xs:string" maxOccurs="unbounded"/>
         </xs:all>
     </xs:group>
+
+    <xs:group name="validatorStruct">
+        <xs:all>
+            <xs:element name="validator" type="xs:string" maxOccurs="unbounded"/>
+        </xs:all>
+    </xs:group>
+
     <xs:group name="excludeStruct">
         <xs:all>
             <xs:element name="exclude" type="xs:string" maxOccurs="unbounded"/>
