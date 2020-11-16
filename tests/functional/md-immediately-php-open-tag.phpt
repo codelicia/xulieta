@@ -10,9 +10,10 @@ $checkRunner('tests/assets/immediately-open-tag.md');
 --EXPECTF--
 Finding documentation files on tests/assets/immediately-open-tag.md
 
-Wrong code on file: tests/assets/immediately-open-tag.md
-Syntax error, unexpected EOF, expecting ';' on line 2
+ --> tests/assets/immediately-open-tag.md
+ 1 |   echo 'Hello World!'
+   | |
+     = note: Syntax error, unexpected EOF, expecting ';' on line 2
 
-echo 'Hello World!'
 
      Operation failed!
