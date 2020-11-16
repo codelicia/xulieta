@@ -10,14 +10,16 @@ $checkRunner('tests/assets/syntax-error.rst');
 --EXPECTF--
 Finding documentation files on tests/assets/syntax-error.rst
 
-Wrong code on file: tests/assets/syntax-error.rst
-Syntax error, unexpected '}', expecting ';' on line 5
-
-<?php
-
-if (true) {
-    echo 'Hello World!'
-}
+ --> tests/assets/syntax-error.rst
+ 1 |   <?php
+ 2 |
+ 3 |   if (true) {
+ 4 |       echo 'Hello World!'
+ 5 |   }
+   |  _^
+ 6 | |
+   | |
+     = note: Syntax error, unexpected '}', expecting ';' on line 5
 
 
      Operation failed!
