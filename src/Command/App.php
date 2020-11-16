@@ -23,6 +23,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use Webmozart\Assert\Assert;
 
 use function array_map;
+use function array_merge;
 use function assert;
 use function sprintf;
 
@@ -86,10 +87,17 @@ final class App extends Command
         Assert::string($directory);
         Assert::interfaceExists(Parser::class);
 
+        $output->writeln(array_merge(['Loaded Parsers:'], $this->config['parser']), OutputInterface::VERBOSITY_VERBOSE);
+
         $parserHandler = new MultipleParser(...array_map(
             static fn (string $class): Parser => new $class(),
             $this->config['parser']
         ));
+
+        $output->writeln(
+            array_merge(['', 'Loaded Validators:'], $this->config['validator']),
+            OutputInterface::VERBOSITY_VERBOSE
+        );
 
         $validatorHandler = new MultipleValidator(...array_map(
             static fn (string $class): Validator => new $class(),
