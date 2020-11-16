@@ -20,6 +20,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use Webmozart\Assert\Assert;
 
 use function array_map;
+use function array_merge;
 use function assert;
 use function sprintf;
 
@@ -83,6 +84,8 @@ final class App extends Command
             static fn (string $class) => new $class(),
             $this->config['plugin']
         ));
+
+        $output->writeln(array_merge(['Loaded Plugins:'], $this->config['plugin']), OutputInterface::VERBOSITY_VERBOSE);
 
         $finder = (new DocFinder($directory, $pluginHandler->supportedExtensions()))
             ->__invoke($this->config['exclude']);
