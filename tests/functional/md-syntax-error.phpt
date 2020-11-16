@@ -10,13 +10,15 @@ $checkRunner('tests/assets/syntax-error.md');
 --EXPECTF--
 Finding documentation files on tests/assets/syntax-error.md
 
-Wrong code on file: tests/assets/syntax-error.md
-Syntax error, unexpected '}', expecting ';' on line 5
+ --> tests/assets/syntax-error.md
+ 1 |   <?php
+ 2 |
+ 3 |   if (true) {
+ 4 |       echo 'Hello World!'
+ 5 |   }
+   |  _^
+   | |
+     = note: Syntax error, unexpected '}', expecting ';' on line 5
 
-<?php
-
-if (true) {
-    echo 'Hello World!'
-}
 
      Operation failed!
