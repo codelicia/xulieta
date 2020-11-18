@@ -9,8 +9,7 @@ use Codelicia\Xulieta\ValueObject\Violation;
 
 interface Validator
 {
-    /** @psalm-return list<non-empty-string> */
-    public function supportedLanguage(): array;
+    public function supports(SampleCode $sampleCode): bool;
 
     public function hasViolation(SampleCode $sampleCode): bool;
 

@@ -24,9 +24,9 @@ class PhpValidator implements Validator
         $this->phpParser = $phpParser ?? (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
     }
 
-    public function supportedLanguage(): array
+    public function supports(SampleCode $sampleCode): bool
     {
-        return ['php'];
+        return $sampleCode->language() === 'php';
     }
 
     public function hasViolation(SampleCode $sampleCode): bool
