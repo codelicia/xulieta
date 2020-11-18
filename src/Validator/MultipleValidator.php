@@ -9,36 +9,34 @@ use Codelicia\Xulieta\ValueObject\SampleCode;
 use Codelicia\Xulieta\ValueObject\Violation;
 use LogicException;
 
-use function array_map;
-use function array_merge_recursive;
-use function array_values;
-
 final class MultipleValidator implements Validator
 {
     /** @var Validator[] */
-    private array $validator;
+    private array $validators;
 
-    public function __construct(Validator ...$validator)
+    public function __construct(Validator ...$validators)
     {
-        Assert::that($validator)
+        Assert::that($validators)
             ->notEmpty();
 
-        $this->validator = $validator;
+        $this->validators = $validators;
     }
 
-    /** @psalm-return list<non-empty-string> */
-    public function supportedLanguage(): array
+    public function supports(SampleCode $sampleCode): bool
     {
-        return array_values(array_merge_recursive([], ...array_map(
-            static fn (Validator $validator) => $validator->supportedLanguage(),
-            $this->validator
-        )));
+        foreach ($this->validators as $validators) {
+            if ($validators->supports($sampleCode)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function hasViolation(SampleCode $sampleCode): bool
     {
-        foreach ($this->validator as $validator) {
-            if ($validator->hasViolation($sampleCode)) {
+        foreach ($this->validators as $validators) {
+            if ($validators->supports($sampleCode) && $validators->hasViolation($sampleCode)) {
                 return true;
             }
         }
@@ -48,9 +46,9 @@ final class MultipleValidator implements Validator
 
     public function getViolation(SampleCode $sampleCode): Violation
     {
-        foreach ($this->validator as $validator) {
-            if ($validator->hasViolation($sampleCode)) {
-                return $validator->getViolation($sampleCode);
+        foreach ($this->validators as $validators) {
+            if ($validators->hasViolation($sampleCode)) {
+                return $validators->getViolation($sampleCode);
             }
         }
 
