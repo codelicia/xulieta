@@ -29,9 +29,9 @@ use function sprintf;
 
 /**
  * @psalm-type TConfig = array{
- *   parser: list<class-string<Parser>>,
- *   validator: list<class-string<Validator>>,
- *   exclude: list<string>
+ *   parsers: list<class-string<Parser>>,
+ *   validators: list<class-string<Validator>>,
+ *   excludes: list<string>
  * }
  */
 final class App extends Command
@@ -87,25 +87,28 @@ final class App extends Command
         Assert::string($directory);
         Assert::interfaceExists(Parser::class);
 
-        $output->writeln(array_merge(['Loaded Parsers:'], $this->config['parser']), OutputInterface::VERBOSITY_VERBOSE);
+        $output->writeln(
+            array_merge(['Loaded Parsers:'], $this->config['parsers']),
+            OutputInterface::VERBOSITY_VERBOSE
+        );
 
         $parserHandler = new MultipleParser(...array_map(
             static fn (string $class): Parser => new $class(),
-            $this->config['parser']
+            $this->config['parsers']
         ));
 
         $output->writeln(
-            array_merge(['', 'Loaded Validators:'], $this->config['validator']),
+            array_merge(['', 'Loaded Validators:'], $this->config['validators']),
             OutputInterface::VERBOSITY_VERBOSE
         );
 
         $validatorHandler = new MultipleValidator(...array_map(
             static fn (string $class): Validator => new $class(),
-            $this->config['validator']
+            $this->config['validators']
         ));
 
         $finder = (new DocFinder($directory, $parserHandler->supportedExtensions()))
-            ->__invoke($this->config['exclude']);
+            ->__invoke($this->config['excludes']);
 
         $outputFormatter->writeln("\nFinding documentation files on <info>" . $directory . "</info>\n");
 

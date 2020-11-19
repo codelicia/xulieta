@@ -18,21 +18,27 @@ final class ConfigFileValidation implements ConfigurationInterface
         $rootNode    = $treeBuilder->getRootNode();
 
         $rootNode
+            ->fixXmlConfig('parser')
             ->children()
-                ->arrayNode('parser')
+                ->arrayNode('parsers')
                     ->defaultValue([MarkdownParser::class, RstParser::class])
                     ->scalarPrototype()->end()
                 ->end()
-                ->arrayNode('validator')
+            ->end()
+            ->fixXmlConfig('validator')
+            ->children()
+                ->arrayNode('validators')
                     ->defaultValue([PhpValidator::class])
                     ->scalarPrototype()->end()
                 ->end()
-                ->arrayNode('exclude')
+            ->end()
+            ->fixXmlConfig('exclude')
+            ->children()
+                ->arrayNode('excludes')
                     ->defaultValue(['vendor', 'node_modules'])
                     ->scalarPrototype()->end()
                 ->end()
-            ->end()
-        ->end();
+            ->end();
 
         return $treeBuilder;
     }
