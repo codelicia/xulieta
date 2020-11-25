@@ -11,4 +11,6 @@ interface OutputFormatter
     public function addViolation(Violation $violation): void;
 
     public function writeln(string $text): void;
+
+    public static function canResolve(string $style): bool;
 }

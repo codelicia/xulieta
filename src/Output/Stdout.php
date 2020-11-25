@@ -71,4 +71,9 @@ final class Stdout implements OutputFormatter
     {
         $this->output->writeln($text);
     }
+
+    public static function canResolve(string $style): bool
+    {
+        return $style === 'stdout';
+    }
 }

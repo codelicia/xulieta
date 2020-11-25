@@ -6,6 +6,12 @@
         </xs:annotation>
     </xs:element>
 
+    <xs:group name="outputFormatterStruct">
+        <xs:all>
+            <xs:element name="outputFormatter" type="xs:string" maxOccurs="unbounded"/>
+        </xs:all>
+    </xs:group>
+
     <xs:group name="parserStruct">
         <xs:all>
             <xs:element name="parser" type="xs:string" maxOccurs="unbounded"/>

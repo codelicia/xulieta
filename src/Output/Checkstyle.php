@@ -46,4 +46,9 @@ final class Checkstyle implements OutputFormatter
     {
         // Intentionally left empty
     }
+
+    public static function canResolve(string $style): bool
+    {
+        return $style === 'checkstyle';
+    }
 }
