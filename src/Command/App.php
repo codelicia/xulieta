@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Command;
 
 use Codelicia\Xulieta\DocFinder;
-use Codelicia\Xulieta\Output\Checkstyle;
-use Codelicia\Xulieta\Output\Stdout;
+use Codelicia\Xulieta\Output\OutputFilter;
+use Codelicia\Xulieta\Output\OutputFormatter;
 use Codelicia\Xulieta\Parser\MultipleParser;
 use Codelicia\Xulieta\Parser\Parser;
 use Codelicia\Xulieta\Validator\MultipleValidator;
@@ -25,13 +25,15 @@ use Webmozart\Assert\Assert;
 use function array_map;
 use function array_merge;
 use function assert;
+use function interface_exists;
 use function sprintf;
 
 /**
  * @psalm-type TConfig = array{
+ *   excludes: list<string>,
+ *   outputFormatters: list<class-string<OutputFormatter>>,
  *   parsers: list<class-string<Parser>>,
- *   validators: list<class-string<Validator>>,
- *   excludes: list<string>
+ *   validators: list<class-string<Validator>>
  * }
  */
 final class App extends Command
@@ -44,6 +46,8 @@ final class App extends Command
     /** @psalm-param TConfig $config */
     public function __construct(?string $name = null, array $config)
     {
+        interface_exists(OutputFormatter::class);
+
         Command::__construct($name);
 
         $this->config = $config;
@@ -76,19 +80,26 @@ final class App extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $directory       = $input->getArgument('directory');
-        $outputOption    = $input->getOption('output');
-        $outputFormatter = new Stdout($output);
+        $directory    = $input->getArgument('directory');
+        $outputOption = $input->getOption('output');
 
-        if ($outputOption === 'checkstyle') {
-            $outputFormatter = new Checkstyle($output);
-        }
+        $output->writeln(
+            array_merge(['Loaded OutputFormatters:'], $this->config['outputFormatters']),
+            OutputInterface::VERBOSITY_VERBOSE
+        );
+
+        Assert::string($outputOption);
+
+        $outputInference = (new OutputFilter())
+            ->__invoke($outputOption, ...$this->config['outputFormatters']);
+
+        $outputFormatter = new $outputInference($output);
 
         Assert::string($directory);
         Assert::interfaceExists(Parser::class);
 
         $output->writeln(
-            array_merge(['Loaded Parsers:'], $this->config['parsers']),
+            array_merge(['', 'Loaded Parsers:'], $this->config['parsers']),
             OutputInterface::VERBOSITY_VERBOSE
         );
 

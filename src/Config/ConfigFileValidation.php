@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta\Config;
 
+use Codelicia\Xulieta\Output\Checkstyle;
+use Codelicia\Xulieta\Output\Stdout;
 use Codelicia\Xulieta\Parser\MarkdownParser;
 use Codelicia\Xulieta\Parser\RstParser;
 use Codelicia\Xulieta\Validator\PhpValidator;
@@ -18,6 +20,13 @@ final class ConfigFileValidation implements ConfigurationInterface
         $rootNode    = $treeBuilder->getRootNode();
 
         $rootNode
+            ->fixXmlConfig('outputFormatter')
+            ->children()
+                ->arrayNode('outputFormatters')
+                    ->defaultValue([Stdout::class, Checkstyle::class])
+                    ->scalarPrototype()->end()
+                ->end()
+            ->end()
             ->fixXmlConfig('parser')
             ->children()
                 ->arrayNode('parsers')
