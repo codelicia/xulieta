@@ -1,9 +1,9 @@
-🌹 Xulieta
-==========
+<p align="center">
+  <img src="./meme.jpg" alt="Xulieta" width="300" />
+</p>
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+<h1 align="center"> 🌹 XULIETA </h1>
+<h3 align="center"> Xulieta is a light php binary that lint documentation snippets. </h3>
 
 **Xulieta** is a light php binary that find code snippets thought out
 documentation files — as for example `*.md`, `*.markdown` and `*.rst`
@@ -19,19 +19,12 @@ composer require codelicia/xulieta
 
 ### Checking for errors
 
-<table>
-<tr>
-<td><img src="./meme.jpg"  alt="Xulieta" width="300" height="214"/></td>
-<td>
 In order to lint the basics of documentation structure, one just needs to provide a path for a
 directory or file to be linted.
 
 ```shell script
 ./vendor/bin/xulieta check:erromeu <directory>
 ```
-</td>
-</tr>
-</table>
 
 ### Integration with GitHub Actions
 
@@ -60,15 +53,21 @@ with the following configuration format:
 <xulieta xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="./vendor/codelicia/xulieta/xulieta.xsd">
 
-    <plugin>Codelicia\Xulieta\Plugin\PhpOnMarkdownPlugin</plugin>
-    <plugin>Codelicia\Xulieta\Plugin\PhpOnRstPlugin</plugin>
+    <parser>Codelicia\Xulieta\Parser\MarkdownParser</parser>
+    <parser>Codelicia\Xulieta\Parser\RstParser</parser>
+
+    <validator>Codelicia\Xulieta\Validator\PhpValidator</validator>
+
+    <outputFormatters>Codelicia\Xulieta\Output\Checkstyle</outputFormatters>
 
     <exclude>vendor</exclude>
     <exclude>node_modules</exclude>
 </xulieta>
 ```
 
-- `plugin`: listing of all formats handlers
+- `parser`: listing of all parses to handle file formats based in the extention name
+- `validator`: performs verification on a given code block
+- `outputFormatters`: personalized output formatter
 - `exclude`: excluded directory or files
 
 ## Contributors ✨
