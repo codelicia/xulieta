@@ -24,6 +24,11 @@
             "Codelicia\\Xulieta\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Codelicia\\Xulieta\\Unit\\": "tests/unit/"
+        }
+    },
     "config": {
         "sort-packages": true
     },
