@@ -1,39 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="xulieta" type="rootType">
-        <xs:annotation>
-            <xs:documentation>Root Element</xs:documentation>
-        </xs:annotation>
+    <xs:element name="xulieta">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="outputFormatter" maxOccurs="unbounded" type="xs:string" />
+                <xs:element name="parser" maxOccurs="unbounded" type="xs:string" />
+                <xs:element name="validator" maxOccurs="unbounded" type="xs:string" />
+                <xs:element name="exclude" maxOccurs="unbounded" type="xs:string" />
+            </xs:choice>
+        </xs:complexType>
     </xs:element>
-
-    <xs:group name="outputFormatterStruct">
-        <xs:all>
-            <xs:element name="outputFormatter" type="xs:string" maxOccurs="unbounded"/>
-        </xs:all>
-    </xs:group>
-
-    <xs:group name="parserStruct">
-        <xs:all>
-            <xs:element name="parser" type="xs:string" maxOccurs="unbounded"/>
-        </xs:all>
-    </xs:group>
-
-    <xs:group name="validatorStruct">
-        <xs:all>
-            <xs:element name="validator" type="xs:string" maxOccurs="unbounded"/>
-        </xs:all>
-    </xs:group>
-
-    <xs:group name="excludeStruct">
-        <xs:all>
-            <xs:element name="exclude" type="xs:string" maxOccurs="unbounded"/>
-        </xs:all>
-    </xs:group>
-    <xs:complexType name="rootType">
-        <xs:annotation>
-            <xs:documentation>The main type specifying the document structure</xs:documentation>
-        </xs:annotation>
-        <xs:group ref="pluginStruct"/>
-        <xs:group ref="excludeStruct"/>
-    </xs:complexType>
 </xs:schema>
