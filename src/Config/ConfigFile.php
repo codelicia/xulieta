@@ -27,15 +27,17 @@ final class ConfigFile
             'is_file'
         ));
 
-        $config = [];
-        if ($configFiles !== false) {
-            $config = (array) XmlUtils::convertDomElementToArray(
+        $config = $configFiles === false
+            ? []
+            : (array) XmlUtils::convertDomElementToArray(
                 XmlUtils::loadFile(realpath($configFiles))
                     ->documentElement
             );
-        }
 
         return (new Processor())
-            ->processConfiguration(new ConfigFileValidation(), ['xulieta' => $config]);
+            ->processConfiguration(
+                new ConfigFileValidation(),
+                ['xulieta' => $config]
+            );
     }
 }
