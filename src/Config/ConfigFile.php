@@ -32,11 +32,11 @@ final class ConfigFile
                 XmlUtils::loadFile(realpath($configFiles))
                     ->documentElement
             );
-        }
 
-        return (new Processor())->processConfiguration(
-            new ConfigFileValidation(),
-            ['xulieta' => $config]
-        );
+        return (new Processor())
+            ->processConfiguration(
+                new ConfigFileValidation(),
+                ['xulieta' => $config]
+            );
     }
 }
