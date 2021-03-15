@@ -18,6 +18,7 @@ final class ConfigFile
     {
         $configFiles = current(array_filter(
             [
+                $dir . '/../../../../.xulieta.xml',
                 $dir . '/../../../.xulieta.xml',
                 $dir . '/../../.xulieta.xml',
                 $dir . '/../.xulieta.xml',
