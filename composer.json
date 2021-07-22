@@ -28,7 +28,7 @@
         "sort-packages": true
     },
     "require": {
-        "php": ">=7.4 | ~8.0",
+        "php": "~7.4 || ~8.0",
         "beberlei/assert": "^v3.2.7",
         "doctrine/rst-parser": "^0.1.0 || ^0.3.0 || ^0.4.0",
         "nikic/php-parser": "^v4.10.2",
