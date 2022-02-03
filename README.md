@@ -70,6 +70,26 @@ with the following configuration format:
 - `outputFormatters`: personalized output formatter
 - `exclude`: excluded directory or files
 
+## Plugins
+
+`Xulieta` will automatically scan dependencies to see if there is 
+any package that is providing default configurations.
+
+If you want your plugin to take advantage of that functionality,
+we expect you to provide some information on your `composer.json`
+file, ie:
+
+```json
+{
+  "extra": {
+    "xulieta": {
+      "parser": ["Malukenho\\QuoPrimumTempore\\JsonParser"],
+      "validator": ["Malukenho\\QuoPrimumTempore\\JsonValidator"]
+    }
+  }
+}
+```
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
