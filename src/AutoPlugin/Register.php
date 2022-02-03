@@ -99,7 +99,7 @@ final class Register implements PluginInterface, EventSubscriberInterface
                 return;
             }
 
-            $readFile = __DIR__ . '/../default-config.xml.dist';
+            $readFile = __DIR__ . '/../../default-config.xml.dist';
         }
 
         $xml = XmlUtils::loadFile($readFile);
