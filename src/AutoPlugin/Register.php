@@ -92,10 +92,10 @@ final class Register implements PluginInterface, EventSubscriberInterface
     private static function injectModuleIntoConfig(array $extra, IOInterface $io, Composer $composer): void
     {
         $rootDir           = dirname($composer->getConfig()->getConfigSource()->getName());
-        $xulietaConfigFile = $readFile = $rootDir . '/xulieta.xml';
+        $xulietaConfigFile = $readFile = $rootDir . '/.xulieta.xml';
 
         if (! file_exists($xulietaConfigFile)) {
-            if (! $io->askConfirmation('Do you want us to create a xulieta.xml for you? ')) {
+            if (! $io->askConfirmation('Do you want us to create a ".xulieta.xml" for you? ')) {
                 return;
             }
 
