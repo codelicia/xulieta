@@ -1,7 +1,7 @@
 {
     "name": "codelicia/xulieta",
     "description": "Xulieta is a light php binary that lint documentation snippets",
-    "type": "library",
+    "type": "composer-plugin",
     "license": "MIT",
     "homepage": "https://github.com/codelicia/xulieta",
     "keywords": [
@@ -30,6 +30,7 @@
     "require": {
         "php": "~7.4 || ~8.0",
         "beberlei/assert": "^v3.2.7",
+        "composer-plugin-api": "^2.2",
         "doctrine/rst-parser": "^0.1.0 || ^0.3.0",
         "nikic/php-parser": "^v4.10.2",
         "ocramius/package-versions": "^1.9",
@@ -40,6 +41,7 @@
         "webmozart/assert": "^1.9.1"
     },
     "require-dev": {
+        "composer/composer": "^2.0",
         "doctrine/coding-standard": "^8.2.0 || ^9.0.0",
         "infection/infection": "^0.19.2",
         "malukenho/mcbumpface": "^1.1.5",
@@ -48,9 +50,11 @@
         "staabm/annotate-pull-request-from-checkstyle": "^1.4.0",
         "vimeo/psalm": "^4.1.1"
     },
+    "extra": {
+        "class": "Codelicia\\Xulieta\\AutoPlugin\\Register"
+    },
     "scripts": {
-        "post-install-cmd": "Codelicia\\Xulieta\\AutoPlugin\\Register::scan",
-        "post-update-cmd": "Codelicia\\Xulieta\\AutoPlugin\\Register::scan"
+        "post-package-install": "Codelicia\\Xulieta\\AutoPlugin\\Register::scan"
     },
     "bin": [
         "bin/xulieta"
