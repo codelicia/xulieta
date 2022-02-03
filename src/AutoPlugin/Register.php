@@ -157,7 +157,7 @@ final class Register implements PluginInterface, EventSubscriberInterface
     /** @psalm-return array{post-package-install: string} */
     public static function getSubscribedEvents(): array
     {
-        return [PackageEvents::POST_PACKAGE_INSTALL => 'onPostPackageInstall'];
+        return [PackageEvents::POST_PACKAGE_INSTALL => 'scan'];
     }
 
     /** @return void */
