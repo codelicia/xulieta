@@ -11,6 +11,6 @@ $checkRunner('tests/assets/syntax-error-checkstyle.md --output=checkstyle');
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle>
   <file name="tests/assets/syntax-error-checkstyle.md">
-    <error line="7" column="1" severity="error" message="Codelicia/Xulieta: Syntax error, unexpected '}', expecting ';' on line 5" source="Codelicia/Xulieta"/>
+    <error line="7" column="1" severity="error" message="Codelicia/Xulieta: Syntax error, unexpected &#039;}&#039;, expecting &#039;;&#039; on line 5" source="Codelicia/Xulieta"/>
   </file>
 </checkstyle>
