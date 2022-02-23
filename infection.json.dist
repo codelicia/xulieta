@@ -1,7 +1,7 @@
 {
     "logs": { "perMutator": "php://stderr" },
-    "minCoveredMsi": 80,
-    "minMsi": 10,
+    "minCoveredMsi": 75,
+    "minMsi": 7,
     "mutators": { "@default": true },
     "source": { "directories": [ "src" ] },
     "testFramework": "phpunit"
