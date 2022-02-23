@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xulieta xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="./vendor/codelicia/xulieta/xulieta.xsd">
+
     <exclude>vendor</exclude>
     <exclude>node_modules</exclude>
+
+    <parser>Codelicia\Xulieta\Parser\MarkdownParser</parser>
+    <parser>Codelicia\Xulieta\Parser\RstParser</parser>
+
+    <validator>Codelicia\Xulieta\Validator\PhpValidator</validator>
+
 </xulieta>
