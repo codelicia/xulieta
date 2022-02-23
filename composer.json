@@ -36,7 +36,7 @@
         "php": "~7.4 || ~8.0",
         "beberlei/assert": "^v3.3.2",
         "composer-plugin-api": "^2.2",
-        "doctrine/rst-parser": "^0.1.0 || ^0.3.0",
+        "doctrine/rst-parser": "^0.5.1",
         "nikic/php-parser": "^v4.13.2",
         "ocramius/package-versions": "^1.9",
         "symfony/config": "^v5.4.3",
