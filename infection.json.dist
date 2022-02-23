@@ -1,7 +1,10 @@
 {
-    "logs": { "perMutator": "php://stderr" },
-    "minCoveredMsi": 80,
-    "minMsi": 10,
+    "logs": {
+        "text": "infection.diff",
+        "perMutator": "php://stderr"
+    },
+    "minCoveredMsi": 76,
+    "minMsi": 7.74,
     "mutators": { "@default": true },
     "source": { "directories": [ "src" ] },
     "testFramework": "phpunit"
