@@ -34,6 +34,7 @@
     },
     "require": {
         "php": "~7.4 || ~8.0",
+        "ext-dom": "*",
         "beberlei/assert": "^v3.3.2",
         "composer-plugin-api": "^2.2",
         "doctrine/rst-parser": "^0.1.0 || ^0.3.0",

@@ -3,12 +3,13 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="https://getpsalm.org/schema/config"
         xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
-        totallyTyped="true"
+        errorLevel="3"
 >
     <projectFiles>
         <directory name="src"/>
         <ignoreFiles>
             <file name="src/Config/ConfigFileValidation.php"/>
+            <file name="vendor/symfony/console/Command/Command.php"/>
         </ignoreFiles>
     </projectFiles>
 </psalm>

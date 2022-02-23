@@ -45,6 +45,8 @@ use function is_array;
  * </code>
  *
  * @internal
+ *
+ * @psalm-type TPackageMetadata = array{xulieta?: object|array{parser?: string, validator?: string}}
  */
 final class Register implements PluginInterface, EventSubscriberInterface
 {
@@ -58,7 +60,7 @@ final class Register implements PluginInterface, EventSubscriberInterface
         assert($operation instanceof InstallOperation);
         $package = $operation->getPackage();
 
-        /** @var array<string,mixed> $packageExtra */
+        /** @var TPackageMetadata $packageExtra */
         $packageExtra = $package->getExtra();
         $extra        = self::getExtraMetadata($packageExtra);
 
@@ -73,7 +75,7 @@ final class Register implements PluginInterface, EventSubscriberInterface
     /**
      * Retrieve the metadata from the "extra" section
      *
-     * @param array{xulieta?: object|array{parser?: string, validator?: string}} $extra
+     * @param TPackageMetadata $extra
      *
      * @return array<string,mixed>
      */
@@ -111,7 +113,11 @@ final class Register implements PluginInterface, EventSubscriberInterface
         $domxml                     = new DOMDocument('1.0');
         $domxml->preserveWhiteSpace = false;
         $domxml->formatOutput       = true;
-        $domxml->loadXML($xml->saveXML());
+
+        $config = $xml->saveXML();
+        assert(is_string($config) && !empty($config));
+
+        $domxml->loadXML($config);
         $domxml->save($xulietaConfigFile);
 
         $io->write('Xulieta configuration is up-to-date...');
@@ -127,7 +133,6 @@ final class Register implements PluginInterface, EventSubscriberInterface
         $b          = [];
 
         foreach ($validators->getIterator() as $taggedElements) {
-            assert($taggedElements instanceof DOMElement);
             $b[] = $taggedElements->textContent;
         }
 
@@ -147,7 +152,11 @@ final class Register implements PluginInterface, EventSubscriberInterface
                 continue;
             }
 
-            $taggedElements?->parentNode?->insertBefore(
+            if (! $taggedElements->parentNode) {
+                continue;
+            }
+
+            $taggedElements->parentNode->insertBefore(
                 $document->createElement($tag, $toBeRegistered),
                 $taggedElements
             );
