@@ -21,6 +21,7 @@ use function dirname;
 use function file_exists;
 use function in_array;
 use function is_array;
+use function is_string;
 
 /**
  * Based on https://github.com/laminas/laminas-component-installer/blob/2.5.x/src/ComponentInstaller.php
@@ -60,7 +61,7 @@ final class Register implements PluginInterface, EventSubscriberInterface
         assert($operation instanceof InstallOperation);
         $package = $operation->getPackage();
 
-        /** @var TPackageMetadata $packageExtra */
+        /** @psalm-var TPackageMetadata $packageExtra */
         $packageExtra = $package->getExtra();
         $extra        = self::getExtraMetadata($packageExtra);
 
@@ -115,7 +116,7 @@ final class Register implements PluginInterface, EventSubscriberInterface
         $domxml->formatOutput       = true;
 
         $config = $xml->saveXML();
-        assert(is_string($config) && !empty($config));
+        assert(is_string($config) && ! empty($config));
 
         $domxml->loadXML($config);
         $domxml->save($xulietaConfigFile);
@@ -126,8 +127,8 @@ final class Register implements PluginInterface, EventSubscriberInterface
     /** @throws DOMException */
     private static function appendChild(DOMDocument $document, array $extra, string $tag): void
     {
-        /** @var DOMElement $root */
         $root = $document->documentElement;
+        assert($root instanceof DOMElement);
 
         $validators = $root->getElementsByTagName($tag);
         $b          = [];
@@ -140,8 +141,8 @@ final class Register implements PluginInterface, EventSubscriberInterface
             return;
         }
 
-        /** @var string $toBeRegistered */
         foreach ($extra[$tag] as $toBeRegistered) {
+            assert(is_string($toBeRegistered));
             if (in_array($toBeRegistered, $b, true)) {
                 continue;
             }
