@@ -124,8 +124,6 @@ final class App extends Command
         $outputFormatter->writeln("\nFinding documentation files on <info>" . $directory . "</info>\n");
 
         foreach ($finder as $file) {
-            assert($file instanceof SplFileInfo);
-
             try {
                 $allSampleCodes = $parserHandler->getAllSampleCodes($file);
             } catch (LogicException $e) {
