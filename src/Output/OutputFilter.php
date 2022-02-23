@@ -13,6 +13,7 @@ final class OutputFilter
 {
     /**
      * @psalm-param class-string<OutputFormatter> $outputFormatters
+     *
      * @psalm-return class-string<OutputFormatter>
      */
     public function __invoke(string $outputStyle, string ...$outputFormatters): string
