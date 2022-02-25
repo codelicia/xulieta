@@ -32,7 +32,7 @@ jobs:
       run: ./vendor/bin/psalm --threads=2 --output-format=github --shepherd
 
     - name: Run Phpunit
-      run: ./vendor/bin/phpunit
+      run: php -dzend.assertions=1 ./vendor/bin/phpunit
 
     - name: Run PhpCs
       if: matrix.php == '8.1'
