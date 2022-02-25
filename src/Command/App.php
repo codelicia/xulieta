@@ -42,7 +42,7 @@ final class App extends Command
     private array $config;
 
     /** @psalm-param TConfig $config */
-    public function __construct(?string $name = null, array $config)
+    public function __construct(?string $name = null, array $config = [])
     {
         interface_exists(OutputFormatter::class);
 
