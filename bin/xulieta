@@ -3,7 +3,7 @@
 
 use Codelicia\Xulieta\Command\App;
 use Codelicia\Xulieta\Config\ConfigFile;
-use PackageVersions\Versions;
+use Composer\InstalledVersions;
 use Symfony\Component\Console\Application;
 
 (static function (): void {
@@ -32,7 +32,7 @@ use Symfony\Component\Console\Application;
     /* @noinspection PhpIncludeInspection */
     require $autoloadPath;
 
-    $application = new Application('Xulieta', Versions::getVersion('codelicia/xulieta'));
+    $application = new Application('Xulieta', InstalledVersions::getVersion('codelicia/xulieta') ?: 'Undefined');
     $application->add(new App(null, ConfigFile::loadInDirectory(__DIR__)));
 
     $application->run();
