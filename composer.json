@@ -61,6 +61,10 @@
         "staabm/annotate-pull-request-from-checkstyle": "^1.8.2",
         "vimeo/psalm": "^4.21.0"
     },
+    "suggest": {
+        "codelicia/xulieta-json":   "To have the JSON validator",
+        "codelicia/xulieta-php-lp": "To have the PHP Litterate Programming validator"
+    },
     "extra": {
         "class": "Codelicia\\Xulieta\\AutoPlugin\\Register"
     },
