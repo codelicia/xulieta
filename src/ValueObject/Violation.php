@@ -9,15 +9,18 @@ final class Violation
     private SampleCode $code;
     private string $message;
     private int $violationLine;
+    private string $validatedBy;
 
     public function __construct(
         SampleCode $code,
         string $message,
-        int $violationLine = 0
+        int $violationLine = 0,
+        string $validatedBy = ''
     ) {
         $this->code          = $code;
         $this->message       = $message;
         $this->violationLine = $violationLine;
+        $this->validatedBy   = $validatedBy;
     }
 
     public function code(): SampleCode
@@ -38,6 +41,11 @@ final class Violation
     public function message(): string
     {
         return $this->message;
+    }
+
+    public function validatedBy(): string
+    {
+        return $this->validatedBy;
     }
 
     public function absoluteLine(): int

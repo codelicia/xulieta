@@ -53,7 +53,7 @@ class PhpValidator implements Validator
 
             $validationErrorInLine = $line[1] ?? 0;
 
-            return new Violation($sampleCode, $e->getMessage(), (int) $validationErrorInLine);
+            return new Violation($sampleCode, $e->getMessage(), (int) $validationErrorInLine, self::class);
         }
 
         throw new LogicException();
