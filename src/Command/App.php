@@ -42,6 +42,8 @@ final class App extends Command
     private array $config;
 
     /** @psalm-param TConfig $config */
+
+    /** @psalm-suppress InvalidParamDefault */
     public function __construct(?string $name = null, array $config = [])
     {
         interface_exists(OutputFormatter::class);

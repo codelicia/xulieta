@@ -47,7 +47,7 @@ final class MultipleValidator implements Validator
     public function getViolation(SampleCode $sampleCode): Violation
     {
         foreach ($this->validators as $validators) {
-            if ($validators->hasViolation($sampleCode)) {
+            if ($validators->supports($sampleCode) && $validators->hasViolation($sampleCode)) {
                 return $validators->getViolation($sampleCode);
             }
         }

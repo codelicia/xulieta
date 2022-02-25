@@ -63,8 +63,14 @@ final class Stdout implements OutputFormatter
         $this->output->writeln([
             '   | <fg=red>|</>',
             '     <fg=red>=</> note: <fg=yellow>' . $violation->message() . '</>',
-            '',
         ]);
+
+        $this->output->writeln(
+            '     <fg=red>  >> </> by: <fg=yellow>' . $violation->validatedBy() . '</>',
+            OutputInterface::VERBOSITY_VERBOSE
+        );
+
+        $this->output->writeln('');
     }
 
     public function writeln(string $text): void
