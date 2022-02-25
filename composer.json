@@ -24,6 +24,12 @@
             "Codelicia\\Xulieta\\": "src/"
         }
     },
+    "support": {
+        "issues": "https://github.com/codelicia/xulieta/issues",
+        "source": "https://github.com/codelicia/xulieta",
+        "rss": "https://github.com/codelicia/xulieta/releases.atom",
+        "forum": "https://codelicia.slack.com/"
+    },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
