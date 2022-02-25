@@ -1,8 +1,12 @@
 {
-    "logs": { "perMutator": "php://stderr" },
+    "logs": {
+        "text": "infection.diff",
+        "perMutator": "php://stderr"
+    },
     "minCoveredMsi": 75,
     "minMsi": 7,
     "mutators": { "@default": true },
     "source": { "directories": [ "src" ] },
-    "testFramework": "phpunit"
+    "testFramework": "phpunit",
+    "initialTestsPhpOptions": "-d zend.assertions=1"
 }
