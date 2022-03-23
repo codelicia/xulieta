@@ -57,6 +57,7 @@ final class App extends Command
     {
         $this
             ->setName('check:erromeu')
+            ->setAliases(['check:error'])
             ->setDescription('Lint code snippets through the documentation "directory"')
             ->addOption(
                 'output',
