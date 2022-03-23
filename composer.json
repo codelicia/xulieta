@@ -43,7 +43,7 @@
         "ext-dom": "*",
         "beberlei/assert": "^v3.3.2",
         "composer-plugin-api": "^2.2",
-        "doctrine/rst-parser": "^0.1.0 || ^0.3.0",
+        "doctrine/rst-parser": "^0.5.2",
         "nikic/php-parser": "^v4.13.2",
         "symfony/config": "^v5.4.3",
         "symfony/console": "^v5.4.3",
