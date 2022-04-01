@@ -6,10 +6,10 @@ namespace Codelicia\Xulieta\Unit\AutoPlugin;
 
 use Codelicia\Xulieta\AutoPlugin\Register;
 use Composer\DependencyResolver\Operation\InstallOperation;
+use Composer\DependencyResolver\Operation\UpdateOperation;
 use Composer\Installer\PackageEvent;
 use Composer\Package\PackageInterface;
 use PHPUnit\Framework\TestCase;
-use StdClass;
 
 final class RegisterTest extends TestCase
 {
@@ -30,7 +30,9 @@ final class RegisterTest extends TestCase
     {
         $event = $this->createMock(PackageEvent::class);
         $event->expects(self::once())->method('isDevMode')->willReturn(true);
-        $event->expects(self::once())->method('getOperation')->willReturn(new StdClass);
+
+        $updateOperation = $this->createMock(UpdateOperation::class);
+        $event->expects(self::once())->method('getOperation')->willReturn($updateOperation);
 
         $this->expectExceptionMessage('assert($operation instanceof InstallOperation)');
 
