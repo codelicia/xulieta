@@ -44,7 +44,7 @@ final class App extends Command
     /** @psalm-param TConfig $config */
 
     /** @psalm-suppress InvalidParamDefault */
-    public function __construct(?string $name = null, array $config = [])
+    public function __construct(string|null $name = null, array $config = [])
     {
         interface_exists(OutputFormatter::class);
 
@@ -64,12 +64,12 @@ final class App extends Command
                 'o',
                 InputOption::VALUE_OPTIONAL,
                 'Specify output format, it can be "checkstyle" or "stdout"',
-                'stdout'
+                'stdout',
             )
             ->addArgument(
                 'directory',
                 InputArgument::REQUIRED,
-                'Path where to find documentation files'
+                'Path where to find documentation files',
             );
     }
 
@@ -86,7 +86,7 @@ final class App extends Command
 
         $output->writeln(
             array_merge(['Loaded OutputFormatters:'], $this->config['outputFormatters']),
-            OutputInterface::VERBOSITY_VERBOSE
+            OutputInterface::VERBOSITY_VERBOSE,
         );
 
         Assert::string($outputOption);
@@ -101,22 +101,22 @@ final class App extends Command
 
         $output->writeln(
             array_merge(['', 'Loaded Parsers:'], $this->config['parsers']),
-            OutputInterface::VERBOSITY_VERBOSE
+            OutputInterface::VERBOSITY_VERBOSE,
         );
 
         $parserHandler = new MultipleParser(...array_map(
             static fn (string $class): Parser => new $class(),
-            $this->config['parsers']
+            $this->config['parsers'],
         ));
 
         $output->writeln(
             array_merge(['', 'Loaded Validators:'], $this->config['validators']),
-            OutputInterface::VERBOSITY_VERBOSE
+            OutputInterface::VERBOSITY_VERBOSE,
         );
 
         $validatorHandler = new MultipleValidator(...array_map(
             static fn (string $class): Validator => new $class(),
-            $this->config['validators']
+            $this->config['validators'],
         ));
 
         $finder = (new DocFinder($directory, $parserHandler->supportedExtensions()))

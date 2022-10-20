@@ -6,21 +6,12 @@ namespace Codelicia\Xulieta\ValueObject;
 
 final class Violation
 {
-    private SampleCode $code;
-    private string $message;
-    private int $violationLine;
-    private string $validatedBy;
-
     public function __construct(
-        SampleCode $code,
-        string $message,
-        int $violationLine = 0,
-        string $validatedBy = ''
+        private SampleCode $code,
+        private string $message,
+        private int $violationLine = 0,
+        private string $validatedBy = '',
     ) {
-        $this->code          = $code;
-        $this->message       = $message;
-        $this->violationLine = $violationLine;
-        $this->validatedBy   = $validatedBy;
     }
 
     public function code(): SampleCode

@@ -24,20 +24,20 @@ final class ConfigFile
                 $dir . '/../.xulieta.xml',
                 $dir . '/.xulieta.xml',
             ],
-            'is_file'
+            'is_file',
         ));
 
         $config = $configFiles === false
             ? []
             : (array) XmlUtils::convertDomElementToArray(
                 XmlUtils::loadFile(realpath($configFiles))
-                    ->documentElement
+                    ->documentElement,
             );
 
         return (new Processor())
             ->processConfiguration(
                 new ConfigFileValidation(),
-                ['xulieta' => $config]
+                ['xulieta' => $config],
             );
     }
 }
