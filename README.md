@@ -23,7 +23,7 @@ In order to lint the basics of documentation structure, one just needs to provid
 directory or file to be linted.
 
 ```shell script
-./vendor/bin/xulieta check:erromeu <directory>
+./vendor/bin/xulieta check:error <directory>
 ```
 
 ### Integration with GitHub Actions
@@ -36,7 +36,7 @@ commenting.
 We recommend the usage of [cs2pr](https://github.com/staabm/annotate-pull-request-from-checkstyle).
 
 ```
-./vendor/bin/xulieta check:erromeu <directory> --output=checkstyle | cs2pr
+./vendor/bin/xulieta check:error <directory> --output=checkstyle | cs2pr
 ```
 
 #### Commenting example
@@ -69,6 +69,10 @@ with the following configuration format:
 - `validator`: performs verification on a given code block
 - `outputFormatters`: personalized output formatter
 - `exclude`: excluded directory or files
+
+### Command name
+
+For historic reasons and the sake of the Brazilian MEME we keep the original command `xulieta check:erromeu`.
 
 ## Plugins
 
