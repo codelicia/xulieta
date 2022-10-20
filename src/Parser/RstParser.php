@@ -18,7 +18,7 @@ class RstParser implements Parser
 {
     private DoctrineRstParser $rstParser;
 
-    public function __construct(?DoctrineRstParser $rstParser = null)
+    public function __construct(DoctrineRstParser|null $rstParser = null)
     {
         $this->rstParser = $rstParser ?? new DoctrineRstParser();
     }
@@ -40,7 +40,7 @@ class RstParser implements Parser
 
         try {
             $nodes = $this->rstParser->parse($file->getContents())->getNodes();
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             throw new LogicException(sprintf('Could not parse the file "%s"', $file->getPathname()));
         }
 

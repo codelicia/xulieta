@@ -159,7 +159,7 @@ final class Register implements PluginInterface, EventSubscriberInterface
 
             $taggedElements->parentNode->insertBefore(
                 $document->createElement($tag, $toBeRegistered),
-                $taggedElements
+                $taggedElements,
             );
         }
     }

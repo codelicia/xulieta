@@ -11,11 +11,8 @@ use function htmlspecialchars;
 
 final class Checkstyle implements OutputFormatter
 {
-    private OutputInterface $output;
-
-    public function __construct(OutputInterface $output)
+    public function __construct(private OutputInterface $output)
     {
-        $this->output = $output;
         $this->output->writeln('<?xml version="1.0" encoding="UTF-8"?>');
         $this->output->writeln('<checkstyle>');
     }

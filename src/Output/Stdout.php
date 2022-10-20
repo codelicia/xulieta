@@ -18,11 +18,8 @@ use const STR_PAD_LEFT;
 
 final class Stdout implements OutputFormatter
 {
-    private OutputInterface $output;
-
-    public function __construct(OutputInterface $output)
+    public function __construct(private OutputInterface $output)
     {
-        $this->output = $output;
     }
 
     public function addViolation(Violation $violation): void
@@ -67,7 +64,7 @@ final class Stdout implements OutputFormatter
 
         $this->output->writeln(
             '     <fg=red>  >> </> by: <fg=yellow>' . $violation->validatedBy() . '</>',
-            OutputInterface::VERBOSITY_VERBOSE
+            OutputInterface::VERBOSITY_VERBOSE,
         );
 
         $this->output->writeln('');

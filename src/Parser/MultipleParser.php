@@ -30,7 +30,7 @@ final class MultipleParser implements Parser
     {
         return array_values(array_merge_recursive([], ...array_map(
             static fn (Parser $parser) => $parser->supportedExtensions(),
-            $this->parsers
+            $this->parsers,
         )));
     }
 
