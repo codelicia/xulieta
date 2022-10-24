@@ -147,12 +147,12 @@ final class App extends Command
         if ($this->errorOccurred) {
             $outputFormatter->writeln('<bg=red;fg=white>     Operation failed!     </>');
 
-            return 1;
+            return self::FAILURE;
         }
 
         $outputFormatter->writeln('<bg=green;fg=black>     Everything is OK!     </>');
 
-        return 0;
+        return self::SUCCESS;
     }
 
     private function signalizeError(): void
