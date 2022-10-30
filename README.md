@@ -26,6 +26,12 @@ directory or file to be linted.
 ./vendor/bin/xulieta check:error <directory>
 ```
 
+We also added an alias to the `check:erromeu` command, out of convenience for english speakers.
+
+```shell script
+./vendor/bin/xulieta check:error <directory>
+```
+
 ### Integration with GitHub Actions
 
 We provide out  of the box an  `output` format that you can  use to have
