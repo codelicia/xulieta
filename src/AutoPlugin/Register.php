@@ -170,20 +170,17 @@ final class Register implements PluginInterface, EventSubscriberInterface
         return [PackageEvents::POST_PACKAGE_INSTALL => 'scan'];
     }
 
-    /** @return void */
-    public function deactivate(Composer $composer, IOInterface $io)
+    public function deactivate(Composer $composer, IOInterface $io): void
     {
         // Intentionally left blank
     }
 
-    /** @return void */
-    public function uninstall(Composer $composer, IOInterface $io)
+    public function uninstall(Composer $composer, IOInterface $io): void
     {
         // Intentionally left blank
     }
 
-    /** @return void */
-    public function activate(Composer $composer, IOInterface $io)
+    public function activate(Composer $composer, IOInterface $io): void
     {
         // Intentionally left blank
     }

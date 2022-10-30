@@ -129,7 +129,7 @@ final class App extends Command
                 $allSampleCodes = $parserHandler->getAllSampleCodes($file);
             } catch (LogicException $e) {
                 $outputFormatter->writeln(sprintf('<error>%s</error>', $e->getMessage()));
-                $this->signalizeError();
+                $this->errorOccurred = true;
                 continue;
             }
 
@@ -139,7 +139,7 @@ final class App extends Command
                 }
 
                 $outputFormatter->addViolation($validatorHandler->getViolation($sampleCode));
-                $this->signalizeError();
+                $this->errorOccurred = true;
             }
         }
 
@@ -153,10 +153,5 @@ final class App extends Command
         $outputFormatter->writeln('<bg=green;fg=black>     Everything is OK!     </>');
 
         return self::SUCCESS;
-    }
-
-    private function signalizeError(): void
-    {
-        $this->errorOccurred = true;
     }
 }

@@ -18,7 +18,7 @@ final class DocFinder
     private array $supportedExtensions;
 
     /** @psalm-param list<string> $supportedExtensions */
-    public function __construct(private string $directoryOrFile, array $supportedExtensions)
+    public function __construct(private readonly string $directoryOrFile, array $supportedExtensions)
     {
         $this->supportedExtensions = $supportedExtensions;
     }
