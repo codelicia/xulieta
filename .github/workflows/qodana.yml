@@ -1,4 +1,4 @@
-name: Qodana - Code Inspection
+name: "Qodana - Code Inspection"
 
 on:
   workflow_dispatch:
