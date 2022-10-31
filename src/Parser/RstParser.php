@@ -22,7 +22,7 @@ class RstParser implements Parser
     public function __construct(DoctrineRstParser|null $rstParser = null)
     {
         // @todo(malukenho): move all this instantiation logic to another place
-        $kernel = new Kernel();
+        $kernel        = new Kernel();
         $configuration = $kernel->getConfiguration();
         $configuration->silentOnError();
         $configuration->abortOnError(true);
