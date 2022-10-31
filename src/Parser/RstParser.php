@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Parser;
 
 use Codelicia\Xulieta\ValueObject\SampleCode;
+use Doctrine\RST\Kernel;
 use Doctrine\RST\Nodes\CodeNode;
 use Doctrine\RST\Parser as DoctrineRstParser;
 use LogicException;
@@ -20,7 +21,13 @@ class RstParser implements Parser
 
     public function __construct(DoctrineRstParser|null $rstParser = null)
     {
-        $this->rstParser = $rstParser ?? new DoctrineRstParser();
+        // @todo(malukenho): move all this instantiation logic to another place
+        $kernel = new Kernel();
+        $configuration = $kernel->getConfiguration();
+        $configuration->silentOnError();
+        $configuration->abortOnError(true);
+        $configuration->treatWarningsAsError(true);
+        $this->rstParser = $rstParser ?? new DoctrineRstParser($kernel);
     }
 
     public function supportedExtensions(): array

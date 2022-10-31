@@ -133,7 +133,7 @@ final class Register implements PluginInterface, EventSubscriberInterface
         $validators = $root->getElementsByTagName($tag);
         $b          = [];
 
-        foreach ($validators->getIterator() as $taggedElements) {
+        foreach ($validators as $taggedElements) {
             $b[] = $taggedElements->textContent;
         }
 
