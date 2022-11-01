@@ -15,7 +15,7 @@ final class MarkdownParserTest extends TestCase
      * @test
      * @dataProvider markdownProvider
      */
-    public function itShouldExtractBlockCodeFromMarkdown(string $markdown, array $expectedCodeBlock) : void
+    public function itShouldExtractBlockCodeFromMarkdown(string $markdown, array $expectedCodeBlock): void
     {
         $file = $this->createMock(SplFileInfo::class);
         $file->expects(self::once())->method('getContents')->willReturn($markdown);
@@ -24,7 +24,7 @@ final class MarkdownParserTest extends TestCase
         self::assertEquals($expectedCodeBlock, (new MarkdownParser())->getAllSampleCodes($file));
     }
 
-    public function markdownProvider() : array
+    public function markdownProvider(): array
     {
         return [
             'simple block' => [
@@ -50,9 +50,9 @@ SELECT * FROM Account LIMIT 2
 ```
                 ',
                 'expectedCodeBlock' => [
-                    new SampleCode('fake-file.md', '', 5, "x = 1"),
+                    new SampleCode('fake-file.md', '', 5, 'x = 1'),
                     new SampleCode('fake-file.md', '', 11, "y = 2;\nz = 10;"),
-                    new SampleCode('fake-file.md', 'sql', 17, "SELECT * FROM Account LIMIT 2"),
+                    new SampleCode('fake-file.md', 'sql', 17, 'SELECT * FROM Account LIMIT 2'),
                 ],
             ],
             'code block' => [

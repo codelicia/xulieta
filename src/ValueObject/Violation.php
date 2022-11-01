@@ -7,13 +7,14 @@ namespace Codelicia\Xulieta\ValueObject;
 final class Violation
 {
     public function __construct(
-        private SampleCode $code,
-        private string $message,
-        private int $violationLine = 0,
-        private string $validatedBy = '',
+        private readonly SampleCode $code,
+        private readonly string $message,
+        private readonly int $violationLine = 0,
+        private readonly string $validatedBy = '',
     ) {
     }
 
+    // @todo(malukenho): use properties pubicly instead????
     public function code(): SampleCode
     {
         return $this->code;

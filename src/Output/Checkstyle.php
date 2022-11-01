@@ -11,7 +11,7 @@ use function htmlspecialchars;
 
 final class Checkstyle implements OutputFormatter
 {
-    public function __construct(private OutputInterface $output)
+    public function __construct(private readonly OutputInterface $output)
     {
         $this->output->writeln('<?xml version="1.0" encoding="UTF-8"?>');
         $this->output->writeln('<checkstyle>');

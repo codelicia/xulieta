@@ -14,14 +14,14 @@ final class PhpValidatorTest extends TestCase
      * @test
      * @dataProvider violationProvider
      */
-    public function itShouldDetectViolationsOnPhpCode(bool $shouldHaveViolation, string $phpCode) : void
+    public function itShouldDetectViolationsOnPhpCode(bool $shouldHaveViolation, string $phpCode): void
     {
-        $sampleCode = new SampleCode('file.php', 'php', 0, $phpCode);
+        $sampleCode       = new SampleCode('file.php', 'php', 0, $phpCode);
         $subjectUnderTest = new PhpValidator();
         self::assertEquals($shouldHaveViolation, $subjectUnderTest->hasViolation($sampleCode));
     }
 
-    public function violationProvider() : array
+    public function violationProvider(): array
     {
         return [
             'empty' => [

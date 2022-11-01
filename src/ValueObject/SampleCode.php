@@ -7,10 +7,10 @@ namespace Codelicia\Xulieta\ValueObject;
 final class SampleCode
 {
     public function __construct(
-        private string $file,
-        private string $language,
-        private int $position,
-        private string $code,
+        private readonly string $file,
+        private readonly string $language,
+        private readonly int $position,
+        private readonly string $code,
     ) {
     }
 

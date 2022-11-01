@@ -18,6 +18,7 @@ final class OutputFilter
      */
     public function __invoke(string $outputStyle, string ...$outputFormatters): string
     {
+        // @todo(malukenho): PSL
         Assert::that($outputFormatters)
             ->notEmpty();
 

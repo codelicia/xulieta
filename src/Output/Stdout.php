@@ -18,7 +18,7 @@ use const STR_PAD_LEFT;
 
 final class Stdout implements OutputFormatter
 {
-    public function __construct(private OutputInterface $output)
+    public function __construct(private readonly OutputInterface $output)
     {
     }
 

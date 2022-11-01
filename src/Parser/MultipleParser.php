@@ -19,6 +19,7 @@ final class MultipleParser implements Parser
 
     public function __construct(Parser ...$parsers)
     {
+        // @todo(malukenho): PSL
         Assert::that($parsers)
             ->notEmpty();
 

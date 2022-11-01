@@ -16,6 +16,7 @@ final class MultipleValidator implements Validator
 
     public function __construct(Validator ...$validators)
     {
+        // @todo(malukenho): PSL
         Assert::that($validators)
             ->notEmpty();
 
