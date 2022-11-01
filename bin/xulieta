@@ -13,7 +13,7 @@ use Symfony\Component\Console\Application;
             __DIR__ . '/../../autoload.php',
             __DIR__ . '/../vendor/autoload.php',
         ],
-        'is_file'
+        is_file(...)
     );
 
     if (! count($autoload)) {

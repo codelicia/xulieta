@@ -9,6 +9,7 @@ use Symfony\Component\Config\Util\XmlUtils;
 
 use function array_filter;
 use function current;
+use function is_file;
 use function realpath;
 
 final class ConfigFile
@@ -24,7 +25,7 @@ final class ConfigFile
                 $dir . '/../.xulieta.xml',
                 $dir . '/.xulieta.xml',
             ],
-            'is_file',
+            is_file(...),
         ));
 
         $config = $configFiles === false

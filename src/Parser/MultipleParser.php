@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta\Parser;
 
-use Assert\Assert;
+use Psl;
 use Symfony\Component\Finder\SplFileInfo;
 
 use function array_map;
@@ -19,9 +19,7 @@ final class MultipleParser implements Parser
 
     public function __construct(Parser ...$parsers)
     {
-        // @todo(malukenho): PSL
-        Assert::that($parsers)
-            ->notEmpty();
+        Psl\invariant($parsers !== [], 'At least one parser must be provided');
 
         $this->parsers = $parsers;
     }

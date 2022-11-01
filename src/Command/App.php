@@ -48,7 +48,7 @@ final class App extends Command
     {
         interface_exists(OutputFormatter::class);
 
-        Command::__construct($name);
+        parent::__construct($name);
 
         $this->config = $config;
     }
