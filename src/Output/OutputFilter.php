@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta\Output;
 
-use Assert\Assert;
+use Psl;
 
 use function array_filter;
 use function current;
@@ -18,12 +18,11 @@ final class OutputFilter
      */
     public function __invoke(string $outputStyle, string ...$outputFormatters): string
     {
-        // @todo(malukenho): PSL
-        Assert::that($outputFormatters)
-            ->notEmpty();
+        Psl\invariant($outputFormatters !== [], 'At least one output formatter should be provided.');
 
         return current(array_filter(
             $outputFormatters,
+            /** @param class-string<OutputFormatter> $o */
             static fn (string $o) => $o::canResolve($outputStyle)
         ));
     }
