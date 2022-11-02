@@ -7,9 +7,7 @@ namespace Codelicia\Xulieta\Parser;
 use Psl;
 use Symfony\Component\Finder\SplFileInfo;
 
-use function array_map;
 use function array_merge_recursive;
-use function array_values;
 use function in_array;
 
 final class MultipleParser implements Parser
@@ -27,9 +25,9 @@ final class MultipleParser implements Parser
     /** @psalm-return list<non-empty-string> */
     public function supportedExtensions(): array
     {
-        return array_values(array_merge_recursive([], ...array_map(
-            static fn (Parser $parser) => $parser->supportedExtensions(),
+        return Psl\Vec\values(array_merge_recursive([], ...Psl\Vec\map(
             $this->parsers,
+            static fn (Parser $parser) => $parser->supportedExtensions(),
         )));
     }
 

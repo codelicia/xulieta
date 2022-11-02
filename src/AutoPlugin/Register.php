@@ -14,6 +14,7 @@ use Composer\Plugin\PluginInterface;
 use DOMDocument;
 use DOMElement;
 use DOMException;
+use Psl;
 use Symfony\Component\Config\Util\XmlUtils;
 
 use function assert;
@@ -24,7 +25,7 @@ use function is_array;
 use function is_string;
 
 /**
- * Based on https://github.com/laminas/laminas-component-installer/blob/2.5.x/src/ComponentInstaller.php
+ * Based on {@see https://github.com/laminas/laminas-component-installer/blob/2.5.x/src/ComponentInstaller.php}
  *
  * In order to have your xulieta extension auto configurable, you need to put in
  * your composer.json the following keys, if applicable:
@@ -130,6 +131,7 @@ final class Register implements PluginInterface, EventSubscriberInterface
         $root = $document->documentElement;
         assert($root instanceof DOMElement);
 
+        // @todo(malukenho): improve the $b variable name
         $validators = $root->getElementsByTagName($tag);
         $b          = [];
 
@@ -142,7 +144,7 @@ final class Register implements PluginInterface, EventSubscriberInterface
         }
 
         foreach ($extra[$tag] as $toBeRegistered) {
-            assert(is_string($toBeRegistered));
+            Psl\invariant(is_string($toBeRegistered), 'Plugin to be registered is not a string.');
             if (in_array($toBeRegistered, $b, true)) {
                 continue;
             }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta\Validator;
 
-use Assert\Assert;
+use Psl;
 use Codelicia\Xulieta\ValueObject\SampleCode;
 use Codelicia\Xulieta\ValueObject\Violation;
 use LogicException;
@@ -16,9 +16,7 @@ final class MultipleValidator implements Validator
 
     public function __construct(Validator ...$validators)
     {
-        // @todo(malukenho): PSL
-        Assert::that($validators)
-            ->notEmpty();
+        Psl\invariant($validators !== [], 'At least one validator should me provided.');
 
         $this->validators = $validators;
     }

@@ -6,7 +6,6 @@ namespace Codelicia\Xulieta\Output;
 
 use Psl;
 
-use function array_filter;
 use function current;
 
 final class OutputFilter
@@ -20,7 +19,7 @@ final class OutputFilter
     {
         Psl\invariant($outputFormatters !== [], 'At least one output formatter should be provided.');
 
-        return current(array_filter(
+        return current(Psl\Vec\filter(
             $outputFormatters,
             /** @param class-string<OutputFormatter> $o */
             static fn (string $o) => $o::canResolve($outputStyle)
