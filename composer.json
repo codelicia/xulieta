@@ -42,7 +42,7 @@
         "php": "~8.1.0",
         "ext-dom": "*",
         "composer-plugin-api": "^2.2",
-        "azjezz/psl": "^2.0.4",
+        "azjezz/psl": "^2.1.0",
         "beberlei/assert": "^v3.3.2",
         "doctrine/rst-parser": "^0.5.2",
         "nikic/php-parser": "^v4.15.1",
