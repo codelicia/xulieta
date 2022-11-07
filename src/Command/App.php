@@ -13,17 +13,18 @@ use Codelicia\Xulieta\Validator\MultipleValidator;
 use Codelicia\Xulieta\Validator\Validator;
 use InvalidArgumentException;
 use LogicException;
+use Psl;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Webmozart\Assert\Assert;
 
 use function array_map;
 use function array_merge;
 use function interface_exists;
+use function is_string;
 use function sprintf;
 
 /**
@@ -90,15 +91,15 @@ final class App extends Command
             OutputInterface::VERBOSITY_VERBOSE,
         );
 
-        Assert::string($outputOption);
+        Psl\invariant(is_string($outputOption), 'Expected $outputOption to be a string.');
 
         $outputInference = (new OutputFilter())
             ->__invoke($outputOption, ...$this->config['outputFormatters']);
 
         $outputFormatter = new $outputInference($output);
 
-        Assert::string($directory);
-        Assert::interfaceExists(Parser::class);
+        Psl\invariant(is_string($directory), 'Expected $directory to be a string.');
+        Psl\invariant(interface_exists(Parser::class), 'Could not found the interface "%s".', Parser::class);
 
         $output->writeln(
             array_merge(['', 'Loaded Parsers:'], $this->config['parsers']),

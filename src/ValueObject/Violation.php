@@ -14,7 +14,6 @@ final class Violation
     ) {
     }
 
-    // @todo(malukenho): use properties pubicly instead????
     public function code(): SampleCode
     {
         return $this->code;

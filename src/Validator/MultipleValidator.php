@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta\Validator;
 
-use Psl;
 use Codelicia\Xulieta\ValueObject\SampleCode;
 use Codelicia\Xulieta\ValueObject\Violation;
 use LogicException;
+use Psl;
 
 final class MultipleValidator implements Validator
 {
