@@ -56,7 +56,6 @@ final class App extends Command
 
     protected function configure(): void
     {
-        // @todo(malukenho): PSL all over
         $this
             ->setName('check:erromeu')
             ->setAliases(['check:error'])

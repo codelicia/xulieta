@@ -117,7 +117,7 @@ final class Register implements PluginInterface, EventSubscriberInterface
         $domxml->formatOutput       = true;
 
         $config = $xml->saveXML();
-        assert(is_string($config) && ! empty($config));
+        Psl\invariant(is_string($config) && ! empty($config), '$config is not valid.');
 
         $domxml->loadXML($config);
         $domxml->save($xulietaConfigFile);
@@ -131,12 +131,11 @@ final class Register implements PluginInterface, EventSubscriberInterface
         $root = $document->documentElement;
         assert($root instanceof DOMElement);
 
-        // @todo(malukenho): improve the $b variable name
-        $validators = $root->getElementsByTagName($tag);
-        $b          = [];
+        $validators     = $root->getElementsByTagName($tag);
+        $textAggregator = [];
 
         foreach ($validators as $taggedElements) {
-            $b[] = $taggedElements->textContent;
+            $textAggregator[] = $taggedElements->textContent;
         }
 
         if (! isset($extra[$tag])) {
@@ -145,7 +144,7 @@ final class Register implements PluginInterface, EventSubscriberInterface
 
         foreach ($extra[$tag] as $toBeRegistered) {
             Psl\invariant(is_string($toBeRegistered), 'Plugin to be registered is not a string.');
-            if (in_array($toBeRegistered, $b, true)) {
+            if (in_array($toBeRegistered, $textAggregator, true)) {
                 continue;
             }
 
