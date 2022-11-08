@@ -21,7 +21,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use function array_map;
 use function array_merge;
 use function interface_exists;
 use function is_string;
@@ -104,9 +103,9 @@ final class App extends Command
             OutputInterface::VERBOSITY_VERBOSE,
         );
 
-        $parserHandler = new MultipleParser(...array_map(
-            static fn (string $class): Parser => new $class(),
+        $parserHandler = new MultipleParser(...Psl\Vec\map(
             $this->config['parsers'],
+            static fn (string $class): Parser => new $class(),
         ));
 
         $output->writeln(
@@ -114,9 +113,9 @@ final class App extends Command
             OutputInterface::VERBOSITY_VERBOSE,
         );
 
-        $validatorHandler = new MultipleValidator(...array_map(
-            static fn (string $class): Validator => new $class(),
+        $validatorHandler = new MultipleValidator(...Psl\Vec\map(
             $this->config['validators'],
+            static fn (string $class): Validator => new $class(),
         ));
 
         $finder = (new DocFinder($directory, $parserHandler->supportedExtensions()))
