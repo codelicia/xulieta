@@ -25,7 +25,6 @@ use function array_map;
 use function array_merge;
 use function interface_exists;
 use function is_string;
-use function sprintf;
 
 /**
  * @psalm-type TConfig = array{
@@ -129,7 +128,7 @@ final class App extends Command
             try {
                 $allSampleCodes = $parserHandler->getAllSampleCodes($file);
             } catch (LogicException $e) {
-                $outputFormatter->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+                $outputFormatter->writeln(Psl\Str\format('<error>%s</error>', $e->getMessage()));
                 $this->errorOccurred = true;
                 continue;
             }

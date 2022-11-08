@@ -111,14 +111,12 @@ final class Register implements PluginInterface, EventSubscriberInterface
         self::appendChild($xml, $extra, 'parser');
         self::appendChild($xml, $extra, 'validator');
 
-        // @fixme: workaround to save properly formatted xml
-        $domxml                     = new DOMDocument('1.0');
-        $domxml->preserveWhiteSpace = false;
-        $domxml->formatOutput       = true;
-
         $config = $xml->saveXML();
         Psl\invariant(is_string($config) && ! empty($config), '$config is not valid.');
 
+        $domxml                     = new DOMDocument('1.0');
+        $domxml->preserveWhiteSpace = false;
+        $domxml->formatOutput       = true;
         $domxml->loadXML($config);
         $domxml->save($xulietaConfigFile);
 

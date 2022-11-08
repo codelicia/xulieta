@@ -9,25 +9,19 @@ use Doctrine\RST\Kernel;
 use Doctrine\RST\Nodes\CodeNode;
 use Doctrine\RST\Parser as DoctrineRstParser;
 use LogicException;
+use Psl;
 use Symfony\Component\Finder\SplFileInfo;
 use Throwable;
 
 use function in_array;
-use function sprintf;
 
-class RstParser implements Parser
+final class RstParser implements Parser
 {
     private DoctrineRstParser $rstParser;
 
     public function __construct(DoctrineRstParser|null $rstParser = null)
     {
-        // @todo(malukenho): move all this instantiation logic to another place
-        $kernel        = new Kernel();
-        $configuration = $kernel->getConfiguration();
-        $configuration->silentOnError();
-        $configuration->abortOnError(true);
-        $configuration->treatWarningsAsError(true);
-        $this->rstParser = $rstParser ?? new DoctrineRstParser($kernel);
+        $this->rstParser = $rstParser ?? $this->buildParser();
     }
 
     public function supportedExtensions(): array
@@ -48,7 +42,7 @@ class RstParser implements Parser
         try {
             $nodes = $this->rstParser->parse($file->getContents())->getNodes();
         } catch (Throwable) {
-            throw new LogicException(sprintf('Could not parse the file "%s"', $file->getPathname()));
+            throw new LogicException(Psl\Str\format('Could not parse the file "%s"', $file->getPathname()));
         }
 
         foreach ($nodes as $node) {
@@ -63,5 +57,16 @@ class RstParser implements Parser
         }
 
         return $sampleCodes;
+    }
+
+    private function buildParser(): DoctrineRstParser
+    {
+        $kernel        = new Kernel();
+        $configuration = $kernel->getConfiguration();
+        $configuration->silentOnError();
+        $configuration->abortOnError(true);
+        $configuration->treatWarningsAsError(true);
+
+        return new DoctrineRstParser($kernel);
     }
 }
