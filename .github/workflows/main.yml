@@ -41,3 +41,7 @@ jobs:
     - name: Run Infection
       if: matrix.php == '8.1'
       run: phpdbg -qrr vendor/bin/infection
+
+    - name: Check dependencies usage
+      if: matrix.php == '8.1'
+      run: ./vendor/bin/composer-require-checker check ./composer.json

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta\ValueObject;
 
+/** @psalm-immutable */
 final class Violation
 {
     public function __construct(
