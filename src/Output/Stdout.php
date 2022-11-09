@@ -5,16 +5,12 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Output;
 
 use Codelicia\Xulieta\ValueObject\Violation;
-use Psl\Str;
 use Psl\IO;
 use Psl\Math;
+use Psl\Str;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use function round;
-use function str_pad;
-
 use const PHP_EOL;
-use const STR_PAD_LEFT;
 
 final class Stdout implements OutputFormatter
 {
@@ -52,7 +48,8 @@ final class Stdout implements OutputFormatter
                 continue;
             }
 
-            $errorOccurred   = true;
+            $errorOccurred = true;
+            /** @psalm-var int<0, max> $middleOfTheLine */
             $middleOfTheLine = (int) Math\round(Str\length($line) / 2);
             $this->writeln('   |  <fg=red>_' . Str\pad_left('^', $middleOfTheLine, '_') . '</>');
         }
