@@ -13,18 +13,17 @@ use Codelicia\Xulieta\Validator\MultipleValidator;
 use Codelicia\Xulieta\Validator\Validator;
 use InvalidArgumentException;
 use LogicException;
+use Psl;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Webmozart\Assert\Assert;
 
-use function array_map;
 use function array_merge;
 use function interface_exists;
-use function sprintf;
+use function is_string;
 
 /**
  * @psalm-type TConfig = array{
@@ -48,7 +47,7 @@ final class App extends Command
     {
         interface_exists(OutputFormatter::class);
 
-        Command::__construct($name);
+        parent::__construct($name);
 
         $this->config = $config;
     }
@@ -89,24 +88,24 @@ final class App extends Command
             OutputInterface::VERBOSITY_VERBOSE,
         );
 
-        Assert::string($outputOption);
+        Psl\invariant(is_string($outputOption), 'Expected $outputOption to be a string.');
 
         $outputInference = (new OutputFilter())
             ->__invoke($outputOption, ...$this->config['outputFormatters']);
 
         $outputFormatter = new $outputInference($output);
 
-        Assert::string($directory);
-        Assert::interfaceExists(Parser::class);
+        Psl\invariant(is_string($directory), 'Expected $directory to be a string.');
+        Psl\invariant(interface_exists(Parser::class), 'Could not found the interface "%s".', Parser::class);
 
         $output->writeln(
             array_merge(['', 'Loaded Parsers:'], $this->config['parsers']),
             OutputInterface::VERBOSITY_VERBOSE,
         );
 
-        $parserHandler = new MultipleParser(...array_map(
-            static fn (string $class): Parser => new $class(),
+        $parserHandler = new MultipleParser(...Psl\Vec\map(
             $this->config['parsers'],
+            static fn (string $class): Parser => new $class(),
         ));
 
         $output->writeln(
@@ -114,9 +113,9 @@ final class App extends Command
             OutputInterface::VERBOSITY_VERBOSE,
         );
 
-        $validatorHandler = new MultipleValidator(...array_map(
-            static fn (string $class): Validator => new $class(),
+        $validatorHandler = new MultipleValidator(...Psl\Vec\map(
             $this->config['validators'],
+            static fn (string $class): Validator => new $class(),
         ));
 
         $finder = (new DocFinder($directory, $parserHandler->supportedExtensions()))
@@ -128,8 +127,8 @@ final class App extends Command
             try {
                 $allSampleCodes = $parserHandler->getAllSampleCodes($file);
             } catch (LogicException $e) {
-                $outputFormatter->writeln(sprintf('<error>%s</error>', $e->getMessage()));
-                $this->signalizeError();
+                $outputFormatter->writeln(Psl\Str\format('<error>%s</error>', $e->getMessage()));
+                $this->errorOccurred = true;
                 continue;
             }
 
@@ -139,7 +138,7 @@ final class App extends Command
                 }
 
                 $outputFormatter->addViolation($validatorHandler->getViolation($sampleCode));
-                $this->signalizeError();
+                $this->errorOccurred = true;
             }
         }
 
@@ -153,10 +152,5 @@ final class App extends Command
         $outputFormatter->writeln('<bg=green;fg=black>     Everything is OK!     </>');
 
         return self::SUCCESS;
-    }
-
-    private function signalizeError(): void
-    {
-        $this->errorOccurred = true;
     }
 }

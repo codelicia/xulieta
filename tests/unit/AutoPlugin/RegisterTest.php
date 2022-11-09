@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class RegisterTest extends TestCase
 {
     /** @test */
-    public function itShouldRunOnlyOnDevEnvironment() : void
+    public function itShouldRunOnlyOnDevEnvironment(): void
     {
         $event = $this->createMock(PackageEvent::class);
         $event->expects(self::once())->method('isDevMode')->willReturn(false);
@@ -26,7 +26,7 @@ final class RegisterTest extends TestCase
     }
 
     /** @test */
-    public function itShouldFailWhenGetOperationHasNoValidResult() : void
+    public function itShouldFailWhenGetOperationHasNoValidResult(): void
     {
         $event = $this->createMock(PackageEvent::class);
         $event->expects(self::once())->method('isDevMode')->willReturn(true);
@@ -40,13 +40,13 @@ final class RegisterTest extends TestCase
     }
 
     /** @test */
-    public function itShouldDoNothingWhenNoExtraKeyIsConfigured() : void
+    public function itShouldDoNothingWhenNoExtraKeyIsConfigured(): void
     {
         $event = $this->createMock(PackageEvent::class);
         $event->expects(self::once())->method('isDevMode')->willReturn(true);
 
         $installOperation = $this->createMock(InstallOperation::class);
-        $package = $this->createMock(PackageInterface::class);
+        $package          = $this->createMock(PackageInterface::class);
 
         $event->expects(self::once())->method('getOperation')->willReturn($installOperation);
         $installOperation->expects(self::once())->method('getPackage')->willReturn($package);

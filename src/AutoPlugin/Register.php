@@ -14,6 +14,7 @@ use Composer\Plugin\PluginInterface;
 use DOMDocument;
 use DOMElement;
 use DOMException;
+use Psl;
 use Symfony\Component\Config\Util\XmlUtils;
 
 use function assert;
@@ -24,7 +25,7 @@ use function is_array;
 use function is_string;
 
 /**
- * Based on https://github.com/laminas/laminas-component-installer/blob/2.5.x/src/ComponentInstaller.php
+ * Based on {@see https://github.com/laminas/laminas-component-installer/blob/2.5.x/src/ComponentInstaller.php}
  *
  * In order to have your xulieta extension auto configurable, you need to put in
  * your composer.json the following keys, if applicable:
@@ -110,14 +111,12 @@ final class Register implements PluginInterface, EventSubscriberInterface
         self::appendChild($xml, $extra, 'parser');
         self::appendChild($xml, $extra, 'validator');
 
-        // @fixme: workaround to save properly formatted xml
+        $config = $xml->saveXML();
+        Psl\invariant(is_string($config) && ! empty($config), '$config is not valid.');
+
         $domxml                     = new DOMDocument('1.0');
         $domxml->preserveWhiteSpace = false;
         $domxml->formatOutput       = true;
-
-        $config = $xml->saveXML();
-        assert(is_string($config) && ! empty($config));
-
         $domxml->loadXML($config);
         $domxml->save($xulietaConfigFile);
 
@@ -130,11 +129,11 @@ final class Register implements PluginInterface, EventSubscriberInterface
         $root = $document->documentElement;
         assert($root instanceof DOMElement);
 
-        $validators = $root->getElementsByTagName($tag);
-        $b          = [];
+        $validators     = $root->getElementsByTagName($tag);
+        $textAggregator = [];
 
-        foreach ($validators->getIterator() as $taggedElements) {
-            $b[] = $taggedElements->textContent;
+        foreach ($validators as $taggedElements) {
+            $textAggregator[] = $taggedElements->textContent;
         }
 
         if (! isset($extra[$tag])) {
@@ -142,8 +141,8 @@ final class Register implements PluginInterface, EventSubscriberInterface
         }
 
         foreach ($extra[$tag] as $toBeRegistered) {
-            assert(is_string($toBeRegistered));
-            if (in_array($toBeRegistered, $b, true)) {
+            Psl\invariant(is_string($toBeRegistered), 'Plugin to be registered is not a string.');
+            if (in_array($toBeRegistered, $textAggregator, true)) {
                 continue;
             }
 
@@ -170,20 +169,17 @@ final class Register implements PluginInterface, EventSubscriberInterface
         return [PackageEvents::POST_PACKAGE_INSTALL => 'scan'];
     }
 
-    /** @return void */
-    public function deactivate(Composer $composer, IOInterface $io)
+    public function deactivate(Composer $composer, IOInterface $io): void
     {
         // Intentionally left blank
     }
 
-    /** @return void */
-    public function uninstall(Composer $composer, IOInterface $io)
+    public function uninstall(Composer $composer, IOInterface $io): void
     {
         // Intentionally left blank
     }
 
-    /** @return void */
-    public function activate(Composer $composer, IOInterface $io)
+    public function activate(Composer $composer, IOInterface $io): void
     {
         // Intentionally left blank
     }

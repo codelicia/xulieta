@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Output;
 
 use Codelicia\Xulieta\ValueObject\Violation;
+use Psl\IO;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use function htmlspecialchars;
 
 final class Checkstyle implements OutputFormatter
 {
-    public function __construct(private OutputInterface $output)
+    public function __construct(private readonly OutputInterface $output)
     {
-        $this->output->writeln('<?xml version="1.0" encoding="UTF-8"?>');
-        $this->output->writeln('<checkstyle>');
+        IO\write_line('<?xml version="1.0" encoding="UTF-8"?>');
+        IO\write_line('<checkstyle>');
     }
 
     public function addViolation(Violation $violation): void
     {
-        $this->output->writeln('  <file name="' . htmlspecialchars($violation->file()) . '">');
+        IO\write_line('  <file name="' . htmlspecialchars($violation->file()) . '">');
 
         $error  = '    ';
         $error .= '<error';
@@ -30,13 +31,13 @@ final class Checkstyle implements OutputFormatter
         $error .= ' source="Codelicia/Xulieta"';
         $error .= '/>';
 
-        $this->output->writeln($error);
-        $this->output->writeln('  </file>');
+        IO\write_line($error);
+        IO\write_line('  </file>');
     }
 
     public function __destruct()
     {
-        echo '</checkstyle>';
+        IO\write_line('</checkstyle>');
     }
 
     public function writeln(string $text): void

@@ -6,7 +6,7 @@ and show the validator that reported the error
 
 $checkRunner = require __DIR__ . '/init.php';
 
-$checkRunner('tests/assets/immediately-open-tag.rst -vvv');
+$checkRunner('tests/assets/immediately-open-tag.rst -vv');
 
 --EXPECTF--
 Loaded OutputFormatters:

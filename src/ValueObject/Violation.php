@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta\ValueObject;
 
+/** @psalm-immutable */
 final class Violation
 {
     public function __construct(
-        private SampleCode $code,
-        private string $message,
-        private int $violationLine = 0,
-        private string $validatedBy = '',
+        private readonly SampleCode $code,
+        private readonly string $message,
+        private readonly int $violationLine = 0,
+        private readonly string $validatedBy = '',
     ) {
     }
 

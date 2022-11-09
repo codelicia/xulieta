@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta;
 
+use Psl;
 use Symfony\Component\Finder\Finder;
 
-use function array_map;
 use function basename;
 use function dirname;
 use function is_dir;
-use function sprintf;
 
 final class DocFinder
 {
@@ -18,7 +17,7 @@ final class DocFinder
     private array $supportedExtensions;
 
     /** @psalm-param list<string> $supportedExtensions */
-    public function __construct(private string $directoryOrFile, array $supportedExtensions)
+    public function __construct(private readonly string $directoryOrFile, array $supportedExtensions)
     {
         $this->supportedExtensions = $supportedExtensions;
     }
@@ -32,7 +31,7 @@ final class DocFinder
     private function getFeatureMatch(): array
     {
         return is_dir($this->directoryOrFile)
-            ? array_map(static fn ($x) => sprintf('*.%s', $x), $this->supportedExtensions)
+            ? Psl\Vec\map($this->supportedExtensions, static fn ($x) => Psl\Str\format('*.%s', $x))
             : [basename($this->directoryOrFile)];
     }
 
