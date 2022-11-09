@@ -45,10 +45,10 @@
         "composer-plugin-api": "^2.2",
         "doctrine/rst-parser": "^0.1.0 || ^0.3.0",
         "nikic/php-parser": "^v4.13.2",
-        "symfony/config": "^v5.4.3",
-        "symfony/console": "^v5.4.5",
-        "symfony/finder": "^v5.4.3",
-        "symfony/process": "^v5.4.5",
+        "symfony/config": "^v6.0.0",
+        "symfony/console": "^v6.0.0",
+        "symfony/finder": "^v6.0.0",
+        "symfony/process": "^v6.0.0",
         "webmozart/assert": "^1.10.0"
     },
     "require-dev": {
