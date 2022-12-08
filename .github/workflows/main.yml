@@ -28,20 +28,19 @@ jobs:
         COMPOSER_ROOT_VERSION: dev-master
 
     - name: Run Psalm
-      if: matrix.php == '8.1'
       run: ./vendor/bin/psalm --threads=2 --output-format=github --shepherd
 
     - name: Run Phpunit
       run: php -dzend.assertions=1 ./vendor/bin/phpunit
 
     - name: Run PhpCs
-      if: matrix.php == '8.1'
       run: ./vendor/bin/phpcs -q --report=checkstyle | ./vendor/bin/cs2pr
 
     - name: Run Infection
-      if: matrix.php == '8.1'
       run: phpdbg -qrr vendor/bin/infection
 
     - name: Check dependencies usage
-      if: matrix.php == '8.1'
       run: ./vendor/bin/composer-require-checker check ./composer.json
+
+    - name: Run Qodana
+      uses: JetBrains/qodana-action@v2022.3.0
