@@ -1,6 +1,6 @@
 name: Run CI
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
@@ -9,11 +9,16 @@ jobs:
 
     strategy:
       matrix:
-        php: ['8.1']
+        php-versions: ['8.1', '8.2']
         dependencies: ['normal', 'authoritative']
 
     steps:
     - uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
 
     - name: Install dependencies
       if: matrix.dependencies == 'normal'
@@ -37,10 +42,12 @@ jobs:
       run: ./vendor/bin/phpcs -q --report=checkstyle | ./vendor/bin/cs2pr
 
     - name: Run Infection
+      if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal' 
       run: phpdbg -qrr vendor/bin/infection
 
     - name: Check dependencies usage
       run: ./vendor/bin/composer-require-checker check ./composer.json
 
     - name: Run Qodana
+      if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal' 
       uses: JetBrains/qodana-action@v2022.3.0
