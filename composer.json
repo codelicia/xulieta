@@ -39,7 +39,7 @@
         }
     },
     "require": {
-        "php": "~8.1.0",
+        "php": "~8.2.0",
         "ext-dom": "*",
         "composer-plugin-api": "^2.2",
         "azjezz/psl": "^2.3.0",
