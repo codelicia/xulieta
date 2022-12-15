@@ -6,7 +6,6 @@ namespace Codelicia\Xulieta\Output;
 
 use Codelicia\Xulieta\ValueObject\Violation;
 use Psl\IO;
-use Symfony\Component\Console\Output\OutputInterface;
 
 use function htmlspecialchars;
 
