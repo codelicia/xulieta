@@ -21,7 +21,7 @@ use const PREG_SPLIT_DELIM_CAPTURE;
 
 final class MarkdownParser implements Parser
 {
-    private const PATTERN = '/\n?(`{3}\w*\n[\S\s]+?\n\`{3})\n/';
+    private const PATTERN = '/\n?(`{3}\w*\n[\S\s]+?\n`{3})\n/';
 
     public function supportedExtensions(): array
     {

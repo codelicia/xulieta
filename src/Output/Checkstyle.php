@@ -6,13 +6,12 @@ namespace Codelicia\Xulieta\Output;
 
 use Codelicia\Xulieta\ValueObject\Violation;
 use Psl\IO;
-use Symfony\Component\Console\Output\OutputInterface;
 
 use function htmlspecialchars;
 
 final class Checkstyle implements OutputFormatter
 {
-    public function __construct(private readonly OutputInterface $output)
+    public function __construct()
     {
         IO\write_line('<?xml version="1.0" encoding="UTF-8"?>');
         IO\write_line('<checkstyle>');
