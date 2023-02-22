@@ -33,20 +33,21 @@ jobs:
         COMPOSER_ROOT_VERSION: dev-master
 
     - name: Run Psalm
-      run: ./vendor/bin/psalm --threads=2 --output-format=github --shepherd
+      run: composer run psalm
+
 
     - name: Run Phpunit
-      run: php -dzend.assertions=1 ./vendor/bin/phpunit
+      run: composer run phpunit
 
     - name: Run PhpCs
-      run: ./vendor/bin/phpcs -q --report=checkstyle | ./vendor/bin/cs2pr
+      run: composer run phpcs
 
     - name: Run Infection
       if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal' 
-      run: phpdbg -qrr vendor/bin/infection
+      run: composer run infection
 
     - name: Check dependencies usage
-      run: ./vendor/bin/composer-require-checker check ./composer.json
+      run: composer run require-checker
 
     - name: Run Qodana
       if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal' 

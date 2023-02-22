@@ -71,6 +71,20 @@
         "class": "Codelicia\\Xulieta\\AutoPlugin\\Register"
     },
     "scripts": {
+        "infection": "vendor/bin/infection",
+        "phpcbf": "vendor/bin/phpcbf",
+        "phpcs": "vendor/bin/phpcs",
+        "phpunit": "php -dzend.assertions=1 vendor/bin/phpunit",
+        "psalm": "vendor/bin/psalm",
+        "psalter": "vendor/bin/psalter --issues=all",
+        "require-checker": "vendor/bin/composer-require-checker check composer.json",
+        "test": [
+            "@phpcs",
+            "@phpunit",
+            "@psalm",
+            "@infection",
+            "@require-checker"
+        ],
         "post-package-install": "Codelicia\\Xulieta\\AutoPlugin\\Register::scan"
     },
     "bin": [
