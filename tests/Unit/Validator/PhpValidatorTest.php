@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Codelicia\Xulieta\Unit\Validator;
+namespace Codelicia\Xulieta\Test\Unit\Validator;
 
 use Codelicia\Xulieta\Validator\PhpValidator;
 use Codelicia\Xulieta\ValueObject\SampleCode;
@@ -21,7 +21,7 @@ final class PhpValidatorTest extends TestCase
         self::assertEquals($shouldHaveViolation, $subjectUnderTest->hasViolation($sampleCode));
     }
 
-    public function violationProvider(): array
+    public static function violationProvider(): array
     {
         return [
             'empty' => [

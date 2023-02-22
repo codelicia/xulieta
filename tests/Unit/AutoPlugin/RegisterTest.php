@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Codelicia\Xulieta\Unit\AutoPlugin;
+namespace Codelicia\Xulieta\Test\Unit\AutoPlugin;
 
 use Codelicia\Xulieta\AutoPlugin\Register;
 use Composer\DependencyResolver\Operation\InstallOperation;
