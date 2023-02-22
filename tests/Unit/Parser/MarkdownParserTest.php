@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Codelicia\Xulieta\Unit\Parser;
+namespace Codelicia\Xulieta\Test\Unit\Parser;
 
 use Codelicia\Xulieta\Parser\MarkdownParser;
 use Codelicia\Xulieta\ValueObject\SampleCode;
@@ -24,7 +24,7 @@ final class MarkdownParserTest extends TestCase
         self::assertEquals($expectedCodeBlock, (new MarkdownParser())->getAllSampleCodes($file));
     }
 
-    public function markdownProvider(): array
+    public static function markdownProvider(): array
     {
         return [
             'simple block' => [

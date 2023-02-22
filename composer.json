@@ -24,6 +24,11 @@
             "Codelicia\\Xulieta\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Codelicia\\Xulieta\\Test\\": "tests/"
+        }
+    },
     "support": {
         "issues": "https://github.com/codelicia/xulieta/issues",
         "source": "https://github.com/codelicia/xulieta",
