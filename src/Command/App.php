@@ -37,19 +37,17 @@ final class App extends Command
 {
     private bool $errorOccurred = false;
 
-    /** @psalm-var TConfig */
-    private array $config;
 
-    /** @psalm-param TConfig $config */
-
-    /** @psalm-suppress InvalidParamDefault */
-    public function __construct(string|null $name = null, array $config = [])
+    /**
+     * @psalm-param TConfig $config
+     *
+     * @psalm-suppress InvalidParamDefault
+     */
+    public function __construct(string|null $name = null, private array $config = [])
     {
         interface_exists(OutputFormatter::class);
 
         parent::__construct($name);
-
-        $this->config = $config;
     }
 
     protected function configure(): void
