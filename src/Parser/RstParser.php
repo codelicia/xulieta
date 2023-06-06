@@ -24,6 +24,10 @@ final class RstParser implements Parser
         $this->rstParser = $rstParser ?? $this->buildParser();
     }
 
+    /**
+     * @return string[]
+     * @psalm-return list{'rst'}
+     */
     public function supportedExtensions(): array
     {
         return ['rst'];
@@ -34,7 +38,10 @@ final class RstParser implements Parser
         return in_array($file->getExtension(), $this->supportedExtensions(), false);
     }
 
-    /** @return SampleCode[] */
+    /**
+     * @return SampleCode[]
+     * @psalm-return list<Codelicia\Xulieta\ValueObject\SampleCode>
+     */
     public function getAllSampleCodes(SplFileInfo $file): array
     {
         $sampleCodes = [];

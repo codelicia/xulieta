@@ -33,13 +33,14 @@ jobs:
         COMPOSER_ROOT_VERSION: dev-master
 
     - name: Run Psalm
+      if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal'
       run: composer run psalm
-
 
     - name: Run Phpunit
       run: composer run phpunit
 
     - name: Run PhpCs
+      if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal'
       run: composer run phpcs
 
     - name: Run Infection
@@ -47,6 +48,7 @@ jobs:
       run: composer run infection
 
     - name: Check dependencies usage
+      if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal'
       run: composer run require-checker
 
     - name: Run Qodana

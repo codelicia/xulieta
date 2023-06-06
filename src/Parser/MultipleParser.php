@@ -22,7 +22,10 @@ final class MultipleParser implements Parser
         $this->parsers = $parsers;
     }
 
-    /** @psalm-return list<non-empty-string> */
+    /**
+     * @return array
+     * @psalm-return list<never>
+     */
     public function supportedExtensions(): array
     {
         return Psl\Vec\values(array_merge_recursive([], ...Psl\Vec\map(

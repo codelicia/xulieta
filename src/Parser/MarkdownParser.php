@@ -23,6 +23,10 @@ final class MarkdownParser implements Parser
 {
     private const PATTERN = '/\n?(`{3}\w*\n[\S\s]+?\n`{3})\n/';
 
+    /**
+     * @return string[]
+     * @psalm-return list{'markdown', 'md'}
+     */
     public function supportedExtensions(): array
     {
         return ['markdown', 'md'];
@@ -33,7 +37,10 @@ final class MarkdownParser implements Parser
         return in_array($file->getExtension(), $this->supportedExtensions(), false);
     }
 
-    /** @return SampleCode[] */
+    /**
+     * @return SampleCode[]
+     * @psalm-return list<Codelicia\Xulieta\ValueObject\SampleCode>
+     */
     public function getAllSampleCodes(SplFileInfo $file): array
     {
         $sampleCode    = [];

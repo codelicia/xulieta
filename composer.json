@@ -63,7 +63,7 @@
         "infection/infection": "^0.27.0",
         "maglnet/composer-require-checker": "^4.6.0",
         "malukenho/mcbumpface": "^1.2.0",
-        "phpunit/phpunit": "^10.2.0",
+        "phpunit/phpunit": "^10.2.1",
         "roave/security-advisories": "dev-master",
         "staabm/annotate-pull-request-from-checkstyle": "^1.8.5",
         "sebastian/diff": "5.0.0 as 3.0.2",
