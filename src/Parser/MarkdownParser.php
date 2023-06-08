@@ -37,10 +37,7 @@ final class MarkdownParser implements Parser
         return in_array($file->getExtension(), $this->supportedExtensions(), false);
     }
 
-    /**
-     * @return SampleCode[]
-     * @psalm-return list<Codelicia\Xulieta\ValueObject\SampleCode>
-     */
+    /** @psalm-return list<SampleCode> */
     public function getAllSampleCodes(SplFileInfo $file): array
     {
         $sampleCode    = [];

@@ -44,7 +44,7 @@ jobs:
       run: composer run phpcs
 
     - name: Run Infection
-      if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal' 
+      if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal'
       run: composer run infection
 
     - name: Check dependencies usage
@@ -52,5 +52,5 @@ jobs:
       run: composer run require-checker
 
     - name: Run Qodana
-      if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal' 
+      if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal'
       uses: JetBrains/qodana-action@v2023.1.0
