@@ -23,7 +23,7 @@ final class DocFinder
         return is_dir($this->directoryOrFile) ? $this->directoryOrFile : dirname($this->directoryOrFile);
     }
 
-    /** @return string[] */
+    /** @psalm-return list<string> */
     private function getFeatureMatch(): array
     {
         return is_dir($this->directoryOrFile)

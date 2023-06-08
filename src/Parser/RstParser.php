@@ -24,6 +24,7 @@ final class RstParser implements Parser
         $this->rstParser = $rstParser ?? $this->buildParser();
     }
 
+    /** @psalm-return list{'rst'} */
     public function supportedExtensions(): array
     {
         return ['rst'];
@@ -34,7 +35,7 @@ final class RstParser implements Parser
         return in_array($file->getExtension(), $this->supportedExtensions(), false);
     }
 
-    /** @return SampleCode[] */
+    /** @psalm-return list<SampleCode> */
     public function getAllSampleCodes(SplFileInfo $file): array
     {
         $sampleCodes = [];

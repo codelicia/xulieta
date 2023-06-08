@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+        xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
         beStrictAboutChangesToGlobalState="true"
         beStrictAboutOutputDuringTests="true"
         bootstrap="./vendor/autoload.php"
@@ -15,11 +15,11 @@
             <directory suffix=".phpt">./tests/Functional</directory>
         </testsuite>
     </testsuites>
-    <coverage>
+    <source>
         <include>
-            <directory suffix=".php">src</directory>
+            <directory>src</directory>
         </include>
-    </coverage>
+    </source>
     <php>
         <ini name="zend.assertions" value="1"/>
     </php>
