@@ -71,7 +71,8 @@
     },
     "suggest": {
         "codelicia/xulieta-json":   "To have the JSON validator",
-        "codelicia/xulieta-php-lp": "To have the PHP Litterate Programming validator"
+        "codelicia/xulieta-php-lp": "To have the PHP Litterate Programming validator",
+        "codelicia/xulieta-sql": "To have the SQL validator"
     },
     "extra": {
         "class": "Codelicia\\Xulieta\\AutoPlugin\\Register"
