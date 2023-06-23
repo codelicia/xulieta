@@ -14,8 +14,10 @@ use function is_dir;
 final class DocFinder
 {
     /** @psalm-param list<string> $supportedExtensions */
-    public function __construct(private readonly string $directoryOrFile, private array $supportedExtensions)
-    {
+    public function __construct(
+        private readonly string $directoryOrFile,
+        private readonly array $supportedExtensions,
+    ) {
     }
 
     private function getDirectory(): string
