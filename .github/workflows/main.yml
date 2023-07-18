@@ -53,4 +53,4 @@ jobs:
 
     - name: Run Qodana
       if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal'
-      uses: JetBrains/qodana-action@v2023.1.5
+      uses: JetBrains/qodana-action@v2023.2.1
