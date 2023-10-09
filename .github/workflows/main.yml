@@ -10,7 +10,6 @@ jobs:
     strategy:
       matrix:
         php-versions: ['8.1', '8.2']
-        dependencies: ['normal', 'authoritative']
 
     steps:
     - uses: actions/checkout@v4
@@ -21,36 +20,25 @@ jobs:
         php-version: ${{ matrix.php-versions }}
 
     - name: Install dependencies
-      if: matrix.dependencies == 'normal'
       run: composer install --prefer-dist
       env:
         COMPOSER_ROOT_VERSION: dev-master
 
-    - name: Install dependencies
-      if: matrix.dependencies == 'authoritative'
-      run: composer install --prefer-dist --classmap-authoritative
-      env:
-        COMPOSER_ROOT_VERSION: dev-master
-
     - name: Run Psalm
-      if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal'
+      if: matrix.php-versions == '8.2'
       run: composer run psalm
 
     - name: Run Phpunit
       run: composer run phpunit
 
     - name: Run PhpCs
-      if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal'
+      if: matrix.php-versions == '8.2'
       run: composer run phpcs
 
     - name: Run Infection
-      if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal'
+      if: matrix.php-versions == '8.2'
       run: composer run infection
 
     - name: Check dependencies usage
-      if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal'
+      if: matrix.php-versions == '8.2'
       run: composer run require-checker
-
-    - name: Run Qodana
-      if: matrix.php-versions == '8.2' && matrix.dependencies == 'normal'
-      uses: JetBrains/qodana-action@95ecb19ba27e308153723e54a790e4ad908b13a0 # v2023.2.8
