@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Add To GitHub projects
-        uses: actions/add-to-project@v0.5.0
+        uses: actions/add-to-project@v0.6.1
         with:
           project-url: https://github.com/orgs/codelicia/projects/4
           github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
