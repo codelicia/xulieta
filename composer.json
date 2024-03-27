@@ -60,7 +60,7 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^12.0.0",
-        "infection/infection": "^0.27.0",
+        "infection/infection": "^0.28.0",
         "maglnet/composer-require-checker": "^4.6.0",
         "malukenho/mcbumpface": "^1.2.0",
         "phpunit/phpunit": "^10.2.1",
