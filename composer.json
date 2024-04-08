@@ -52,10 +52,10 @@
         "composer/composer": "^2.5.7",
         "doctrine/rst-parser": "^0.5.4",
         "nikic/php-parser": "^v4.15.5",
-        "symfony/config": "^v6.3.0",
-        "symfony/console": "^v6.3.0",
-        "symfony/finder": "^v6.3.0",
-        "symfony/process": "^v6.3.0",
+        "symfony/config": "^v7.0.0",
+        "symfony/console": "^v7.0.0",
+        "symfony/finder": "^v7.0.0",
+        "symfony/process": "^v7.0.0",
         "webmozart/assert": "^1.11.0"
     },
     "require-dev": {
