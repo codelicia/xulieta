@@ -47,7 +47,7 @@
         "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
         "ext-dom": "*",
         "composer-plugin-api": "^2.2",
-        "azjezz/psl": "^2.6.0",
+        "azjezz/psl": "^3.0.0",
         "beberlei/assert": "^v3.3.2",
         "composer/composer": "^2.5.7",
         "doctrine/rst-parser": "^0.5.4",
