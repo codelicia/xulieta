@@ -50,12 +50,12 @@ final class App extends Command
             'validators'       => [],
         ],
     ) {
-        Psl\invariant(
-            ! interface_exists(OutputFormatter::class),
-            'Expected the interface "%s" to be found.',
-            OutputFormatter::class,
-        );
-
+        //Psl\invariant(
+        //    ! interface_exists(OutputFormatter::class),
+        //    'Expected the interface "%s" to be found.',
+        //    OutputFormatter::class,
+        //);
+        //
         parent::__construct($name);
     }
 
