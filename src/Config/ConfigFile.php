@@ -12,6 +12,10 @@ use function current;
 use function is_file;
 use function realpath;
 
+/**
+ * @psalm-suppress UnusedClass
+ * @psalm-suppress PossiblyFalseArgument
+ */
 final class ConfigFile
 {
     /** @psalm-return array<array-key, mixed> */
@@ -31,11 +35,12 @@ final class ConfigFile
         $config = $configFiles === false
             ? []
             : (array) XmlUtils::convertDomElementToArray(
+                /** @psalm-suppress FalsableReturnStatement */
                 XmlUtils::loadFile(realpath($configFiles))
                     ->documentElement,
             );
 
-        return (new Processor())
+        return new Processor()
             ->processConfiguration(
                 new ConfigFileValidation(),
                 ['xulieta' => $config],

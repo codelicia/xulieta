@@ -14,6 +14,7 @@ use Composer\Plugin\PluginInterface;
 use DOMDocument;
 use DOMElement;
 use DOMException;
+use Override;
 use Psl;
 use Symfony\Component\Config\Util\XmlUtils;
 
@@ -47,6 +48,8 @@ use function is_string;
  * </code>
  *
  * @internal
+ *
+ * @psalm-suppress UnusedClass
  *
  * @psalm-type TPackageMetadata = array{xulieta?: object|array{parser?: string, validator?: string}}
  */
@@ -164,21 +167,25 @@ final class Register implements PluginInterface, EventSubscriberInterface
     }
 
     /** @psalm-return array{'post-package-install': 'scan'} */
+    #[Override]
     public static function getSubscribedEvents(): array
     {
         return [PackageEvents::POST_PACKAGE_INSTALL => 'scan'];
     }
 
+    #[Override]
     public function deactivate(Composer $composer, IOInterface $io): void
     {
         // Intentionally left blank
     }
 
+    #[Override]
     public function uninstall(Composer $composer, IOInterface $io): void
     {
         // Intentionally left blank
     }
 
+    #[Override]
     public function activate(Composer $composer, IOInterface $io): void
     {
         // Intentionally left blank

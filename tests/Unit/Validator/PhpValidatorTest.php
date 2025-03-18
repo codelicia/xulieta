@@ -6,14 +6,14 @@ namespace Codelicia\Xulieta\Test\Unit\Validator;
 
 use Codelicia\Xulieta\Validator\PhpValidator;
 use Codelicia\Xulieta\ValueObject\SampleCode;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class PhpValidatorTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider violationProvider
-     */
+    #[Test]
+    #[DataProvider('violationProvider')]
     public function itShouldDetectViolationsOnPhpCode(bool $shouldHaveViolation, string $phpCode): void
     {
         $sampleCode       = new SampleCode('file.php', 'php', 0, $phpCode);

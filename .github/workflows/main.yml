@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        php-versions: ['8.1', '8.2']
+        php-versions: ['8.4']
 
     steps:
     - uses: actions/checkout@v4
@@ -25,20 +25,20 @@ jobs:
         COMPOSER_ROOT_VERSION: dev-master
 
     - name: Run Psalm
-      if: matrix.php-versions == '8.2'
+      if: matrix.php-versions == '8.5'
       run: composer run psalm
 
     - name: Run Phpunit
       run: composer run phpunit
 
     - name: Run PhpCs
-      if: matrix.php-versions == '8.2'
+      if: matrix.php-versions == '8.4'
       run: composer run phpcs
 
     - name: Run Infection
-      if: matrix.php-versions == '8.2'
+      if: matrix.php-versions == '8.5'
       run: composer run infection
 
     - name: Check dependencies usage
-      if: matrix.php-versions == '8.2'
+      if: matrix.php-versions == '8.4'
       run: composer run require-checker

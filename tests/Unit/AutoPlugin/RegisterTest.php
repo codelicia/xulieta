@@ -9,11 +9,12 @@ use Composer\DependencyResolver\Operation\InstallOperation;
 use Composer\DependencyResolver\Operation\UpdateOperation;
 use Composer\Installer\PackageEvent;
 use Composer\Package\PackageInterface;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class RegisterTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function itShouldRunOnlyOnDevEnvironment(): void
     {
         $event = $this->createMock(PackageEvent::class);
@@ -25,7 +26,7 @@ final class RegisterTest extends TestCase
         self::assertTrue(true);
     }
 
-    /** @test */
+    #[Test]
     public function itShouldFailWhenGetOperationHasNoValidResult(): void
     {
         $event = $this->createMock(PackageEvent::class);
@@ -39,7 +40,7 @@ final class RegisterTest extends TestCase
         Register::scan($event);
     }
 
-    /** @test */
+    #[Test]
     public function itShouldDoNothingWhenNoExtraKeyIsConfigured(): void
     {
         $event = $this->createMock(PackageEvent::class);

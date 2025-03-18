@@ -13,6 +13,7 @@ use Codelicia\Xulieta\Validator\MultipleValidator;
 use Codelicia\Xulieta\Validator\Validator;
 use InvalidArgumentException;
 use LogicException;
+use Override;
 use Psl;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
@@ -32,10 +33,11 @@ use function is_string;
  *   parsers: list<class-string<Parser>>,
  *   validators: list<class-string<Validator>>
  * }
+ * @psalm-suppress UnusedClass
  */
 final class App extends Command
 {
-    private bool $errorOccurred = false;
+    public private(set) bool $errorOccurred = false;
 
     /** @psalm-suppress InvalidParamDefault */
     public function __construct(
@@ -48,11 +50,10 @@ final class App extends Command
             'validators'       => [],
         ],
     ) {
-        interface_exists(OutputFormatter::class);
-
         parent::__construct($name);
     }
 
+    #[Override]
     protected function configure(): void
     {
         $this
@@ -79,6 +80,7 @@ final class App extends Command
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
+    #[Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $directory    = $input->getArgument('directory');
@@ -91,7 +93,7 @@ final class App extends Command
 
         Psl\invariant(is_string($outputOption), 'Expected $outputOption to be a string.');
 
-        $outputInference = (new OutputFilter())
+        $outputInference = new OutputFilter()
             ->__invoke($outputOption, ...$this->config['outputFormatters']);
 
         $outputFormatter = new $outputInference($output);
@@ -119,7 +121,7 @@ final class App extends Command
             static fn (string $class): Validator => new $class(),
         ));
 
-        $finder = (new DocFinder($directory, $parserHandler->supportedExtensions()))
+        $finder = new DocFinder($directory, $parserHandler->supportedExtensions())
             ->__invoke($this->config['excludes']);
 
         $outputFormatter->writeln("\nFinding documentation files on <info>" . $directory . "</info>\n");

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Output;
 
 use Codelicia\Xulieta\ValueObject\Violation;
+use Override;
 use Psl\IO;
 use Psl\Math;
 use Psl\Str;
@@ -12,12 +13,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use const PHP_EOL;
 
+/**
+ * @psalm-suppress UnusedClass
+ * @psalm-suppress PossiblyUnusedMethod
+ */
 final class Stdout implements OutputFormatter
 {
     public function __construct(private readonly OutputInterface $output)
     {
     }
 
+    #[Override]
     public function addViolation(Violation $violation): void
     {
         IO\write_line(Str\format(' --> %s', $violation->file()));
@@ -67,11 +73,13 @@ final class Stdout implements OutputFormatter
         IO\write_line('');
     }
 
+    #[Override]
     public function writeln(string $text): void
     {
         $this->output->writeln($text);
     }
 
+    #[Override]
     public static function canResolve(string $style): bool
     {
         return $style === 'stdout';

@@ -6,15 +6,15 @@ namespace Codelicia\Xulieta\Test\Unit\Parser;
 
 use Codelicia\Xulieta\Parser\MarkdownParser;
 use Codelicia\Xulieta\ValueObject\SampleCode;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\SplFileInfo;
 
 final class MarkdownParserTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider markdownProvider
-     */
+    #[Test]
+    #[DataProvider('markdownProvider')]
     public function itShouldExtractBlockCodeFromMarkdown(string $markdown, array $expectedCodeBlock): void
     {
         $file = $this->createMock(SplFileInfo::class);
@@ -66,7 +66,7 @@ echo 'hi';
 echo 'bye';
 ```
                 ",
-                'expectedSampleCode' => [
+                'expectedCodeBlock' => [
                     new SampleCode('fake-file.md', 'php', 5, "echo 'hi';\necho 'bye';"),
                 ],
             ],
