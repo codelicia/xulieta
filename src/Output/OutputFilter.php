@@ -8,15 +8,20 @@ use Psl;
 
 use function current;
 
-/** @psalm-suppress UnusedClass */
+/**
+ * @psalm-suppress UnusedClass
+ * @psalm-suppress PossiblyFalseArgument
+ * @psalm-suppress FalsableReturnStatement
+ */
 final class OutputFilter
 {
     /**
      * @psalm-param class-string<OutputFormatter> $outputFormatters
      *
+     * @return class-string<OutputFormatter>|false
      * @psalm-return class-string<OutputFormatter>
      */
-    public function __invoke(string $outputStyle, string ...$outputFormatters): string
+    public function __invoke(string $outputStyle, string ...$outputFormatters): string|false
     {
         Psl\invariant($outputFormatters !== [], 'At least one output formatter should be provided.');
 

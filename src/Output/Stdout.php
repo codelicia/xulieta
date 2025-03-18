@@ -13,7 +13,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use const PHP_EOL;
 
-/** @psalm-suppress UnusedClass */
+/**
+ * @psalm-suppress UnusedClass
+ * @psalm-suppress PossiblyUnusedMethod
+ */
 final class Stdout implements OutputFormatter
 {
     public function __construct(private readonly OutputInterface $output)

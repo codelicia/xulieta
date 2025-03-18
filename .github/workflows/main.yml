@@ -25,7 +25,7 @@ jobs:
         COMPOSER_ROOT_VERSION: dev-master
 
     - name: Run Psalm
-      if: matrix.php-versions == '8.4'
+      if: matrix.php-versions == '8.5'
       run: composer run psalm
 
     - name: Run Phpunit
@@ -36,7 +36,7 @@ jobs:
       run: composer run phpcs
 
     - name: Run Infection
-      if: matrix.php-versions == '8.4'
+      if: matrix.php-versions == '8.5'
       run: composer run infection
 
     - name: Check dependencies usage

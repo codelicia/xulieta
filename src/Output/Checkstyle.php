@@ -10,7 +10,11 @@ use Psl\IO;
 
 use function htmlspecialchars;
 
-/** @psalm-suppress UnusedClass */
+/**
+ * @psalm-suppress UnusedClass
+ * @psalm-suppress PossiblyFalseArgument
+ * @psalm-suppress PossiblyUnusedMethod
+ */
 final class Checkstyle implements OutputFormatter
 {
     public function __construct()

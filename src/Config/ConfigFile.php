@@ -12,7 +12,10 @@ use function current;
 use function is_file;
 use function realpath;
 
-/** @psalm-suppress UnusedClass */
+/**
+ * @psalm-suppress UnusedClass
+ * @psalm-suppress PossiblyFalseArgument
+ */
 final class ConfigFile
 {
     /** @psalm-return array<array-key, mixed> */
