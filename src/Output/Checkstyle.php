@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Output;
 
 use Codelicia\Xulieta\ValueObject\Violation;
+use Override;
 use Psl\IO;
 
 use function htmlspecialchars;
 
+/** @psalm-suppress UnusedClass */
 final class Checkstyle implements OutputFormatter
 {
     public function __construct()
@@ -17,6 +19,7 @@ final class Checkstyle implements OutputFormatter
         IO\write_line('<checkstyle>');
     }
 
+    #[Override]
     public function addViolation(Violation $violation): void
     {
         IO\write_line('  <file name="' . htmlspecialchars($violation->file()) . '">');
@@ -39,11 +42,13 @@ final class Checkstyle implements OutputFormatter
         IO\write_line('</checkstyle>');
     }
 
+    #[Override]
     public function writeln(string $text): void
     {
         // Intentionally left empty
     }
 
+    #[Override]
     public static function canResolve(string $style): bool
     {
         return $style === 'checkstyle';

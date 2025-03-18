@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Codelicia\Xulieta\Parser;
 
+use Override;
 use Psl;
 use Symfony\Component\Finder\SplFileInfo;
 
 use function array_merge_recursive;
 use function in_array;
 
+/** @psalm-suppress UnusedClass */
 final class MultipleParser implements Parser
 {
     /** @var Parser[] */
@@ -23,6 +25,7 @@ final class MultipleParser implements Parser
     }
 
     /** @psalm-return list<non-empty-string> */
+    #[Override]
     public function supportedExtensions(): array
     {
         return Psl\Vec\values(array_merge_recursive([], ...Psl\Vec\map(
@@ -31,6 +34,7 @@ final class MultipleParser implements Parser
         )));
     }
 
+    #[Override]
     public function supports(SplFileInfo $file): bool
     {
         foreach ($this->parsers as $parser) {
@@ -42,6 +46,7 @@ final class MultipleParser implements Parser
         return false;
     }
 
+    #[Override]
     public function getAllSampleCodes(SplFileInfo $file): array
     {
         foreach ($this->parsers as $parser) {

@@ -12,6 +12,7 @@ use Codelicia\Xulieta\Validator\PhpValidator;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+/** @psalm-suppress UnusedClass */
 final class ConfigFileValidation implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder

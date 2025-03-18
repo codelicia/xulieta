@@ -7,28 +7,33 @@ namespace Codelicia\Xulieta\Validator;
 use Codelicia\Xulieta\ValueObject\SampleCode;
 use Codelicia\Xulieta\ValueObject\Violation;
 use LogicException;
+use Override;
 use PhpParser\Parser as PhpParser;
 use PhpParser\ParserFactory;
+use PhpParser\PhpVersion;
 use Throwable;
 
 use function preg_match;
 
 use const PHP_EOL;
 
-class PhpValidator implements Validator
+/** @psalm-suppress UnusedClass */
+final class PhpValidator implements Validator
 {
     private PhpParser $phpParser;
 
     public function __construct(PhpParser|null $phpParser = null)
     {
-        $this->phpParser = $phpParser ?? (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
+        $this->phpParser = $phpParser ?? new ParserFactory()->createForVersion(PhpVersion::getNewestSupported());
     }
 
+    #[Override]
     public function supports(SampleCode $sampleCode): bool
     {
         return $sampleCode->language() === 'php';
     }
 
+    #[Override]
     public function hasViolation(SampleCode $sampleCode): bool
     {
         try {
@@ -42,6 +47,7 @@ class PhpValidator implements Validator
         return false;
     }
 
+    #[Override]
     public function getViolation(SampleCode $sampleCode): Violation
     {
         try {

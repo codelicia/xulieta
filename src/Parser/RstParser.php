@@ -9,12 +9,14 @@ use Doctrine\RST\Kernel;
 use Doctrine\RST\Nodes\CodeNode;
 use Doctrine\RST\Parser as DoctrineRstParser;
 use LogicException;
+use Override;
 use Psl;
 use Symfony\Component\Finder\SplFileInfo;
 use Throwable;
 
 use function in_array;
 
+/** @psalm-suppress UnusedClass */
 final class RstParser implements Parser
 {
     private DoctrineRstParser $rstParser;
@@ -25,17 +27,20 @@ final class RstParser implements Parser
     }
 
     /** @psalm-return list{'rst'} */
+    #[Override]
     public function supportedExtensions(): array
     {
         return ['rst'];
     }
 
+    #[Override]
     public function supports(SplFileInfo $file): bool
     {
         return in_array($file->getExtension(), $this->supportedExtensions(), false);
     }
 
     /** @psalm-return list<SampleCode> */
+    #[Override]
     public function getAllSampleCodes(SplFileInfo $file): array
     {
         $sampleCodes = [];

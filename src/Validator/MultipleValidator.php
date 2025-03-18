@@ -7,8 +7,10 @@ namespace Codelicia\Xulieta\Validator;
 use Codelicia\Xulieta\ValueObject\SampleCode;
 use Codelicia\Xulieta\ValueObject\Violation;
 use LogicException;
+use Override;
 use Psl;
 
+/** @psalm-suppress UnusedClass */
 final class MultipleValidator implements Validator
 {
     /** @var Validator[] */
@@ -21,6 +23,7 @@ final class MultipleValidator implements Validator
         $this->validators = $validators;
     }
 
+    #[Override]
     public function supports(SampleCode $sampleCode): bool
     {
         foreach ($this->validators as $validators) {
@@ -32,6 +35,7 @@ final class MultipleValidator implements Validator
         return false;
     }
 
+    #[Override]
     public function hasViolation(SampleCode $sampleCode): bool
     {
         foreach ($this->validators as $validators) {
@@ -43,6 +47,7 @@ final class MultipleValidator implements Validator
         return false;
     }
 
+    #[Override]
     public function getViolation(SampleCode $sampleCode): Violation
     {
         foreach ($this->validators as $validators) {

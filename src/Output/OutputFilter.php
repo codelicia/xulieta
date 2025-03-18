@@ -8,6 +8,7 @@ use Psl;
 
 use function current;
 
+/** @psalm-suppress UnusedClass */
 final class OutputFilter
 {
     /**
@@ -22,7 +23,7 @@ final class OutputFilter
         return current(Psl\Vec\filter(
             $outputFormatters,
             /** @param class-string<OutputFormatter> $o */
-            static fn (string $o) => $o::canResolve($outputStyle)
+            static fn (string $o) => $o::canResolve($outputStyle),
         ));
     }
 }
