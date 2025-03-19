@@ -9,12 +9,14 @@ use Codelicia\Xulieta\Output\Stdout;
 use Codelicia\Xulieta\Parser\MarkdownParser;
 use Codelicia\Xulieta\Parser\RstParser;
 use Codelicia\Xulieta\Validator\PhpValidator;
+use Override;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /** @psalm-suppress UnusedClass */
 final class ConfigFileValidation implements ConfigurationInterface
 {
+    #[Override]
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('xulieta');

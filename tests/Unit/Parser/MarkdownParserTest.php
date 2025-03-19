@@ -18,10 +18,10 @@ final class MarkdownParserTest extends TestCase
     public function itShouldExtractBlockCodeFromMarkdown(string $markdown, array $expectedCodeBlock): void
     {
         $file = $this->createMock(SplFileInfo::class);
-        $file->expects(self::once())->method('getContents')->willReturn($markdown);
-        $file->expects(self::atLeast(1))->method('getPathname')->willReturn('fake-file.md');
+        $file->expects($this->once())->method('getContents')->willReturn($markdown);
+        $file->expects($this->atLeast(1))->method('getPathname')->willReturn('fake-file.md');
 
-        self::assertEquals($expectedCodeBlock, (new MarkdownParser())->getAllSampleCodes($file));
+        self::assertEquals($expectedCodeBlock, new MarkdownParser()->getAllSampleCodes($file));
     }
 
     public static function markdownProvider(): array

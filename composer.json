@@ -54,7 +54,8 @@
         "symfony/config": "^v7.2.3",
         "symfony/console": "^v7.2.1",
         "symfony/finder": "^v7.2.2",
-        "symfony/process": "^v7.2.4"
+        "symfony/process": "^v7.2.4",
+        "jetbrains/phpstorm-attributes": "^1.2"
     },
     "require-dev": {
         "doctrine/coding-standard": "^12.0.0",
@@ -63,8 +64,8 @@
         "malukenho/mcbumpface": "^1.2.0",
         "phpunit/phpunit": "^12.0.8",
         "roave/security-advisories": "dev-master",
-        "staabm/annotate-pull-request-from-checkstyle": "^1.8.5",
         "sebastian/diff": "7.0.0",
+        "staabm/annotate-pull-request-from-checkstyle": "^1.8.5",
         "vimeo/psalm": "^6.9.1"
     },
     "suggest": {

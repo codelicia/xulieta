@@ -8,6 +8,7 @@ use Override;
 use Psl;
 use Symfony\Component\Finder\SplFileInfo;
 
+use function array_any;
 use function array_merge_recursive;
 use function in_array;
 
@@ -37,13 +38,7 @@ final class MultipleParser implements Parser
     #[Override]
     public function supports(SplFileInfo $file): bool
     {
-        foreach ($this->parsers as $parser) {
-            if ($parser->supports($file)) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any($this->parsers, static fn ($parser) => $parser->supports($file));
     }
 
     #[Override]
