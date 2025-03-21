@@ -30,7 +30,7 @@ final class PhpValidator implements Validator
     #[Override]
     public function supports(SampleCode $sampleCode): bool
     {
-        return $sampleCode->language() === 'php';
+        return $sampleCode->language === 'php';
     }
 
     #[Override]
@@ -38,7 +38,7 @@ final class PhpValidator implements Validator
     {
         try {
             $this->phpParser->parse(
-                $this->ensureCodePrefix($sampleCode->code()),
+                $this->ensureCodePrefix($sampleCode->code),
             );
         } catch (Throwable) {
             return true;
@@ -51,9 +51,7 @@ final class PhpValidator implements Validator
     public function getViolation(SampleCode $sampleCode): Violation
     {
         try {
-            $this->phpParser->parse(
-                $this->ensureCodePrefix($sampleCode->code()),
-            );
+            $this->phpParser->parse($this->ensureCodePrefix($sampleCode->code));
         } catch (Throwable $e) {
             preg_match('{on line (\d+)}', $e->getMessage(), $line);
 

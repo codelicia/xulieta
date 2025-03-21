@@ -8,6 +8,7 @@ use Codelicia\Xulieta\ValueObject\SampleCode;
 use Doctrine\RST\Kernel;
 use Doctrine\RST\Nodes\CodeNode;
 use Doctrine\RST\Parser as DoctrineRstParser;
+use JetBrains\PhpStorm\ArrayShape;
 use LogicException;
 use Override;
 use Psl;
@@ -26,8 +27,8 @@ final class RstParser implements Parser
         $this->rstParser = $rstParser ?? $this->buildParser();
     }
 
-    /** @psalm-return list{'rst'} */
     #[Override]
+    #[ArrayShape(['rst'])]
     public function supportedExtensions(): array
     {
         return ['rst'];

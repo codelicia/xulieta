@@ -26,14 +26,14 @@ final class Checkstyle implements OutputFormatter
     #[Override]
     public function addViolation(Violation $violation): void
     {
-        IO\write_line('  <file name="' . htmlspecialchars($violation->file()) . '">');
+        IO\write_line('  <file name="' . htmlspecialchars($violation->code->file) . '">');
 
         $error  = '    ';
         $error .= '<error';
         $error .= ' line="' . $violation->absoluteLine() . '"';
         $error .= ' column="1"';
         $error .= ' severity="error"';
-        $error .= ' message="Codelicia/Xulieta: ' . htmlspecialchars($violation->message()) . '"';
+        $error .= ' message="Codelicia/Xulieta: ' . htmlspecialchars($violation->message) . '"';
         $error .= ' source="Codelicia/Xulieta"';
         $error .= '/>';
 

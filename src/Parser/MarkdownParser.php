@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Codelicia\Xulieta\Parser;
 
 use Codelicia\Xulieta\ValueObject\SampleCode;
+use JetBrains\PhpStorm\ArrayShape;
 use Override;
+use Psl;
 use Symfony\Component\Finder\SplFileInfo;
 
 use function array_pop;
@@ -17,20 +19,16 @@ use function in_array;
 use function ltrim;
 use function preg_match;
 use function preg_split;
-use function Psl\invariant;
 
 use const PREG_SPLIT_DELIM_CAPTURE;
 
 /** @psalm-suppress UnusedClass */
 final class MarkdownParser implements Parser
 {
-    private const PATTERN = '/\n?(`{3}\w*\n[\S\s]+?\n`{3})\n/';
+    private const string PATTERN = '/\n?(`{3}\w*\n[\S\s]+?\n`{3})\n/';
 
-    /**
-     * @return string[]
-     * @psalm-return list{'markdown', 'md'}
-     */
     #[Override]
+    #[ArrayShape(['markdown', 'md'])]
     public function supportedExtensions(): array
     {
         return ['markdown', 'md'];
@@ -51,7 +49,7 @@ final class MarkdownParser implements Parser
         $startPosition = 0;
         $endPosition   = 0;
 
-        invariant($chunks !== false, 'Could not parse the file "%s"', $file->getPathname());
+        Psl\invariant($chunks !== false, 'Could not parse the file "%s"', $file->getPathname());
 
         foreach ($chunks as $documentChunk) {
             $lines        = explode("\n", $documentChunk);

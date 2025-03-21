@@ -17,24 +17,24 @@ use const PHP_EOL;
  * @psalm-suppress UnusedClass
  * @psalm-suppress PossiblyUnusedMethod
  */
-final class Stdout implements OutputFormatter
+final readonly class Stdout implements OutputFormatter
 {
-    public function __construct(private readonly OutputInterface $output)
+    public function __construct(private OutputInterface $output)
     {
     }
 
     #[Override]
     public function addViolation(Violation $violation): void
     {
-        IO\write_line(Str\format(' --> %s', $violation->file()));
+        IO\write_line(Str\format(' --> %s', $violation->code->file));
 
         $linesAround   = 5;
-        $code          = $violation->code()->code();
+        $code          = $violation->code->code;
         $lines         = Str\split($code, PHP_EOL);
         $i             = 0;
         $errorOccurred = false;
-        $startLine     = Math\max([0, $violation->violationLine() - $linesAround]);
-        $endLine       = Math\sum([$violation->violationLine(), $linesAround]);
+        $startLine     = Math\max([0, $violation->violationLine - $linesAround]);
+        $endLine       = Math\sum([$violation->violationLine, $linesAround]);
         foreach ($lines as $line) {
             $i++;
 
@@ -50,7 +50,7 @@ final class Stdout implements OutputFormatter
                 $this->writeln(Str\pad_left((string) $i, 2, ' ') . ' |' . $text);
             }
 
-            if ($i !== $violation->violationLine()) {
+            if ($i !== $violation->violationLine) {
                 continue;
             }
 
@@ -62,11 +62,11 @@ final class Stdout implements OutputFormatter
 
         $this->output->writeln([
             '   | <fg=red>|</>',
-            '     <fg=red>=</> note: <fg=yellow>' . $violation->message() . '</>',
+            '     <fg=red>=</> note: <fg=yellow>' . $violation->message . '</>',
         ]);
 
         $this->output->writeln(
-            '     <fg=red>  >> </> by: <fg=yellow>' . $violation->validatedBy() . '</>',
+            '     <fg=red>  >> </> by: <fg=yellow>' . $violation->validatedBy . '</>',
             OutputInterface::VERBOSITY_VERBOSE,
         );
 

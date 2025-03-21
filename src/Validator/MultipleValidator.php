@@ -10,6 +10,8 @@ use LogicException;
 use Override;
 use Psl;
 
+use function array_any;
+
 /** @psalm-suppress UnusedClass */
 final class MultipleValidator implements Validator
 {
@@ -26,25 +28,17 @@ final class MultipleValidator implements Validator
     #[Override]
     public function supports(SampleCode $sampleCode): bool
     {
-        foreach ($this->validators as $validators) {
-            if ($validators->supports($sampleCode)) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any($this->validators, static fn ($validators) => $validators->supports($sampleCode));
     }
 
     #[Override]
     public function hasViolation(SampleCode $sampleCode): bool
     {
-        foreach ($this->validators as $validators) {
-            if ($validators->supports($sampleCode) && $validators->hasViolation($sampleCode)) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any(
+            $this->validators,
+            static fn ($validators) => $validators->supports($sampleCode)
+                && $validators->hasViolation($sampleCode),
+        );
     }
 
     #[Override]
