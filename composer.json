@@ -58,7 +58,7 @@
         "jetbrains/phpstorm-attributes": "^1.2"
     },
     "require-dev": {
-        "doctrine/coding-standard": "^12.0.0",
+        "doctrine/coding-standard": "^13.0.0",
         "infection/infection": "^0.29.14",
         "maglnet/composer-require-checker": "^4.16.1",
         "malukenho/mcbumpface": "^1.2.0",
