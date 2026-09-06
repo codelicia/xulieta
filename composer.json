@@ -51,10 +51,10 @@
         "composer/composer": "^2.8.6",
         "doctrine/rst-parser": "^0.5.6",
         "nikic/php-parser": "^v5.4.0",
-        "symfony/config": "^v7.2.3",
-        "symfony/console": "^v7.2.1",
-        "symfony/finder": "^v7.2.2",
-        "symfony/process": "^v7.2.4",
+        "symfony/config": "^v8.0.0",
+        "symfony/console": "^v8.0.0",
+        "symfony/finder": "^v8.0.0",
+        "symfony/process": "^v8.0.0",
         "jetbrains/phpstorm-attributes": "^1.2"
     },
     "require-dev": {
