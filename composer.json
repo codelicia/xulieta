@@ -47,7 +47,7 @@
         "php": "~8.4.5",
         "ext-dom": "*",
         "composer-plugin-api": "^2.2",
-        "azjezz/psl": "^3.2.0",
+        "azjezz/psl": "^6.0.0",
         "composer/composer": "^2.8.6",
         "doctrine/rst-parser": "^0.5.6",
         "nikic/php-parser": "^v5.4.0",
